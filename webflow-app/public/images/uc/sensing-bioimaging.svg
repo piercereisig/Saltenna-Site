@@ -1,0 +1,128 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Non-invasive bioimaging: a scan line sweeps down through abstract nested tissue layers inside an instrument field, highlighting a small anomaly</title>
+  <style>
+    .dot-b { animation: blink 3.2s ease-in-out infinite; }
+    .dot-b2 { animation: blink 2.6s ease-in-out infinite 0.9s; }
+    @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+    .scanline { animation: scan 9s ease-in-out infinite; }
+    @keyframes scan { 0% { transform: translateY(0); } 50% { transform: translateY(196px); } 100% { transform: translateY(0); } }
+    .lay { animation: lay 9s ease-in-out infinite; }
+    .lay.l2 { animation-delay: 0.8s; }
+    .lay.l3 { animation-delay: 1.6s; }
+    @keyframes lay { 0%, 10% { opacity: 0.18; } 35%, 60% { opacity: 0.5; } 88%, 100% { opacity: 0.18; } }
+    .anom { animation: anom 9s ease-in-out infinite; opacity: 0.25; }
+    @keyframes anom { 0%, 30% { opacity: 0.25; } 45%, 80% { opacity: 1; } 95%, 100% { opacity: 0.25; } }
+    .aring { transform-origin: 442px 262px; animation: aring 3s ease-out infinite; opacity: 0; }
+    @keyframes aring { 0% { transform: scale(0.3); opacity: 0.5; } 80% { transform: scale(1); opacity: 0; } 100% { transform: scale(1); opacity: 0; } }
+    .wave-poly { animation: wv 2.8s linear infinite; }
+    @keyframes wv { from { transform: translateX(0); } to { transform: translateX(-24px); } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c141f"/><stop offset="0.5" stop-color="#0e1621"/><stop offset="1" stop-color="#121c28"/>
+    </linearGradient>
+    <radialGradient id="vg" cx="0.5" cy="0.42" r="0.8">
+      <stop offset="0.55" stop-color="#0a121d" stop-opacity="0"/><stop offset="1" stop-color="#0a121d" stop-opacity="0.5"/>
+    </radialGradient>
+    <symbol id="plus" viewBox="0 0 8 8"><path d="M4 0v8M0 4h8" stroke="#eef2f6" stroke-width="1" fill="none"/></symbol>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <g fill="none" stroke="#eef2f6" stroke-width="1">
+    <path d="M-20 90 C 180 76 380 102 580 88 S 770 72 820 82" opacity="0.03"/>
+    <path d="M-20 180 C 190 168 390 190 590 178 S 775 164 820 172" opacity="0.035"/>
+    <path d="M-20 300 C 180 288 380 310 580 298 S 770 284 820 292" opacity="0.03"/>
+    <path d="M150 -20 C 134 140 154 300 130 470" opacity="0.025"/>
+    <path d="M650 -20 C 636 140 656 300 638 470" opacity="0.025"/>
+    <path d="M-20 130 C 190 120 400 134 610 124 S 790 114 820 120" opacity="0.03"/>
+    <path d="M-20 250 C 200 240 410 254 620 244 S 792 234 820 240" opacity="0.028"/>
+    <path d="M-20 360 C 190 350 400 364 610 354 S 790 344 820 350" opacity="0.025"/>
+    <path d="M300 -20 C 290 150 302 310 290 470" opacity="0.02"/>
+    <path d="M470 -20 C 462 150 472 310 462 470" opacity="0.02"/>
+  </g>
+  <ellipse cx="400" cy="240" rx="240" ry="80" fill="#eef2f6" opacity="0.02"/>
+  <use href="#plus" x="120" y="120" width="7" height="7" opacity="0.1"/>
+  <use href="#plus" x="670" y="140" width="7" height="7" opacity="0.1"/>
+  <use href="#plus" x="90" y="330" width="7" height="7" opacity="0.09"/>
+  <use href="#plus" x="700" y="320" width="7" height="7" opacity="0.09"/>
+  <circle cx="220" cy="90" r="1" fill="#eef2f6" opacity="0.1"/>
+  <circle cx="600" cy="100" r="1" fill="#eef2f6" opacity="0.09"/>
+  <circle cx="130" cy="260" r="1" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="680" cy="250" r="1" fill="#eef2f6" opacity="0.08"/>
+  <ellipse cx="240" cy="360" rx="130" ry="40" fill="#eef2f6" opacity="0.016"/>
+  <use href="#plus" x="380" y="410" width="7" height="7" opacity="0.08"/>
+  <use href="#plus" x="620" y="70" width="7" height="7" opacity="0.08"/>
+  <circle cx="320" cy="400" r="1" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="500" cy="70" r="1" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="70" cy="150" r="1" fill="#eef2f6" opacity="0.07"/>
+  <circle cx="740" cy="200" r="1" fill="#eef2f6" opacity="0.07"/>
+
+  <g stroke="#6aa9e9" stroke-width="1.4" fill="none" opacity="0.6">
+    <path d="M256 120 L256 138 M256 120 L274 120"/>
+    <path d="M584 120 L584 138 M584 120 L566 120"/>
+    <path d="M256 356 L256 338 M256 356 L274 356"/>
+    <path d="M584 356 L584 338 M584 356 L566 356"/>
+  </g>
+  <g stroke="#5b6b7a" stroke-width="1" opacity="0.5">
+    <line x1="250" y1="164" x2="256" y2="164"/><line x1="250" y1="208" x2="256" y2="208"/>
+    <line x1="250" y1="252" x2="256" y2="252"/><line x1="250" y1="296" x2="256" y2="296"/>
+    <line x1="584" y1="164" x2="590" y2="164"/><line x1="584" y1="208" x2="590" y2="208"/>
+    <line x1="584" y1="252" x2="590" y2="252"/><line x1="584" y1="296" x2="590" y2="296"/>
+  </g>
+  <line x1="236" y1="380" x2="604" y2="380" stroke="#6b7885" stroke-width="1.4" opacity="0.6"/>
+  <line x1="268" y1="386" x2="286" y2="380" stroke="#6b7885" stroke-width="1" opacity="0.5"/>
+  <line x1="572" y1="386" x2="554" y2="380" stroke="#6b7885" stroke-width="1" opacity="0.5"/>
+
+  <path class="lay" d="M300 320 C 262 282 266 210 316 172 C 366 136 470 130 520 166 C 570 200 578 276 534 314 C 486 354 348 360 300 320 Z" fill="#101a26" stroke="#8fa3b8" stroke-width="1" opacity="0.3"/>
+  <path class="lay l2" d="M326 306 C 296 274 300 220 340 190 C 382 160 462 156 502 186 C 542 214 548 272 512 302 C 472 334 362 338 326 306 Z" fill="none" stroke="#8fa3b8" stroke-width="1" opacity="0.25"/>
+  <path class="lay l3" d="M354 290 C 332 266 336 228 366 206 C 398 184 452 182 482 204 C 512 226 516 266 488 288 C 458 312 382 314 354 290 Z" fill="#0e1621" stroke="#8fa3b8" stroke-width="1" opacity="0.3"/>
+  <g stroke="#8fa3b8" stroke-width="1" fill="none" opacity="0.16">
+    <path d="M310 246 C 340 238 372 236 404 238"/>
+    <path d="M420 300 C 452 296 482 288 506 274"/>
+  </g>
+
+  <g class="anom">
+    <circle cx="442" cy="262" r="4.5" fill="#2ec4b6" opacity="0.8"/>
+    <circle cx="442" cy="262" r="10" fill="none" stroke="#2ec4b6" stroke-width="1" opacity="0.5"/>
+  </g>
+  <g class="aring"><circle cx="442" cy="262" r="20" fill="none" stroke="#2ec4b6" stroke-width="1"/></g>
+  <rect x="420" y="240" width="44" height="44" rx="5" fill="none" stroke="#6aa9e9" stroke-width="1.2" opacity="0.65"/>
+  <circle cx="464" cy="240" r="6" fill="#6aa9e9"/>
+  <path d="M461 240 L463.4 242.4 L467.5 237.5" stroke="#0e1621" stroke-width="1.5" fill="none"/>
+
+  <g class="scanline">
+    <line x1="262" y1="130" x2="578" y2="130" stroke="#6aa9e9" stroke-width="1.3" opacity="0.7"/>
+    <line x1="262" y1="126" x2="578" y2="126" stroke="#6aa9e9" stroke-width="5" opacity="0.07"/>
+  </g>
+
+  <g>
+    <ellipse cx="672" cy="392" rx="20" ry="4" fill="#1a2733" opacity="0.6"/>
+    <rect x="656" y="356" width="32" height="30" rx="2" fill="#3a4a44"/>
+    <rect x="662" y="362" width="10" height="7" fill="#8fa3b8" opacity="0.5"/>
+    <line x1="672" y1="342" x2="672" y2="356" stroke="#d7dee6" stroke-width="1.2"/>
+    <circle cx="672" cy="339" r="2.4" fill="#6aa9e9" class="dot-b"/>
+  </g>
+
+  <text x="330" y="86" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="2" fill="#6aa9e9" opacity="0.9">NON-INVASIVE SCAN</text>
+  <g>
+    <line x1="70" y1="392" x2="92" y2="392" stroke="#5b6b7a" stroke-width="1"/>
+    <text x="100" y="396" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" letter-spacing="2.5" fill="#8fa3b8">TISSUE LAYERS</text>
+  </g>
+
+  <line x1="180" y1="196" x2="352" y2="238" stroke="#6aa9e9" stroke-width="1" opacity="0.35"/>
+  <g>
+    <rect x="56" y="140" width="176" height="58" rx="4" fill="#0e1621" opacity="0.92"/>
+    <rect x="56" y="140" width="176" height="58" rx="4" fill="none" stroke="#6aa9e9" stroke-width="1" opacity="0.55"/>
+    <circle cx="68" cy="152" r="2.4" fill="#58c184" class="dot-b2"/>
+    <text x="76" y="156" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="1.5" fill="#d7dee6">TISSUE SCAN</text>
+    <text x="196" y="156" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#6aa9e9">LIVE</text>
+    <clipPath id="wvclip"><rect x="66" y="162" width="156" height="14"/></clipPath>
+    <g clip-path="url(#wvclip)">
+      <polyline class="wave-poly" fill="none" stroke="#6aa9e9" stroke-width="1.1" opacity="0.85" points="42,169 47,169 50,164 53,174 56,166 59,173 62,168 64,169 66,169 71,169 74,164 77,174 80,166 83,173 86,168 88,169 90,169 95,169 98,164 101,174 104,166 107,173 110,168 112,169 114,169 119,169 122,164 125,174 128,166 131,173 134,168 136,169 138,169 143,169 146,164 149,174 152,166 155,173 158,168 160,169 162,169 167,169 170,164 173,174 176,166 179,173 182,168 184,169 186,169 191,169 194,164 197,174 200,166 203,173 206,168 208,169 210,169 215,169 218,164 221,174 224,166 227,173 230,168 232,169 234,169 239,169 242,164 245,174 248,166 251,173 254,168 256,169"/>
+    </g>
+    <text x="66" y="190" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#5b6b7a">DEPTH 4 CM · RES 0.2 MM</text>
+  </g>
+
+  <rect width="800" height="450" fill="url(#vg)"/>
+</svg>

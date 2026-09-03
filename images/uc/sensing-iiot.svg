@@ -1,0 +1,145 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Industrial IoT sensing: an external sensor sweeps a scan line through a sealed tank wall, mapping fluid level and internal objects without opening it</title>
+  <style>
+    .dot-b { animation: blink 3.2s ease-in-out infinite; }
+    .dot-b2 { animation: blink 2.6s ease-in-out infinite 0.9s; }
+    @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+    .scanline { animation: scan 9s ease-in-out infinite; }
+    @keyframes scan { 0% { transform: translateX(0); } 50% { transform: translateX(232px); } 100% { transform: translateX(0); } }
+    .rev { animation: reveal 9s ease-in-out infinite; opacity: 0.1; }
+    .rev.r2 { animation-delay: 0.6s; }
+    .rev.r3 { animation-delay: 1.2s; }
+    @keyframes reveal { 0%, 8% { opacity: 0.1; } 30%, 60% { opacity: 0.65; } 85%, 100% { opacity: 0.1; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c141f"/><stop offset="0.5" stop-color="#0e1621"/><stop offset="1" stop-color="#121c28"/>
+    </linearGradient>
+    <radialGradient id="vg" cx="0.5" cy="0.42" r="0.8">
+      <stop offset="0.55" stop-color="#0a121d" stop-opacity="0"/><stop offset="1" stop-color="#0a121d" stop-opacity="0.5"/>
+    </radialGradient>
+    <symbol id="plus" viewBox="0 0 8 8"><path d="M4 0v8M0 4h8" stroke="#eef2f6" stroke-width="1" fill="none"/></symbol>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <g fill="none" stroke="#eef2f6" stroke-width="1">
+    <path d="M-20 76 C 180 62 380 88 580 74 S 770 58 820 68" opacity="0.035"/>
+    <path d="M-20 148 C 190 136 390 158 590 146 S 775 132 820 140" opacity="0.04"/>
+    <path d="M-20 222 C 180 210 380 232 580 220 S 770 206 820 214" opacity="0.03"/>
+    <path d="M130 -20 C 114 140 134 300 110 470" opacity="0.03"/>
+    <path d="M350 -20 C 335 150 356 310 336 470" opacity="0.03"/>
+    <path d="M580 -20 C 566 140 586 300 568 470" opacity="0.035"/>
+    <path d="M-20 300 C 200 290 420 306 620 296 S 790 286 820 292" opacity="0.03"/>
+    <path d="M720 -20 C 708 140 724 300 710 470" opacity="0.025"/>
+    <path d="M60 -20 C 48 150 62 310 48 470" opacity="0.025"/>
+  </g>
+  <ellipse cx="330" cy="320" rx="220" ry="62" fill="#eef2f6" opacity="0.022"/>
+  <ellipse cx="640" cy="280" rx="130" ry="44" fill="#eef2f6" opacity="0.018"/>
+  <use href="#plus" x="90" y="100" width="8" height="8" opacity="0.11"/>
+  <use href="#plus" x="690" y="130" width="7" height="7" opacity="0.1"/>
+  <use href="#plus" x="440" y="66" width="7" height="7" opacity="0.09"/>
+  <use href="#plus" x="60" y="290" width="7" height="7" opacity="0.09"/>
+  <circle cx="240" cy="90" r="1" fill="#eef2f6" opacity="0.1"/>
+  <circle cx="560" cy="110" r="1" fill="#eef2f6" opacity="0.09"/>
+  <circle cx="710" cy="230" r="1.2" fill="#eef2f6" opacity="0.1"/>
+  <use href="#plus" x="250" y="240" width="7" height="7" opacity="0.09"/>
+  <circle cx="480" cy="240" r="1" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="150" cy="180" r="1" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="620" cy="180" r="1" fill="#eef2f6" opacity="0.09"/>
+
+  <line x1="-20" y1="396" x2="820" y2="396" stroke="#6b7885" stroke-width="1" opacity="0.35"/>
+
+  <g>
+    <ellipse cx="330" cy="408" rx="190" ry="9" fill="#1a2733" opacity="0.6"/>
+    <path d="M180 288 L480 288 A 52 54 0 0 1 480 396 L180 396 A 52 54 0 0 1 180 288 Z" fill="#232f3d"/>
+    <path d="M180 288 L480 288 A 52 54 0 0 1 480 396 L180 396 A 52 54 0 0 1 180 288 Z" fill="none" stroke="#6b7885" stroke-width="1.2"/>
+    <path d="M190 294 L470 294" stroke="#4a5560" stroke-width="1" opacity="0.7"/>
+    <line x1="255" y1="288" x2="255" y2="396" stroke="#4a5560" stroke-width="1" opacity="0.8"/>
+    <line x1="405" y1="288" x2="405" y2="396" stroke="#4a5560" stroke-width="1" opacity="0.8"/>
+    <circle cx="255" cy="300" r="1" fill="#6b7885"/><circle cx="255" cy="384" r="1" fill="#6b7885"/>
+    <circle cx="405" cy="300" r="1" fill="#6b7885"/><circle cx="405" cy="384" r="1" fill="#6b7885"/>
+    <rect x="316" y="272" width="14" height="16" fill="#4a5560"/>
+    <rect x="311" y="268" width="24" height="6" rx="2" fill="#6b7885"/>
+    <path d="M200 396 L192 416 L226 416 L218 396 Z" fill="#1a2733"/>
+    <path d="M442 396 L434 416 L468 416 L460 396 Z" fill="#1a2733"/>
+    <line x1="482" y1="310" x2="482" y2="396" stroke="#6b7885" stroke-width="1"/>
+    <line x1="482" y1="322" x2="476" y2="322" stroke="#6b7885" stroke-width="1"/>
+    <line x1="482" y1="344" x2="476" y2="344" stroke="#6b7885" stroke-width="1"/>
+    <line x1="482" y1="366" x2="476" y2="366" stroke="#6b7885" stroke-width="1"/>
+  </g>
+
+  <path d="M196 342 C 260 336 400 336 464 342 L 464 388 L 196 388 Z" fill="#101a26" opacity="0.85"/>
+  <path d="M196 342 C 260 336 400 336 464 342" fill="none" stroke="#9fd4e8" stroke-width="1" opacity="0.4" class="rev"/>
+  <g class="rev r2" stroke="#9fd4e8" fill="none" stroke-width="1">
+    <rect x="252" y="356" width="26" height="22"/>
+    <path d="M252 364 L278 364"/>
+  </g>
+  <g class="rev r3" stroke="#9fd4e8" fill="none" stroke-width="1">
+    <circle cx="340" cy="366" r="12"/>
+    <rect x="390" y="352" width="20" height="26"/>
+  </g>
+  <rect x="326" y="350" width="30" height="32" rx="4" fill="none" stroke="#6aa9e9" stroke-width="1.2" opacity="0.65"/>
+  <circle cx="356" cy="350" r="6" fill="#6aa9e9"/>
+  <path d="M353 350 L355.4 352.4 L359.5 348" stroke="#0e1621" stroke-width="1.5" fill="none"/>
+
+  <g class="scanline">
+    <line x1="212" y1="296" x2="212" y2="390" stroke="#6aa9e9" stroke-width="1.4" opacity="0.7"/>
+    <line x1="208" y1="296" x2="208" y2="390" stroke="#6aa9e9" stroke-width="4" opacity="0.08"/>
+  </g>
+
+  <g>
+    <ellipse cx="140" cy="352" rx="18" ry="4" fill="#1a2733" opacity="0.6"/>
+    <rect x="124" y="320" width="30" height="26" rx="2" fill="#3a4a44"/>
+    <rect x="130" y="326" width="9" height="6" fill="#8fa3b8" opacity="0.5"/>
+    <line x1="154" y1="332" x2="180" y2="332" stroke="#6aa9e9" stroke-width="1" opacity="0.5"/>
+    <line x1="139" y1="308" x2="139" y2="320" stroke="#d7dee6" stroke-width="1.2"/>
+    <circle cx="139" cy="305" r="2.4" fill="#6aa9e9" class="dot-b"/>
+  </g>
+
+  <g stroke="#6b7885" stroke-width="1" fill="none">
+    <path d="M534 330 L640 330"/>
+    <path d="M534 336 L640 336"/>
+    <ellipse cx="572" cy="333" rx="3" ry="6"/>
+    <ellipse cx="614" cy="333" rx="3" ry="6"/>
+  </g>
+  <g>
+    <ellipse cx="672" cy="400" rx="34" ry="6" fill="#1a2733" opacity="0.6"/>
+    <path d="M646 330 L698 330 L698 396 L646 396 Z" fill="#232f3d"/>
+    <path d="M646 330 A 26 11 0 0 1 698 330" fill="#232f3d" stroke="#6b7885" stroke-width="1"/>
+    <path d="M646 330 L698 330 L698 396 L646 396 Z" fill="none" stroke="#6b7885" stroke-width="1"/>
+    <line x1="646" y1="358" x2="698" y2="358" stroke="#4a5560" stroke-width="1" opacity="0.8"/>
+    <line x1="646" y1="378" x2="698" y2="378" stroke="#4a5560" stroke-width="1" opacity="0.8"/>
+  </g>
+
+  <text x="470" y="262" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="2" fill="#6aa9e9" opacity="0.9">THROUGH-METAL SCAN</text>
+  <g>
+    <line x1="180" y1="248" x2="202" y2="248" stroke="#5b6b7a" stroke-width="1"/>
+    <text x="210" y="252" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" letter-spacing="2.5" fill="#8fa3b8">SEALED TANK</text>
+  </g>
+  <g>
+    <line x1="560" y1="426" x2="582" y2="426" stroke="#5b6b7a" stroke-width="1"/>
+    <text x="590" y="430" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" letter-spacing="2.5" fill="#8fa3b8">PROCESS LINE</text>
+  </g>
+
+  <line x1="150" y1="196" x2="200" y2="292" stroke="#6aa9e9" stroke-width="1" opacity="0.4"/>
+  <g>
+    <rect x="84" y="138" width="176" height="58" rx="4" fill="#0e1621" opacity="0.92"/>
+    <rect x="84" y="138" width="176" height="58" rx="4" fill="none" stroke="#6aa9e9" stroke-width="1" opacity="0.55"/>
+    <circle cx="96" cy="150" r="2.4" fill="#58c184" class="dot-b"/>
+    <text x="104" y="154" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="1.5" fill="#d7dee6">CONTENTS MAP</text>
+    <text x="224" y="154" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#6aa9e9">LIVE</text>
+    <g fill="#6aa9e9" opacity="0.75">
+      <rect x="96" y="166" width="7" height="10"/>
+      <rect x="107" y="162" width="7" height="14"/>
+      <rect x="118" y="170" width="7" height="6"/>
+      <rect x="129" y="164" width="7" height="12"/>
+      <rect x="140" y="168" width="7" height="8"/>
+      <rect x="151" y="161" width="7" height="15"/>
+      <rect x="162" y="167" width="7" height="9"/>
+    </g>
+    <text x="96" y="188" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#5b6b7a">FILL 62% · OBJ 3</text>
+  </g>
+
+  <rect width="800" height="450" fill="url(#vg)"/>
+</svg>

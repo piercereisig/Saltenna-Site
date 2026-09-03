@@ -1,0 +1,212 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Underwater communications: a tracked UUV exchanging clear audio with a surface buoy over a surface-wave route, beside a wooded island, with a seabed relay node below</title>
+  <style>
+    .l-flow { stroke-dasharray: 5 8; animation: flow 5.5s linear infinite; }
+    .l-flow2 { stroke-dasharray: 3 9; animation: flow 8s linear infinite; }
+    @keyframes flow { to { stroke-dashoffset: -156; } }
+    .ring { transform-origin: 601px 168px; animation: ping 7s ease-out infinite; opacity: 0; }
+    .ring.r2 { animation-delay: 3.5s; }
+    @keyframes ping { 0% { transform: scale(0.15); opacity: 0.3; } 65% { transform: scale(1); opacity: 0; } 100% { transform: scale(1); opacity: 0; } }
+    .uuv-g { animation: drift 13s ease-in-out infinite alternate; }
+    @keyframes drift { from { transform: translate(0, 0); } to { transform: translate(20px, -6px); } }
+    .dot-b { animation: blink 3.4s ease-in-out infinite; }
+    .dot-b2 { animation: blink 2.6s ease-in-out infinite 0.9s; }
+    @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+    .bub { animation: bub 4.8s linear infinite; opacity: 0; }
+    .bub.b2 { animation-delay: 1.6s; }
+    .bub.b3 { animation-delay: 3.2s; }
+    @keyframes bub { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 0.5; } 100% { transform: translateY(-34px); opacity: 0; } }
+    .wave-poly { animation: wv 2.8s linear infinite; }
+    @keyframes wv { from { transform: translateX(0); } to { transform: translateX(-24px); } }
+    .twinkle { animation: blink 5.5s ease-in-out infinite 2s; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c141f"/><stop offset="0.5" stop-color="#0e1621"/><stop offset="1" stop-color="#121c28"/>
+    </linearGradient>
+    <radialGradient id="vg" cx="0.46" cy="0.42" r="0.8">
+      <stop offset="0.55" stop-color="#0a121d" stop-opacity="0"/><stop offset="1" stop-color="#0a121d" stop-opacity="0.5"/>
+    </radialGradient>
+    <symbol id="bush1" viewBox="0 0 20 14">
+      <ellipse cx="7" cy="8" rx="7" ry="5" fill="#37453e"/><ellipse cx="13" cy="7" rx="6" ry="4.6" fill="#48564e"/><ellipse cx="10" cy="5" rx="4" ry="3" fill="#5d6b62"/>
+    </symbol>
+    <symbol id="bush2" viewBox="0 0 16 12">
+      <ellipse cx="6" cy="7" rx="6" ry="4.4" fill="#48564e"/><ellipse cx="11" cy="6" rx="4.6" ry="3.6" fill="#5d6b62"/><ellipse cx="8" cy="4" rx="2.6" ry="2" fill="#6f7d70"/>
+    </symbol>
+    <symbol id="bush3" viewBox="0 0 12 10">
+      <ellipse cx="5" cy="6" rx="5" ry="3.6" fill="#37453e"/><ellipse cx="8" cy="4.6" rx="3.4" ry="2.6" fill="#48564e"/>
+    </symbol>
+    <symbol id="plus" viewBox="0 0 8 8">
+      <path d="M4 0v8M0 4h8" stroke="#eef2f6" stroke-width="1" fill="none"/>
+    </symbol>
+    <symbol id="palm" viewBox="0 0 14 12">
+      <path d="M7 12 L7.6 6" stroke="#3a4a44" stroke-width="1" fill="none"/>
+      <path d="M7.6 6 C5 4.5 3 5 1.5 6.5 M7.6 6 C7 3.5 8 2 9.5 1 M7.6 6 C10 4.5 12 5 13 6.6" stroke="#48564e" stroke-width="1" fill="none"/>
+    </symbol>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg)"/>
+
+  <g fill="none" stroke="#eef2f6" stroke-width="1">
+    <path d="M-20 90 C 160 74 360 100 560 84 S 760 66 820 76" opacity="0.035"/>
+    <path d="M-20 150 C 180 136 380 162 580 146 S 770 130 820 140" opacity="0.04"/>
+    <path d="M-20 212 C 170 198 370 224 570 208 S 770 192 820 202" opacity="0.04"/>
+    <path d="M-20 275 C 190 260 380 288 590 271 S 775 256 820 266" opacity="0.04"/>
+    <path d="M-20 338 C 175 324 385 350 585 334 S 770 318 820 328" opacity="0.035"/>
+    <path d="M-20 400 C 190 388 390 412 600 397 S 775 382 820 392" opacity="0.03"/>
+    <path d="M60 -20 C 40 140 60 300 30 470" opacity="0.03"/>
+    <path d="M215 -20 C 195 150 220 310 195 470" opacity="0.035"/>
+    <path d="M370 -20 C 352 150 376 300 355 470" opacity="0.035"/>
+    <path d="M525 -20 C 508 140 532 300 512 470" opacity="0.03"/>
+    <path d="M675 -20 C 660 150 682 310 665 470" opacity="0.03"/>
+    <path d="M-20 45 C 240 20 560 22 820 40" opacity="0.05"/>
+    <path d="M40 250 C 90 242 130 252 180 246 C 220 242 250 248 280 244" opacity="0.04"/>
+    <path d="M330 360 C 380 352 420 362 470 356 C 510 352 540 358 570 354" opacity="0.035"/>
+    <path d="M480 130 C 520 124 550 132 590 127" opacity="0.035"/>
+  </g>
+  <ellipse cx="250" cy="330" rx="190" ry="60" fill="#eef2f6" opacity="0.022"/>
+  <ellipse cx="520" cy="250" rx="150" ry="46" fill="#eef2f6" opacity="0.02"/>
+  <ellipse cx="640" cy="380" rx="130" ry="42" fill="#eef2f6" opacity="0.018"/>
+
+  <use href="#plus" x="90" y="70" width="8" height="8" opacity="0.12"/>
+  <use href="#plus" x="330" y="120" width="8" height="8" opacity="0.1"/>
+  <use href="#plus" x="470" y="330" width="8" height="8" opacity="0.12"/>
+  <use href="#plus" x="180" y="230" width="7" height="7" opacity="0.09"/>
+  <use href="#plus" x="700" y="300" width="7" height="7" opacity="0.1"/>
+  <use href="#plus" x="560" y="60" width="7" height="7" opacity="0.09"/>
+  <circle cx="140" cy="180" r="1" fill="#eef2f6" opacity="0.12"/>
+  <circle cx="420" cy="90" r="1" fill="#eef2f6" opacity="0.1" class="twinkle"/>
+  <circle cx="510" cy="390" r="1.2" fill="#eef2f6" opacity="0.09"/>
+  <circle cx="60" cy="320" r="1" fill="#eef2f6" opacity="0.1"/>
+  <circle cx="360" cy="410" r="1" fill="#eef2f6" opacity="0.08" class="twinkle"/>
+  <circle cx="740" cy="250" r="1" fill="#eef2f6" opacity="0.1"/>
+  <circle cx="300" cy="55" r="1" fill="#eef2f6" opacity="0.09"/>
+  <circle cx="660" cy="120" r="1" fill="#eef2f6" opacity="0.08"/>
+
+  <g>
+    <path d="M560 -20 C 545 20 570 48 600 62 C 585 88 592 122 622 140 C 610 168 636 196 676 198 C 706 224 762 226 800 208 L 800 -20 Z" fill="none" stroke="#2ec4b6" stroke-width="5" opacity="0.10"/>
+    <path d="M560 -20 C 545 20 570 48 600 62 C 585 88 592 122 622 140 C 610 168 636 196 676 198 C 706 224 762 226 800 208 L 800 -20 Z" fill="none" stroke="#eef2f6" stroke-width="9" opacity="0.03"/>
+    <path d="M560 -20 C 545 20 570 48 600 62 C 585 88 592 122 622 140 C 610 168 636 196 676 198 C 706 224 762 226 800 208 L 800 -20 Z" fill="#aab6b0"/>
+    <path d="M572 -20 C 560 18 582 44 610 57 C 597 84 604 116 632 133 C 622 158 646 184 682 186 C 710 210 760 212 800 196 L 800 -20 Z" fill="#d7dee6" opacity="0.4"/>
+    <path d="M660 8 C 645 42 658 84 690 108 C 712 130 758 142 800 132 L 800 8 Z" fill="#8b978f" opacity="0.55"/>
+    <polygon points="716,36 733,4 750,36" fill="#eef2f6"/>
+    <polygon points="716,36 727,12 733,36" fill="#aab6b0"/>
+    <polygon points="733,4 750,36 742,36" fill="#6b7885"/>
+    <polygon points="706,42 719,22 728,42" fill="#97a5ad"/>
+    <polygon points="728,42 738,28 747,42" fill="#7c8a84"/>
+    <use href="#bush2" x="643" y="18" width="23" height="16"/>
+    <use href="#bush3" x="659" y="49" width="11" height="8"/>
+    <use href="#bush1" x="647" y="20" width="18" height="13"/>
+    <use href="#bush1" x="625" y="34" width="25" height="17"/>
+    <use href="#bush1" x="652" y="17" width="26" height="17"/>
+    <use href="#bush3" x="678" y="21" width="14" height="9"/>
+    <use href="#bush1" x="631" y="20" width="21" height="15"/>
+    <use href="#bush2" x="700" y="51" width="20" height="13"/>
+    <use href="#bush3" x="686" y="66" width="15" height="10"/>
+    <use href="#bush1" x="694" y="61" width="25" height="17"/>
+    <use href="#bush3" x="683" y="68" width="14" height="9"/>
+    <use href="#bush2" x="678" y="54" width="18" height="12"/>
+    <use href="#bush1" x="680" y="63" width="19" height="13"/>
+    <use href="#bush2" x="678" y="78" width="21" height="15"/>
+    <use href="#bush1" x="671" y="57" width="24" height="16"/>
+    <use href="#bush2" x="665" y="75" width="18" height="13"/>
+    <use href="#bush3" x="662" y="84" width="15" height="10"/>
+    <use href="#bush3" x="643" y="100" width="13" height="9"/>
+    <use href="#bush1" x="659" y="85" width="28" height="19"/>
+    <use href="#bush3" x="656" y="85" width="11" height="8"/>
+    <use href="#bush3" x="658" y="82" width="18" height="12"/>
+    <use href="#bush2" x="711" y="116" width="23" height="16"/>
+    <use href="#bush2" x="702" y="90" width="16" height="11"/>
+    <use href="#bush2" x="709" y="101" width="16" height="11"/>
+    <use href="#bush2" x="720" y="106" width="15" height="10"/>
+    <use href="#bush1" x="735" y="93" width="28" height="19"/>
+    <use href="#bush2" x="728" y="98" width="24" height="16"/>
+    <use href="#bush1" x="703" y="95" width="20" height="13"/>
+    <use href="#bush1" x="778" y="64" width="18" height="12"/>
+    <use href="#bush2" x="759" y="71" width="14" height="10"/>
+    <use href="#bush3" x="744" y="87" width="13" height="9"/>
+    <use href="#bush3" x="775" y="73" width="16" height="11"/>
+    <use href="#bush3" x="756" y="71" width="17" height="11"/>
+    <use href="#bush1" x="683" y="132" width="24" height="16"/>
+    <use href="#bush1" x="668" y="145" width="23" height="16"/>
+    <use href="#bush1" x="673" y="131" width="18" height="12"/>
+    <use href="#bush2" x="668" y="134" width="20" height="14"/>
+    <use href="#bush2" x="679" y="140" width="16" height="11"/>
+    <use href="#bush2" x="671" y="143" width="19" height="13"/>
+    <use href="#bush2" x="741" y="142" width="19" height="13"/>
+    <use href="#bush3" x="741" y="166" width="13" height="9"/>
+    <use href="#bush1" x="733" y="166" width="24" height="16"/>
+    <use href="#bush2" x="754" y="139" width="16" height="11"/>
+    <use href="#bush3" x="761" y="143" width="13" height="9"/>
+    <use href="#bush2" x="652" y="129" width="19" height="13"/>
+    <use href="#bush1" x="642" y="126" width="24" height="17"/>
+    <use href="#bush1" x="642" y="140" width="25" height="17"/>
+    <use href="#palm" x="600" y="52" width="14" height="12"/>
+    <use href="#palm" x="668" y="182" width="13" height="11"/>
+    <path d="M626 118 L634 110 L642 118 Z" fill="#6b7885"/>
+    <circle cx="560" cy="120" r="2.2" fill="#d7dee6" opacity="0.7"/>
+    <circle cx="750" cy="215" r="1.8" fill="#d7dee6" opacity="0.5"/>
+  </g>
+
+  <g class="ring"><ellipse cx="601" cy="168" rx="105" ry="26" fill="none" stroke="#9fd4e8" stroke-width="1"/></g>
+  <g class="ring r2"><ellipse cx="601" cy="168" rx="105" ry="26" fill="none" stroke="#6aa9e9" stroke-width="1"/></g>
+  <g>
+    <ellipse cx="601" cy="174" rx="26" ry="7" fill="#eef2f6" opacity="0.05"/>
+    <path d="M590 162 L612 162 L607 174 L595 174 Z" fill="#aab6b0"/>
+    <rect x="595" y="165" width="12" height="3" fill="#4a5560"/>
+    <line x1="601" y1="146" x2="601" y2="162" stroke="#d7dee6" stroke-width="1.4"/>
+    <circle cx="601" cy="143" r="2.4" fill="#6aa9e9" class="dot-b"/>
+  </g>
+
+  <path class="l-flow" d="M286 296 C 380 258 470 212 588 174" fill="none" stroke="#6aa9e9" stroke-width="1.5" opacity="0.6"/>
+  <path class="l-flow2" d="M594 180 C 500 260 300 330 158 380" fill="none" stroke="#9fd4e8" stroke-width="1.2" opacity="0.3"/>
+  <text x="356" y="222" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="2" fill="#6aa9e9" opacity="0.9">SURFACE WAVE ROUTE</text>
+
+  <g class="uuv-g">
+    <ellipse cx="252" cy="316" rx="30" ry="8" fill="#1a2733" opacity="0.6"/>
+    <ellipse cx="250" cy="300" rx="28" ry="9" fill="#aab6b0"/>
+    <path d="M276 300 a 10 9 0 0 0 -8 -8.6 L 268 308.6 a 10 9 0 0 0 8 -8.6 Z" fill="#8b978f"/>
+    <polygon points="222,300 210,293 210,307" fill="#6b7885"/>
+    <rect x="236" y="294" width="14" height="3" fill="#6b7885"/>
+    <rect x="240" y="303" width="10" height="2.4" fill="#7c8a84"/>
+    <circle cx="274" cy="298" r="2.2" fill="#6aa9e9" class="dot-b2"/>
+    <line x1="206" y1="297" x2="192" y2="296" stroke="#eef2f6" stroke-width="1" opacity="0.18"/>
+    <line x1="206" y1="303" x2="196" y2="304" stroke="#eef2f6" stroke-width="1" opacity="0.12"/>
+    <circle cx="246" cy="288" r="1.4" fill="#9fd4e8" class="bub"/>
+    <circle cx="254" cy="286" r="1.1" fill="#9fd4e8" class="bub b2"/>
+    <circle cx="240" cy="287" r="1" fill="#9fd4e8" class="bub b3"/>
+  </g>
+  <rect x="204" y="270" width="100" height="62" rx="6" fill="none" stroke="#6aa9e9" stroke-width="1.3" opacity="0.75"/>
+  <circle cx="304" cy="270" r="7" fill="#6aa9e9"/>
+  <path d="M300.5 270 L303 272.5 L307.5 267.5" stroke="#0e1621" stroke-width="1.6" fill="none"/>
+
+  <line x1="228" y1="216" x2="212" y2="268" stroke="#6aa9e9" stroke-width="1" opacity="0.4"/>
+  <g>
+    <rect x="88" y="158" width="176" height="58" rx="4" fill="#0e1621" opacity="0.92"/>
+    <rect x="88" y="158" width="176" height="58" rx="4" fill="none" stroke="#6aa9e9" stroke-width="1" opacity="0.55"/>
+    <circle cx="100" cy="170" r="2.4" fill="#58c184" class="dot-b"/>
+    <text x="108" y="174" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="1.5" fill="#d7dee6">CLEAR AUDIO</text>
+    <text x="228" y="174" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#6aa9e9">LIVE</text>
+    <clipPath id="wvclip"><rect x="98" y="180" width="156" height="14"/></clipPath>
+    <g clip-path="url(#wvclip)">
+      <polyline class="wave-poly" fill="none" stroke="#6aa9e9" stroke-width="1.1" opacity="0.85" points="74,187 79,187 82,182 85,192 88,184 91,191 94,186 96,187 98,187 103,187 106,182 109,192 112,184 115,191 118,186 120,187 122,187 127,187 130,182 133,192 136,184 139,191 142,186 144,187 146,187 151,187 154,182 157,192 160,184 163,191 166,186 168,187 170,187 175,187 178,182 181,192 184,184 187,191 190,186 192,187 194,187 199,187 202,182 205,192 208,184 211,191 214,186 216,187 218,187 223,187 226,182 229,192 232,184 235,191 238,186 240,187 242,187 247,187 250,182 253,192 256,184 259,191 262,186 264,187 266,187 271,187 274,182 277,192 280,184 283,191 286,186 288,187"/>
+    </g>
+    <text x="98" y="208" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#5b6b7a">SNR 34 DB · PKT 100%</text>
+  </g>
+
+  <g>
+    <ellipse cx="128" cy="402" rx="24" ry="6" fill="#1a2733" opacity="0.7"/>
+    <path d="M106 400 L150 400 L144 390 L112 390 Z" fill="#232f3d"/>
+    <rect x="124" y="378" width="7" height="12" fill="#4a5560"/>
+    <rect x="120" y="386" width="16" height="4" fill="#3a4a44"/>
+    <circle cx="127" cy="374" r="2.2" fill="#2ec4b6" class="dot-b2"/>
+    <line x1="166" y1="380" x2="186" y2="380" stroke="#5b6b7a" stroke-width="1"/>
+    <text x="194" y="384" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" letter-spacing="2.5" fill="#8fa3b8">SEABED NODE</text>
+  </g>
+  <path d="M40 430 L58 416 L76 430" fill="none" stroke="#3a4a44" stroke-width="1"/>
+  <path d="M448 424 L462 412 L476 424" fill="none" stroke="#3a4a44" stroke-width="1"/>
+  <path d="M362 434 l6 -5 6 5" fill="none" stroke="#3a4a44" stroke-width="1"/>
+
+  <rect width="800" height="450" fill="url(#vg)"/>
+</svg>

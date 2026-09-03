@@ -1,0 +1,19 @@
+---
+// The photograph in a product's detail pane: `image` when a real photo exists,
+// otherwise `poster`. The interactive 3D model is NOT rendered here — it gets
+// its own window to the left of the detail pane (the .uc-model panes in
+// products.astro), so a product shows its photo and its model at the same time.
+// The box is a fixed 16:9, so swapping the photo never reflows the pane.
+import type { Product } from "../data/products";
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const photo = product.image ?? product.poster;
+---
+
+<div class="uc-detail-media">
+  <img src={photo} alt={product.fullName} loading="lazy" />
+</div>

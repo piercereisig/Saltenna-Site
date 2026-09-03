@@ -1,0 +1,55 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "saltenna-site",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4173"
+      ],
+      "port": 4173
+    },
+    {
+      "name": "saltenna-astro",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "webflow-app",
+        "--",
+        "--port",
+        "4321"
+      ],
+      "port": 4321,
+      "url": "http://app.localhost:4321"
+    },
+    {
+      "name": "saltenna-workers-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "preview",
+        "--prefix",
+        "webflow-app"
+      ],
+      "port": 8787,
+      "url": "http://app.localhost:8787"
+    },
+    {
+      "name": "saltenna-static-draft",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4174",
+        "--directory",
+        "webflow-app/dist/client"
+      ],
+      "port": 4174,
+      "url": "http://app.localhost:4174"
+    }
+  ]
+}

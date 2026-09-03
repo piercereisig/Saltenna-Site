@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saltenna — Plasmonic Waveform</title>
+<style>
+  :root {
+    --bg: #13263f;
+    --card: #0d1424;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .wave-frame {
+    width: min(1100px, 100%);
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(180deg, #0d1424 0%, #0f1a2e 55%, #0d1424 100%);
+    border: 1px solid rgba(157, 189, 209, 0.14);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+  }
+  .wave-frame canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .tag {
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(157, 189, 209, 0.55);
+    z-index: 1;
+  }
+  .tag::before {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 1px;
+    background: #2ec4b6;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+</style>
+</head>
+<body>
+  <div class="wave-frame">
+    <span class="tag">Plasmonic Surface Wave</span>
+    <canvas id="plasmonic-wave" aria-hidden="true"></canvas>
+  </div>
+
+<script>
+(function () {
+  var canvas = document.getElementById('plasmonic-wave');
+  var ctx = canvas.getContext('2d');
+  var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var w = 0, h = 0, dpr = 1;
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.clientWidth;
+    h = canvas.clientHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', function () { resize(); if (!motionOK) draw(0); });
+
+  // A sheet of fine lines sharing a wave field, fanned apart by a
+  // per-line offset that itself breathes — reads as a twisting sheet of signal.
+  // The field is built from integer harmonics of the width, so every line meets
+  // the left and right edges at the same height: the wave flows through the
+  // frame edge-to-edge instead of pinching to points.
+  var STEP = 6;          // px between sampled x points
+  var SPEED = 0.0045;    // global time scale — slow, deliberate drift
+
+  function field(x, t, k, dir) {
+    // u spans exactly 2π across the width → integer multiples wrap seamlessly
+    var u = (x / w) * Math.PI * 2;
+    return (
+      Math.sin(u * 3 + dir * t * 1.00 + k * 2.4) * 30 +
+      Math.sin(u * 2 - dir * t * 0.62 + k * 5.2) * 20 +
+      Math.sin(u * 5 + dir * t * 0.35 + k * 1.1) * 8
+    );
+  }
+
+  var SHEETS = [
+    // single ribbon, drifting right, running edge-to-edge
+    { yFrac: 0.54, lines: 64, spread: 0.20, dir: 1, phase: 0, alphaMax: 0.16, tealBias: 1 }
+  ];
+
+  function draw(time) {
+    var t = time * SPEED;
+    ctx.clearRect(0, 0, w, h);
+
+    for (var s = 0; s < SHEETS.length; s++) {
+      var sheet = SHEETS[s];
+      var midY = h * sheet.yFrac;
+      var spread = h * sheet.spread;
+
+      for (var i = 0; i < sheet.lines; i++) {
+        var k = i / (sheet.lines - 1);
+        // breathing fan: lines bunch and separate over time
+        var fan = (k - 0.5) * spread *
+          (0.55 + 0.45 * Math.sin(sheet.dir * t * 0.7 + k * 3.0 + sheet.phase));
+
+        // teal near the sheet's crest, powder blue toward the edges;
+        // tealBias < 1 shifts the whole sheet toward powder blue
+        var mix = Math.abs(k - 0.5) * 2; // 0 center → 1 edges
+        mix = 1 - (1 - mix) * sheet.tealBias;
+        var r = Math.round(46 + (157 - 46) * mix);
+        var g = Math.round(196 + (189 - 196) * mix);
+        var b = Math.round(182 + (209 - 182) * mix);
+        var alpha = 0.05 + sheet.alphaMax * (1 - mix);
+
+        ctx.beginPath();
+        for (var x = 0; x <= w + STEP; x += STEP) {
+          var xc = Math.min(x, w); // always land the final sample exactly on the edge
+          var y = midY + field(xc, t, k + sheet.phase, sheet.dir) + fan;
+          if (x === 0) ctx.moveTo(xc, y);
+          else ctx.lineTo(xc, y);
+        }
+        ctx.strokeStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+
+    if (motionOK) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

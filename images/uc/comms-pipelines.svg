@@ -1,0 +1,134 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Pipeline communications: a surface wave carrying telemetry along a subsea pipeline between valve stations while a UUV inspects mid-span</title>
+  <style>
+    .l-flow { stroke-dasharray: 6 9; animation: flow 6s linear infinite; }
+    @keyframes flow { to { stroke-dashoffset: -165; } }
+    .dot-b { animation: blink 3.2s ease-in-out infinite; }
+    .dot-b2 { animation: blink 2.6s ease-in-out infinite 0.9s; }
+    @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+    .uuv-g { animation: drift 14s ease-in-out infinite alternate; }
+    @keyframes drift { from { transform: translate(0, 0); } to { transform: translate(14px, -3px); } }
+    .wave-poly { animation: wv 2.8s linear infinite; }
+    @keyframes wv { from { transform: translateX(0); } to { transform: translateX(-24px); } }
+    .grass { animation: sway 7s ease-in-out infinite alternate; transform-origin: bottom center; }
+    @keyframes sway { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c141f"/><stop offset="0.5" stop-color="#0e1621"/><stop offset="1" stop-color="#121c28"/>
+    </linearGradient>
+    <radialGradient id="vg" cx="0.5" cy="0.42" r="0.8">
+      <stop offset="0.55" stop-color="#0a121d" stop-opacity="0"/><stop offset="1" stop-color="#0a121d" stop-opacity="0.5"/>
+    </radialGradient>
+    <symbol id="plus" viewBox="0 0 8 8"><path d="M4 0v8M0 4h8" stroke="#eef2f6" stroke-width="1" fill="none"/></symbol>
+    <symbol id="rock" viewBox="0 0 16 10"><path d="M2 10 L5 3 L9 5 L12 2 L15 10 Z" fill="#1a2733"/><path d="M5 3 L9 5 L8 10 L2 10 Z" fill="#232f3d"/></symbol>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <g fill="none" stroke="#eef2f6" stroke-width="1">
+    <path d="M-20 70 C 180 56 380 82 580 68 S 770 52 820 62" opacity="0.03"/>
+    <path d="M-20 140 C 190 128 390 150 590 138 S 775 124 820 132" opacity="0.04"/>
+    <path d="M-20 215 C 180 202 380 226 580 212 S 770 198 820 206" opacity="0.04"/>
+    <path d="M-20 300 C 190 288 390 310 590 298 S 775 284 820 292" opacity="0.035"/>
+    <path d="M-20 380 C 180 368 380 390 580 378 S 770 364 820 372" opacity="0.03"/>
+    <path d="M110 -20 C 94 140 114 300 90 470" opacity="0.03"/>
+    <path d="M320 -20 C 305 150 326 310 306 470" opacity="0.03"/>
+    <path d="M540 -20 C 526 140 546 300 528 470" opacity="0.035"/>
+    <path d="M710 -20 C 698 150 716 310 702 470" opacity="0.03"/>
+  </g>
+  <ellipse cx="240" cy="350" rx="180" ry="55" fill="#eef2f6" opacity="0.02"/>
+  <ellipse cx="560" cy="180" rx="160" ry="50" fill="#eef2f6" opacity="0.022"/>
+  <ellipse cx="660" cy="390" rx="120" ry="40" fill="#eef2f6" opacity="0.018"/>
+  <use href="#plus" x="120" y="110" width="8" height="8" opacity="0.11"/>
+  <use href="#plus" x="600" y="90" width="7" height="7" opacity="0.1"/>
+  <use href="#plus" x="380" y="400" width="7" height="7" opacity="0.1"/>
+  <use href="#plus" x="70" y="300" width="7" height="7" opacity="0.09"/>
+  <circle cx="200" cy="70" r="1" fill="#eef2f6" opacity="0.1"/>
+  <circle cx="470" cy="120" r="1" fill="#eef2f6" opacity="0.09"/>
+  <circle cx="720" cy="260" r="1.2" fill="#eef2f6" opacity="0.1"/>
+  <circle cx="320" cy="330" r="1" fill="#eef2f6" opacity="0.08"/>
+
+  <path d="M-20 292 C 140 258 300 232 460 218 C 600 206 720 208 820 224" fill="none" stroke="#1a2733" stroke-width="26" opacity="0.55"/>
+  <g stroke="#6b7885" stroke-width="1" fill="none">
+    <path d="M-20 276 C 140 242 300 216 460 202 C 600 190 720 192 820 208"/>
+    <path d="M-20 296 C 140 262 300 236 460 222 C 600 210 720 212 820 228"/>
+  </g>
+  <path d="M-20 280 C 140 246 300 220 460 206 C 600 194 720 196 820 212" fill="none" stroke="#97a5ad" stroke-width="2" opacity="0.35"/>
+  <g fill="none" stroke="#8b978f" stroke-width="1">
+    <ellipse cx="96" cy="269" rx="4.5" ry="11" transform="rotate(-10 96 269)"/>
+    <ellipse cx="212" cy="248" rx="4.5" ry="11" transform="rotate(-9 212 248)"/>
+    <ellipse cx="330" cy="228" rx="4.5" ry="11" transform="rotate(-7 330 228)"/>
+    <ellipse cx="452" cy="212" rx="4.5" ry="11" transform="rotate(-4 452 212)"/>
+    <ellipse cx="574" cy="203" rx="4.5" ry="11" transform="rotate(-1 574 203)"/>
+    <ellipse cx="694" cy="204" rx="4.5" ry="11" transform="rotate(3 694 204)"/>
+  </g>
+  <g stroke="#4a5560" stroke-width="1.4" fill="none">
+    <line x1="152" y1="268" x2="152" y2="286"/>
+    <line x1="390" y1="228" x2="390" y2="248"/>
+    <line x1="632" y1="212" x2="632" y2="232"/>
+  </g>
+
+  <g>
+    <ellipse cx="60" cy="304" rx="24" ry="5" fill="#1a2733" opacity="0.7"/>
+    <rect x="44" y="270" width="32" height="26" rx="2" fill="#3a4a44"/>
+    <rect x="50" y="262" width="20" height="8" fill="#232f3d"/>
+    <line x1="60" y1="250" x2="60" y2="262" stroke="#d7dee6" stroke-width="1.2"/>
+    <circle cx="60" cy="247" r="2.4" fill="#6aa9e9" class="dot-b"/>
+  </g>
+  <g>
+    <ellipse cx="752" cy="238" rx="24" ry="5" fill="#1a2733" opacity="0.7"/>
+    <rect x="736" y="204" width="32" height="26" rx="2" fill="#3a4a44"/>
+    <rect x="742" y="196" width="20" height="8" fill="#232f3d"/>
+    <line x1="752" y1="184" x2="752" y2="196" stroke="#d7dee6" stroke-width="1.2"/>
+    <circle cx="752" cy="181" r="2.4" fill="#58c184" class="dot-b2"/>
+  </g>
+
+  <path class="l-flow" d="M76 272 C 200 240 340 214 470 202 C 590 192 680 194 740 206" fill="none" stroke="#6aa9e9" stroke-width="1.6" opacity="0.65"/>
+  <text x="300" y="176" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="2" fill="#6aa9e9" opacity="0.9">SURFACE WAVE ALONG PIPELINE</text>
+  <g>
+    <line x1="560" y1="252" x2="582" y2="252" stroke="#5b6b7a" stroke-width="1"/>
+    <text x="590" y="256" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" letter-spacing="2.5" fill="#8fa3b8" opacity="0.8">SUBSEA PIPELINE</text>
+  </g>
+
+  <g class="uuv-g">
+    <ellipse cx="352" cy="298" rx="28" ry="7" fill="#1a2733" opacity="0.55"/>
+    <ellipse cx="350" cy="282" rx="26" ry="8" fill="#aab6b0"/>
+    <path d="M374 282 a 9 8 0 0 0 -7 -7.7 L 367 289.7 a 9 8 0 0 0 7 -7.7 Z" fill="#8b978f"/>
+    <polygon points="326,282 315,276 315,288" fill="#6b7885"/>
+    <rect x="338" y="277" width="12" height="2.6" fill="#6b7885"/>
+    <circle cx="372" cy="280" r="2" fill="#6aa9e9" class="dot-b2"/>
+    <line x1="311" y1="279" x2="298" y2="278" stroke="#eef2f6" stroke-width="1" opacity="0.16"/>
+    <line x1="311" y1="285" x2="302" y2="286" stroke="#eef2f6" stroke-width="1" opacity="0.11"/>
+  </g>
+  <rect x="308" y="256" width="92" height="56" rx="6" fill="none" stroke="#6aa9e9" stroke-width="1.3" opacity="0.7"/>
+  <circle cx="400" cy="256" r="7" fill="#6aa9e9"/>
+  <path d="M396.5 256 L399 258.5 L403.5 253.5" stroke="#0e1621" stroke-width="1.6" fill="none"/>
+
+  <line x1="352" y1="352" x2="366" y2="314" stroke="#6aa9e9" stroke-width="1" opacity="0.4"/>
+  <g>
+    <rect x="262" y="352" width="180" height="58" rx="4" fill="#0e1621" opacity="0.92"/>
+    <rect x="262" y="352" width="180" height="58" rx="4" fill="none" stroke="#6aa9e9" stroke-width="1" opacity="0.55"/>
+    <circle cx="274" cy="364" r="2.4" fill="#58c184" class="dot-b"/>
+    <text x="282" y="368" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="1.5" fill="#d7dee6">LINK ACTIVE</text>
+    <text x="406" y="368" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#6aa9e9">LIVE</text>
+    <clipPath id="wvclip"><rect x="272" y="374" width="160" height="14"/></clipPath>
+    <g clip-path="url(#wvclip)">
+      <polyline class="wave-poly" fill="none" stroke="#6aa9e9" stroke-width="1.1" opacity="0.85" points="248,381 253,381 256,376 259,386 262,378 265,385 268,380 270,381 272,381 277,381 280,376 283,386 286,378 289,385 292,380 294,381 296,381 301,381 304,376 307,386 310,378 313,385 316,380 318,381 320,381 325,381 328,376 331,386 334,378 337,385 340,380 342,381 344,381 349,381 352,376 355,386 358,378 361,385 364,380 366,381 368,381 373,381 376,376 379,386 382,378 385,385 388,380 390,381 392,381 397,381 400,376 403,386 406,378 409,385 412,380 414,381 416,381 421,381 424,376 427,386 430,378 433,385 436,380 438,381 440,381 445,381 448,376 451,386 454,378 457,385 460,380 462,381"/>
+    </g>
+    <text x="272" y="402" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#5b6b7a">SNR 31 DB · PKT 100%</text>
+  </g>
+
+  <use href="#rock" x="120" y="360" width="16" height="10"/>
+  <use href="#rock" x="500" y="330" width="13" height="8"/>
+  <use href="#rock" x="620" y="300" width="14" height="9"/>
+  <use href="#rock" x="70" y="390" width="12" height="8"/>
+  <g class="grass" stroke="#3a4a44" stroke-width="1" fill="none">
+    <path d="M560 344 C 558 334 561 328 559 320 M564 344 C 564 334 567 330 566 322 M568 344 C 570 336 572 332 572 326"/>
+  </g>
+  <g stroke="#3a4a44" stroke-width="1" fill="none">
+    <path d="M196 330 C 194 322 197 317 195 311 M200 330 C 200 322 203 318 202 312"/>
+  </g>
+
+  <rect width="800" height="450" fill="url(#vg)"/>
+</svg>

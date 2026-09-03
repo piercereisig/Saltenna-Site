@@ -1,0 +1,189 @@
+---
+import Base from "../layouts/Base.astro";
+import { VIDEO_BASE } from "../videoBase";
+
+// Static page — generated at build time, not per request. Webflow Cloud
+// requires output: "server". These pages were prerendered (`= true`); the
+// Basic-auth gate in src/middleware.ts only runs for on-demand routes, so they
+// are server-rendered instead. Flip back to `true` and delete the middleware to
+// restore static generation.
+export const prerender = false;
+---
+
+<Base title="Saltenna — Wireless Communications & Sensing in the Most Difficult Environments on Earth" description="Saltenna's plasmonic technology enables high-speed, secure wireless communications and sensing through water, ice, metal, soil, and rock — where conventional wireless fails." active="home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="images/posters/hero-montage.jpg" aria-hidden="true">
+      <source src={`${VIDEO_BASE}/hero-montage.mp4`} type="video/mp4" />
+    </video>
+    <canvas id="wave-canvas" aria-hidden="true"></canvas>
+    <div class="container hero-content">
+      <h1 class="hero-statement">
+        <span class="line"><span>Communications beyond</span></span>
+        <span class="line"><span>the limits of legacy</span></span>
+        <span class="line"><span>radio frequency</span></span>
+      </h1>
+      <div class="hero-sign">
+        <div class="sign-tag" aria-label="Redefining the limits of wireless">
+          <span class="tag-row"><span>Redefining</span><span>the</span><span>limits</span></span>
+          <span class="tag-row"><span>of</span><span>wireless</span></span>
+        </div>
+        <img src="images/logo-white.png" alt="Saltenna" />
+        <div class="sign-est">
+          <span class="est-line">Est. 2017</span>
+          <span class="est-line est-future">&rarr; Beyond</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Environment strip -->
+  <div class="env-strip" aria-hidden="true">
+    <div class="env-track">
+      <span>Underwater</span><span>Through Ice</span><span>Through Metal</span><span>Underground</span><span>Dense Vegetation</span><span>Seabeds</span><span>Collapsed Infrastructure</span><span>Lunar Surface</span>
+      <span>Underwater</span><span>Through Ice</span><span>Through Metal</span><span>Underground</span><span>Dense Vegetation</span><span>Seabeds</span><span>Collapsed Infrastructure</span><span>Lunar Surface</span>
+    </div>
+  </div>
+
+  <!-- Problem / solution -->
+  <section class="block dark has-fx">
+    <canvas class="fx-canvas" data-fx="field" aria-hidden="true"></canvas>
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Environments previously thought impossible.</h2>
+        <p>Where current radios, Wi‑Fi, Bluetooth, optical, audio, and other systems fail, Saltenna's Plasmonic waves keep working.</p>
+      </div>
+      <div class="card-grid">
+        <a class="card reveal" href="communications.html#uc-water">
+          <span class="card-go" aria-hidden="true">&rarr;</span>
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M2 12 Q5 8 8 12 T14 12 T20 12"/><path d="M2 17 Q5 13 8 17 T14 17 T20 17"/><path d="M12 3v4"/><circle cx="12" cy="3" r="1"/></svg></div>
+          <h3>Water &amp; Ice</h3>
+          <p>Saltenna is developing high-bandwidth stealthy communications underwater without needing line of sight, and through and along ice sheets to connect above-ice and air assets with those submerged beneath.</p>
+        </a>
+        <a class="card reveal" href="communications.html#uc-metal">
+          <span class="card-go" aria-hidden="true">&rarr;</span>
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 12h6M12 9v6"/></svg></div>
+          <h3>Metal &amp; Solid Obstacles</h3>
+          <p>Rather than being blocked by metal bulkheads, Saltenna's Plasmonics leverage them. Saltenna has demonstrated wireless communications along and through pressurized tanks and pipes without drilling holes or running wires.</p>
+        </a>
+        <a class="card reveal" href="communications.html#uc-metal">
+          <span class="card-go" aria-hidden="true">&rarr;</span>
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M3 20h18"/><path d="M6 20V10l6-6 6 6v10"/><path d="M10 20v-5h4v5"/></svg></div>
+          <h3>Soil, Rock &amp; Infrastructure</h3>
+          <p>Saltenna has demonstrated significantly enhanced range over current wireless technology in solid underground facilities, tunnels, and through multiple levels of parking garages.</p>
+        </a>
+        <a class="card reveal" href="communications.html#uc-beyond">
+          <span class="card-go" aria-hidden="true">&rarr;</span>
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v20"/><path d="M5 9c2-3 5-4 7-4s5 1 7 4"/><path d="M6 15c2-2 4-3 6-3s4 1 6 3"/></svg></div>
+          <h3>Dense Vegetation</h3>
+          <p>Where radios may fail, Saltenna is working on Plasmonics that can carry communications within and through dense jungle canopy to support commercial, military, law enforcement, and intelligence operations.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Two business areas -->
+  <section class="block ink">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Communications and sensing.</h2>
+      </div>
+
+      <div class="split reveal">
+        <div>
+          <h3>Game-changing communications at the edge.</h3>
+          <p>Because Plasmonic waves travel along surfaces, Saltenna can carry communications underwater, under ice, through metal, and along pipelines — across government and commercial sectors alike.</p>
+          <p><a href="communications.html">Explore Communications →</a></p>
+        </div>
+        <div class="split-media graphic">
+          <iframe src="graphics/plasmonic-surface-wave-link.html" title="Interactive 3D: a plasmonic surface-wave link carrying data between two nodes along a conductor" loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <div class="split reverse reveal">
+        <div>
+          <h3>Sensing subtle changes in any environment.</h3>
+          <p>Plasmonics can be used for an array of sensing applications — from detecting the movement of submarines underwater to detecting people through solid sheet metal.</p>
+          <p><a href="sensing.html">Explore Sensing →</a></p>
+        </div>
+        <div class="split-media graphic">
+          <iframe src="graphics/through-metal-link.html" title="Interactive 3D: an ultrasonic data pulse carried through a solid metal bulkhead while radio is blocked at the surface" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full-bleed maritime band -->
+  <section class="image-band">
+    <video class="lazy-video" muted loop playsinline preload="none" poster="images/bands/ocean-band-1.jpg" aria-hidden="true">
+      <source src={`${VIDEO_BASE}/maritime-hero.mp4`} type="video/mp4" />
+    </video>
+    <div class="container reveal">
+      <h2>Built for the maritime edge.</h2>
+      <p>Divers, uncrewed vehicles, surface vessels, and the seabed — Saltenna is developing links for the domain where wireless has never worked before.</p>
+      <a class="btn btn-primary" href="maritime.html">Explore Maritime</a>
+    </div>
+  </section>
+
+  <!-- Trust / credentials -->
+  <section class="block has-fx">
+    <canvas class="fx-canvas" data-fx="field" aria-hidden="true"></canvas>
+    <div class="container">
+      <div class="section-head center reveal">
+        <h2>A dual-use company strategically located in the Washington DC metro area.</h2>
+        <p>Saltenna is leveraging its revolutionary technology to develop highly innovative solutions for a wide array of government and commercial customers.</p>
+      </div>
+      <div class="card-grid">
+        <div class="card reveal">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3>U.S. Department of Defense</h3>
+          <p>Saltenna has performed on multiple contracts and done demonstrations of its technology for the U.S. Department of Defense and commercial customers.</p>
+        </div>
+        <div class="card reveal">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></div>
+          <h3>Patented Technology</h3>
+          <p>Saltenna has multiple patents on its technology and is heavily engaged in further R&amp;D.</p>
+        </div>
+        <div class="card reveal">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14"/><path d="M2 19h20"/><path d="M9 8h6M9 12h6"/></svg></div>
+          <h3>World-Class Team</h3>
+          <p>Led by a founding CTO with 400+ published papers and executives with decades of experience across defense, semiconductors, wireless, and subsea systems.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LinkedIn newsroom -->
+  <section class="block alt has-fx" id="news">
+    <canvas class="fx-canvas" data-fx="field" aria-hidden="true"></canvas>
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>The latest from Saltenna.</h2>
+        <p>Company news and updates, live from our LinkedIn page.</p>
+      </div>
+      <!-- To connect the live feed: create a free "LinkedIn Page Posts" widget at
+           sociablekit.com, sign in with the company LinkedIn page, then put its
+           numeric widget id into the data-embed-id attribute below. main.js
+           renders it in-page (no iframe) so it sizes itself naturally. -->
+      <div class="linkedin-feed reveal" id="linkedin-feed" data-embed-id="25695728" data-posts="data/posts.json">
+        <div class="linkedin-fallback">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="1"/><path d="M7 10v7"/><circle cx="7" cy="7" r="0.5"/><path d="M11 17v-4a2.5 2.5 0 0 1 5 0v4M11 10v1"/></svg>
+          <h3>Follow Saltenna on LinkedIn</h3>
+          <p>Once the company LinkedIn page is connected, our latest posts will appear here automatically.</p>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/company/saltenna/" target="_blank" rel="noopener">Visit Our LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band has-fx">
+    <canvas class="fx-canvas" data-fx="field" aria-hidden="true"></canvas>
+    <div class="container reveal">
+      <h2>Saltenna is evolving fast.</h2>
+      <p>We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.</p>
+      <a class="btn btn-primary" href="contact.html">Contact Us</a>
+    </div>
+  </section>
+</Base>

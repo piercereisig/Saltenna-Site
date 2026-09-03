@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AN/PRC-163 — 3D Viewer</title>
+<style>
+  :root { --bg:#0d1424; --panel:#131c2e; --line:rgba(157,189,209,0.16); --text:#ebf2f8; --muted:#9bb0c2; --accent:#2ec4b6; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; overflow:hidden; background:#0d1424; }
+  body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color:var(--text); }
+  #stage { position:fixed; inset:0; }
+  canvas { display:block; }
+  .hud { position:fixed; z-index:10; pointer-events:none; text-transform:uppercase; letter-spacing:0.18em; font-size:11px; }
+  #hud-title { top:22px; left:26px; }
+  #hud-title .name { color:var(--text); font-weight:600; }
+  #hud-title .sub { color:var(--muted); margin-top:5px; font-size:10px; letter-spacing:0.22em; }
+  #hud-hint { bottom:22px; left:26px; color:var(--muted); font-size:10px; letter-spacing:0.22em; }
+  #hud-hint b { color:var(--accent); font-weight:500; }
+  #controls { position:fixed; top:20px; right:22px; z-index:10; display:flex; gap:8px; }
+  .btn { pointer-events:auto; cursor:pointer; background:color-mix(in srgb, var(--panel) 82%, transparent);
+    border:1px solid var(--line); color:var(--muted); text-transform:uppercase; letter-spacing:0.16em;
+    font-size:10px; padding:9px 14px; border-radius:3px; transition:color .15s, border-color .15s; backdrop-filter:blur(6px); }
+  .btn:hover { color:var(--text); border-color:rgba(157,189,209,0.4); }
+  .btn.active { color:var(--accent); border-color:color-mix(in srgb, var(--accent) 45%, var(--line)); }
+  #tooltip { position:fixed; z-index:30; pointer-events:none; min-width:230px; max-width:290px;
+    background:rgba(19,28,46,0.96); border:1px solid var(--line); border-radius:4px;
+    box-shadow:0 10px 34px rgba(0,0,0,0.5); padding:13px 15px 12px;
+    opacity:0; transform:translateY(4px); transition:opacity .14s ease, transform .14s ease; }
+  #tooltip.show { opacity:1; transform:translateY(0); }
+  #tooltip .t-eyebrow { color:var(--accent); font-size:9px; text-transform:uppercase; letter-spacing:0.24em; margin-bottom:4px; }
+  #tooltip .t-name { color:var(--text); font-size:14px; font-weight:650; margin-bottom:8px; }
+  #tooltip .t-row { display:flex; justify-content:space-between; gap:14px; padding:3.5px 0; border-top:1px solid rgba(157,189,209,0.12); }
+  #tooltip .t-row .k { color:var(--muted); font-size:10.5px; text-transform:uppercase; letter-spacing:0.1em; }
+  #tooltip .t-row .v { color:var(--text); font-size:11.5px; text-align:right; }
+  /* embedded in a card: the page supplies the caption + interaction hint, and
+     full-window HUD text collides at this size — keep just the controls */
+  html.embedded #hud-title, html.embedded #hud-hint { display:none; }
+  html.embedded #controls { top:10px; right:10px; gap:6px; }
+  html.embedded .btn { font-size:9.5px; padding:6px 10px; letter-spacing:0.12em; white-space:nowrap; }
+  /* phone-width embed: drag + scroll still work and auto-rotate is on by
+     default, so the buttons are dropped rather than wrapped */
+  @media (max-width: 340px) { html.embedded #controls { display:none; } }
+  html.embedded #tooltip { min-width:190px; max-width:230px; padding:10px 12px 9px; }
+  html.embedded #tooltip .t-name { font-size:12.5px; }
+  html.embedded #tooltip .t-row .k { font-size:9.5px; }
+  html.embedded #tooltip .t-row .v { font-size:10.5px; }
+</style>
+</head>
+<body>
+<script>try { if (window.frameElement) document.documentElement.classList.add('embedded'); } catch (e) {}</script>
+<div id="stage"></div>
+<div class="hud" id="hud-title">
+  <div class="name">AN/PRC-163</div>
+  <div class="sub">Multi-Channel Handheld · Saltenna Antenna Fit</div>
+</div>
+<div class="hud" id="hud-hint"><b>Drag</b> rotate&nbsp;&nbsp;·&nbsp;&nbsp;<b>Scroll</b> zoom&nbsp;&nbsp;·&nbsp;&nbsp;<b>Hover antenna</b> for specs&nbsp;&nbsp;·&nbsp;&nbsp;<b>Drag antenna</b> to bend</div>
+<div id="controls">
+  <button class="btn active" id="btn-spin">Auto-Rotate</button>
+  <button class="btn" id="btn-reset">Reset View</button>
+</div>
+<div id="tooltip"></div>
+
+<script type="importmap">
+{ "imports": {
+    "three": "../js/vendor/three-0.160/three.module.min.js",
+    "three/addons/": "../js/vendor/three-0.160/addons/" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+// ---------- editable spec text (placeholder — replace freely) ----------
+const SPECS = {
+  antenna: {
+    eyebrow: 'Saltenna · RF',
+    name: 'Plasmonic Sleeve Antenna',
+    rows: [ ['Radio fit','AN/PRC-163 handheld'], ['Technology','Plasmonic surface-wave launch'],
+            ['Connector','SMA, quick-mount'], ['Housing','Sealed cylindrical, marine-rated'],
+            ['Length','250 mm'] ],
+  },
+};
+
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+{
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environmentIntensity = 0.55;
+}
+{
+  const c = document.createElement('canvas'); c.width = c.height = 1024;
+  const g = c.getContext('2d');
+  const grad = g.createRadialGradient(512, 430, 60, 512, 512, 760);
+  grad.addColorStop(0, '#16233a'); grad.addColorStop(0.55, '#101a2c'); grad.addColorStop(1, '#0b1220');
+  g.fillStyle = grad; g.fillRect(0, 0, 1024, 1024);
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+  scene.background = tex;
+}
+
+const camera = new THREE.PerspectiveCamera(38, innerWidth/innerHeight, 0.01, 50);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.dampingFactor = 0.06;
+controls.autoRotate = true; controls.autoRotateSpeed = 0.9;
+controls.minDistance = 0.05; controls.maxDistance = 5.0;
+controls.zoomSpeed = 4.0;
+controls.maxPolarAngle = Math.PI * 0.62;
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0x2a3a52, 0.9));
+const key = new THREE.DirectionalLight(0xffffff, 2.1);
+key.position.set(1.1, 1.3, 0.55);
+key.castShadow = true;
+key.shadow.mapSize.set(1024, 1024);
+key.shadow.camera.left=-0.5; key.shadow.camera.right=0.5; key.shadow.camera.top=0.8; key.shadow.camera.bottom=-0.1;
+key.shadow.bias=-0.00004; key.shadow.normalBias=0.002; key.shadow.radius=3;
+scene.add(key);
+const rim = new THREE.DirectionalLight(0xbfe2f5, 0.8); rim.position.set(-1.0, 0.8, -0.9); scene.add(rim);
+const bounce = new THREE.DirectionalLight(0xffffff, 0.06); bounce.position.set(-0.6, 0.2, 1.0); scene.add(bounce);
+{
+  const ground = new THREE.Mesh(new THREE.CircleGeometry(1.5, 64), new THREE.ShadowMaterial({ opacity: 0.34 }));
+  ground.rotation.x = -Math.PI/2; ground.receiveShadow = true; scene.add(ground);
+  const ring = new THREE.Mesh(new THREE.RingGeometry(0.22, 0.2215, 128),
+    new THREE.MeshBasicMaterial({ color: 0x2ec4b6, transparent: true, opacity: 0.28, side: THREE.DoubleSide }));
+  ring.rotation.x = -Math.PI/2; ring.position.y = 0.0005; scene.add(ring);
+}
+
+// ============================================================
+//  RADIO — AN/PRC-163 proportions (meters), defined detailing
+// ============================================================
+function mottleTexture(base, spot, n=90){
+  const c=document.createElement('canvas'); c.width=c.height=256;
+  const g=c.getContext('2d');
+  g.fillStyle=base; g.fillRect(0,0,256,256);
+  let seed=11; const rnd=()=> (seed=(seed*16807)%2147483647)/2147483647;
+  g.fillStyle=spot; g.globalAlpha=0.10;
+  for(let i=0;i<n;i++){ g.beginPath(); g.ellipse(rnd()*256,rnd()*256,2+rnd()*7,2+rnd()*7,rnd()*3,0,7); g.fill(); }
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace;
+  t.wrapS=t.wrapT=THREE.RepeatWrapping; return t;
+}
+const M = {
+  od:      new THREE.MeshStandardMaterial({ map: mottleTexture('#48513a','#343c2a'), roughness: 0.66 }),
+  odDark:  new THREE.MeshStandardMaterial({ map: mottleTexture('#3c4430','#2c3323'), roughness: 0.72 }),
+  black:   new THREE.MeshStandardMaterial({ color: 0x17191b, roughness: 0.5 }),
+  rubber:  new THREE.MeshStandardMaterial({ color: 0x121315, roughness: 0.82 }),
+  silver:  new THREE.MeshStandardMaterial({ color: 0xb4b8bc, roughness: 0.3, metalness: 0.85 }),
+  steel:   new THREE.MeshStandardMaterial({ color: 0x8e9296, roughness: 0.45, metalness: 0.8 }),
+};
+const radio = new THREE.Group();
+scene.add(radio);
+const rbox = (w,h,d,r,mat)=>new THREE.Mesh(new RoundedBoxGeometry(w,h,d,3,r), mat);
+
+const W=0.076, D=0.044;
+const battH=0.125, bodyH=0.185;
+const topY = battH + bodyH;
+
+// ---- battery pack: ribbed, latched, footed
+const batt = rbox(0.080, battH, 0.052, 0.006, M.odDark);
+batt.position.set(0, battH/2, 0); radio.add(batt);
+for (const ry of [0.026, 0.052, 0.078, 0.104]) {
+  const rib = rbox(0.081, 0.005, 0.0535, 0.002, M.odDark);
+  rib.position.set(0, ry, 0); radio.add(rib);
+}
+for (const sx of [1,-1]) {                     // side latches
+  const latch = rbox(0.006, 0.030, 0.016, 0.002, M.steel);
+  latch.position.set(sx*(0.040+0.0025), battH-0.028, 0.006); radio.add(latch);
+  const lb = rbox(0.0075, 0.010, 0.018, 0.002, M.black);
+  lb.position.set(sx*(0.040+0.003), battH-0.014, 0.006); radio.add(lb);
+}
+for (const fx of [-0.028, 0.028]) {            // bottom feet
+  const foot = rbox(0.018, 0.005, 0.046, 0.002, M.rubber);
+  foot.position.set(fx, 0.0025, 0); radio.add(foot);
+}
+
+// ---- main body + chamfered crown + corner bumpers
+const body = rbox(W, bodyH, D, 0.007, M.od);
+body.position.set(0, battH + bodyH/2, 0); radio.add(body);
+const crown = rbox(W-0.006, 0.016, D-0.006, 0.005, M.odDark);
+crown.position.set(0, topY-0.004, 0); radio.add(crown);
+for (const sx of [1,-1]) for (const sz of [1,-1]) {
+  const bump = rbox(0.010, bodyH-0.02, 0.010, 0.004, M.rubber);
+  bump.position.set(sx*(W/2-0.004), battH+bodyH/2, sz*(D/2-0.004)); radio.add(bump);
+}
+
+// ---- raised front bezel with corner screws
+const bezel = rbox(0.068, 0.150, 0.006, 0.003, M.od);
+bezel.position.set(0, topY-0.096, D/2+0.0012); radio.add(bezel);
+for (const sx of [1,-1]) for (const sy of [1,-1]) {
+  const scr = new THREE.Mesh(new THREE.CylinderGeometry(0.0022,0.0022,0.003,12), M.black);
+  scr.rotation.x = Math.PI/2;
+  scr.position.set(sx*0.029, topY-0.096+sy*0.069, D/2+0.0045); radio.add(scr);
+}
+
+// ---- recessed speaker grille
+const grillePanel = rbox(0.046, 0.020, 0.003, 0.0015, M.odDark);
+grillePanel.position.set(0, topY-0.024, D/2+0.0035); radio.add(grillePanel);
+for (let i=0;i<5;i++){
+  const slot = rbox(0.038, 0.0022, 0.0022, 0.001, M.black);
+  slot.position.set(0, topY-0.017-i*0.0038, D/2+0.0048); radio.add(slot);
+}
+
+// ---- LCD with guard ribs
+function lcdTexture(){
+  const c=document.createElement('canvas'); c.width=224; c.height=160;
+  const g=c.getContext('2d');
+  const bg=g.createLinearGradient(0,0,0,160);
+  bg.addColorStop(0,'#b7bfab'); bg.addColorStop(1,'#a3ab97');
+  g.fillStyle=bg; g.fillRect(0,0,224,160);
+  g.fillStyle='#39402f'; g.fillRect(0,0,224,18);
+  g.fillStyle='#d7dccb'; g.font='10px monospace'; g.fillText('SEC   VULOS   GPS', 10, 13);
+  g.fillStyle='#272c21'; g.font='bold 17px monospace';
+  g.fillText('01-FMVOICE01', 14, 48);
+  g.fillText('LOS  VOC  FM', 14, 76);
+  g.font='12px monospace';
+  g.fillText('TYPE  TRF   MOD', 14, 106);
+  g.fillText('CHAN KEY         2C', 14, 130);
+  g.fillStyle='rgba(0,0,0,0.12)'; g.fillRect(0,150,224,10);
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t;
+}
+const lcdFrame = rbox(0.060, 0.050, 0.005, 0.002, M.black);
+lcdFrame.position.set(0, topY-0.062, D/2+0.004); radio.add(lcdFrame);
+const lcd = new THREE.Mesh(new THREE.PlaneGeometry(0.053, 0.041),
+  new THREE.MeshStandardMaterial({ map: lcdTexture(), roughness: 0.25 }));
+lcd.position.set(0, topY-0.062, D/2+0.0068); radio.add(lcd);
+for (const sx of [1,-1]) {                     // guard ribs flanking the screen
+  const guard = rbox(0.004, 0.056, 0.007, 0.002, M.od);
+  guard.position.set(sx*0.0335, topY-0.062, D/2+0.004); radio.add(guard);
+}
+
+// ---- keypad: individual 3D keys + label overlay
+const kpBase = rbox(0.060, 0.062, 0.004, 0.002, M.black);
+kpBase.position.set(0, topY-0.130, D/2+0.0035); radio.add(kpBase);
+const KP_LABELS=[['1','2','3','CLR'],['4','5','6','ENT'],['7','8','9','+'],['0','<','>','PRE']];
+for(let r=0;r<4;r++) for(let col=0;col<4;col++){
+  const kx=-0.0205+col*0.0137, ky=topY-0.110-r*0.0135;
+  const keycap = rbox(0.0115, 0.0105, 0.004, 0.0018, M.rubber);
+  keycap.position.set(kx, ky, D/2+0.0062); radio.add(keycap);
+}
+function keyLabelTexture(){
+  const c=document.createElement('canvas'); c.width=256; c.height=256;
+  const g=c.getContext('2d');
+  g.clearRect(0,0,256,256);
+  g.fillStyle='#d3d6da'; g.textAlign='center'; g.font='bold 22px sans-serif';
+  for(let r=0;r<4;r++) for(let col=0;col<4;col++)
+    g.fillText(KP_LABELS[r][col], 34+col*63, 40+r*62);
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t;
+}
+const kpLabels = new THREE.Mesh(new THREE.PlaneGeometry(0.058, 0.058),
+  new THREE.MeshBasicMaterial({ map: keyLabelTexture(), transparent: true }));
+kpLabels.position.set(0, topY-0.1305, D/2+0.0085); radio.add(kpLabels);
+
+// ---- side hardware: vented rail + ribbed PTT + lanyard loop
+const rail = rbox(0.006, 0.115, 0.024, 0.002, M.silver);
+rail.position.set(W/2+0.002, battH+0.105, 0); radio.add(rail);
+const gold = new THREE.MeshStandardMaterial({ color: 0xd4af37, roughness: 0.22, metalness: 0.92 });
+for (let i=0;i<6;i++){
+  // flush gold contact pads: paper-thin discs sitting on the rail face
+  const pad = new THREE.Mesh(new THREE.CylinderGeometry(0.0026,0.0026,0.0008,16), gold);
+  pad.rotation.z = Math.PI/2;
+  pad.position.set(W/2+0.0054, battH+0.058+i*0.019, 0); radio.add(pad);
+}
+const ptt = rbox(0.009, 0.048, 0.021, 0.003, M.rubber);
+ptt.position.set(-W/2-0.0035, battH+0.115, 0); radio.add(ptt);
+for (let i=0;i<4;i++){
+  const prib = rbox(0.010, 0.0022, 0.018, 0.001, M.black);
+  prib.position.set(-W/2-0.004, battH+0.100+i*0.010, 0); radio.add(prib);
+}
+const loop = new THREE.Mesh(new THREE.TorusGeometry(0.006, 0.0016, 8, 20), M.black);
+loop.rotation.y = Math.PI/2;
+loop.position.set(-W/2-0.002, battH+0.045, -0.010); radio.add(loop);
+
+// ---- top deck: knurled knobs with pointers, connector towers
+function knob(x,z,r,hgt){
+  const g2=new THREE.Group();
+  const base=new THREE.Mesh(new THREE.CylinderGeometry(r+0.0015,r+0.0015,0.004,20), M.odDark);
+  base.position.set(x,topY+0.002,z); g2.add(base);
+  const k=new THREE.Mesh(new THREE.CylinderGeometry(r,r,hgt,24), M.rubber);
+  k.position.set(x,topY+0.004+hgt/2,z); g2.add(k);
+  for(let i=0;i<12;i++){                         // knurling
+    const a=i/12*Math.PI*2;
+    const kn=rbox(0.0016, hgt*0.9, 0.0016, 0.0006, M.black);
+    kn.position.set(x+Math.cos(a)*r, topY+0.004+hgt/2, z+Math.sin(a)*r);
+    kn.rotation.y=-a; g2.add(kn);
+  }
+  const cap=new THREE.Mesh(new THREE.CylinderGeometry(r*0.5,r*0.5,hgt+0.002,16), M.black);
+  cap.position.set(x,topY+0.005+hgt/2,z); g2.add(cap);
+  const ptr=rbox(0.0018, 0.0022, r*0.9, 0.0006, M.silver);
+  ptr.position.set(x, topY+0.006+hgt, z-r*0.2); g2.add(ptr);
+  return g2;
+}
+radio.add(knob(-0.026, -0.009, 0.0085, 0.013));
+radio.add(knob( 0.024, -0.009, 0.0075, 0.016));
+function connector(x,z){
+  const g3=new THREE.Group();
+  const boss=new THREE.Mesh(new THREE.CylinderGeometry(0.0088,0.0098,0.008,20), M.odDark);
+  boss.position.set(x,topY+0.004,z); g3.add(boss);
+  const base=new THREE.Mesh(new THREE.CylinderGeometry(0.0066,0.0066,0.014,18), M.silver);
+  base.position.set(x,topY+0.013,z); g3.add(base);
+  const knurl=new THREE.Mesh(new THREE.CylinderGeometry(0.0076,0.0076,0.005,24), M.steel);
+  knurl.position.set(x,topY+0.018,z); g3.add(knurl);
+  const pin=new THREE.Mesh(new THREE.CylinderGeometry(0.0018,0.0018,0.004,10), M.steel);
+  pin.position.set(x,topY+0.022,z); g3.add(pin);
+  return g3;
+}
+radio.add(connector(-0.030, 0.010));
+radio.add(connector( 0.031, 0.010));
+
+// ============================================================
+//  SALTENNA ANTENNA (hoverable) — long black sleeve on the center RF port
+// ============================================================
+const ant = new THREE.Group();
+const antX = 0.001, antZ = 0.010;
+// green mounting boss belongs to the radio, not the antenna product (no highlight)
+const boss2 = new THREE.Mesh(new THREE.CylinderGeometry(0.0086,0.0096,0.008,20), M.odDark);
+boss2.position.set(antX, topY+0.004, antZ); radio.add(boss2);
+const sma = new THREE.Mesh(new THREE.CylinderGeometry(0.0045,0.0045,0.018,14), M.silver);
+sma.position.set(antX, topY+0.011, antZ); ant.add(sma);
+const nut = new THREE.Mesh(new THREE.CylinderGeometry(0.0062,0.0062,0.006,6), M.steel);
+nut.position.set(antX, topY+0.014, antZ); ant.add(nut);
+// ---- interactive gooseneck: click + drag the antenna to bend it ----
+const gnLen = 0.075, gnY0 = topY + 0.017;
+const gnBase = new THREE.Vector3(antX, gnY0, antZ);
+const coilMat = new THREE.MeshStandardMaterial({ color: 0x1a1c1f, roughness: 0.45 });
+const gnCore = new THREE.Mesh(new THREE.BufferGeometry(), M.rubber); ant.add(gnCore);
+const gnCoil = new THREE.Mesh(new THREE.BufferGeometry(), coilMat); ant.add(gnCoil);
+const ferBot = new THREE.Mesh(new THREE.CylinderGeometry(0.0102,0.0102,0.006,20), M.black); ant.add(ferBot);
+const ferTop = new THREE.Mesh(new THREE.CylinderGeometry(0.0102,0.0102,0.006,20), M.black); ant.add(ferTop);
+const sleeveG = new THREE.Group(); ant.add(sleeveG);
+const knurlA = new THREE.Mesh(new THREE.CylinderGeometry(0.0135,0.0135,0.010,28), M.black);
+knurlA.position.set(0, 0.007, 0); sleeveG.add(knurlA);
+const tubeLen = 0.25;
+const tubeMat = new THREE.MeshStandardMaterial({ color: 0x17181b, roughness: 0.55 });
+const tube = new THREE.Mesh(new THREE.CylinderGeometry(0.0125, 0.0125, tubeLen, 28), tubeMat);
+tube.position.set(0, 0.013 + tubeLen/2, 0); sleeveG.add(tube);
+for (const sy of [0.06, 0.125]) {
+  const seam = new THREE.Mesh(new THREE.TorusGeometry(0.0126, 0.0006, 6, 28), tubeMat);
+  seam.rotation.x = Math.PI/2;
+  seam.position.set(0, 0.013 + sy, 0); sleeveG.add(seam);
+}
+const tip = new THREE.Mesh(new THREE.SphereGeometry(0.0125, 20, 12), tubeMat);
+tip.scale.y = 0.5; tip.position.set(0, 0.013 + tubeLen, 0); sleeveG.add(tip);
+const clip = rbox(0.006, 0.045, 0.004, 0.0015, M.black);
+clip.position.set(-0.0125, 0.057, 0); sleeveG.add(clip);
+
+const yAxisGN = new THREE.Vector3(0,1,0);
+function gnPoint(theta, phi, t){
+  // constant-curvature arc: realistic gooseneck bend, no kinks
+  if (theta < 1e-4) return new THREE.Vector3(gnBase.x, gnBase.y + gnLen*t, gnBase.z);
+  const R = gnLen/theta, a = theta*t;
+  const lx = R*(1-Math.cos(a)), ly = R*Math.sin(a);
+  return new THREE.Vector3(gnBase.x + Math.cos(phi)*lx, gnBase.y + ly, gnBase.z + Math.sin(phi)*lx);
+}
+function gnTangent(theta, phi, t){
+  const a = theta*t;
+  return new THREE.Vector3(Math.sin(a)*Math.cos(phi), Math.cos(a), Math.sin(a)*Math.sin(phi)).normalize();
+}
+function rebuildGooseneck(theta, phi){
+  const pts = [];
+  for (let i=0;i<=24;i++) pts.push(gnPoint(theta, phi, i/24));
+  const old1 = gnCore.geometry;
+  gnCore.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 32, 0.0072, 14, false);
+  old1.dispose();
+  const turns = 19, N = turns*20;
+  const n1 = new THREE.Vector3(-Math.sin(phi), 0, Math.cos(phi));   // constant bend-plane normal
+  const cpts = [];
+  for (let i=0;i<=N;i++){
+    const t = i/N;
+    const c = gnPoint(theta, phi, t);
+    const T = gnTangent(theta, phi, t);
+    const n2 = new THREE.Vector3().crossVectors(T, n1).normalize();
+    const a = t*turns*Math.PI*2;
+    cpts.push(c.addScaledVector(n1, 0.0076*Math.cos(a)).addScaledVector(n2, 0.0076*Math.sin(a)));
+  }
+  const old2 = gnCoil.geometry;
+  gnCoil.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(cpts), N, 0.0019, 7, false);
+  old2.dispose();
+  ferBot.position.copy(gnPoint(theta, phi, 0.01));
+  ferBot.quaternion.setFromUnitVectors(yAxisGN, gnTangent(theta, phi, 0.01));
+  ferTop.position.copy(gnPoint(theta, phi, 0.99));
+  ferTop.quaternion.setFromUnitVectors(yAxisGN, gnTangent(theta, phi, 0.99));
+  sleeveG.position.copy(gnPoint(theta, phi, 1));
+  sleeveG.quaternion.setFromUnitVectors(yAxisGN, gnTangent(theta, phi, 1));
+  gnCore.userData.productId='antenna'; gnCoil.userData.productId='antenna';
+}
+// bend state as a 2D lean vector: magnitude = angle, direction = azimuth
+const bendVec = new THREE.Vector2(-0.35, -0.10);   // starts with the gentle factory bend
+const MAX_BEND = 1.92;                              // ~110 degrees
+function applyBend(){
+  let theta = bendVec.length();
+  if (theta > MAX_BEND){ bendVec.multiplyScalar(MAX_BEND/theta); theta = MAX_BEND; }
+  rebuildGooseneck(theta, Math.atan2(bendVec.y, bendVec.x));
+}
+applyBend();
+window.ANTENNA = { setBend(deg, azimuthDeg){    // programmatic access, e.g. ANTENNA.setBend(45, 0)
+  const th = Math.min(MAX_BEND, deg*Math.PI/180), ph = azimuthDeg*Math.PI/180;
+  bendVec.set(Math.cos(ph)*th, Math.sin(ph)*th); applyBend();
+}};
+ant.traverse(o=>{ if(o.isMesh){ o.userData.productId='antenna'; o.material=o.material.clone(); }});
+ant.userData.productId='antenna';
+radio.add(ant);
+
+radio.traverse(o => { if (o.isMesh) o.castShadow = true; });
+
+// ============================================================
+//  HOVER / TOOLTIP
+// ============================================================
+const tooltipEl = document.getElementById('tooltip');
+const raycaster = new THREE.Raycaster();
+const pointerNDC = new THREE.Vector2();
+let hovered = null;
+const savedEmissive = new Map();
+function setHighlight(group, on){
+  group.traverse(o=>{
+    if(!o.isMesh || !o.material.emissive) return;
+    if(on){
+      if(!savedEmissive.has(o)) savedEmissive.set(o, o.material.emissive.getHex());
+      o.material.emissive.setHex(0x2ec4b6); o.material.emissiveIntensity = 0.22;
+    } else {
+      o.material.emissive.setHex(savedEmissive.get(o) ?? 0); o.material.emissiveIntensity = 1;
+    }
+  });
+}
+function showTooltip(id,x,y){
+  const s=SPECS[id]; if(!s) return;
+  tooltipEl.innerHTML = `<div class="t-eyebrow">${s.eyebrow}</div><div class="t-name">${s.name}</div>` +
+    s.rows.map(r=>`<div class="t-row"><span class="k">${r[0]}</span><span class="v">${r[1]}</span></div>`).join('');
+  moveTooltip(x,y); tooltipEl.classList.add('show');
+}
+function moveTooltip(x,y){
+  const pad=16, r=tooltipEl.getBoundingClientRect();
+  let tx=x+pad, ty=y+pad;
+  if(tx+r.width>innerWidth-8) tx=x-r.width-pad;
+  if(ty+r.height>innerHeight-8) ty=y-r.height-pad;
+  tooltipEl.style.left=tx+'px'; tooltipEl.style.top=ty+'px';
+}
+let bending = false, lastPX = 0, lastPY = 0;
+renderer.domElement.addEventListener('pointerdown',(ev)=>{
+  pointerNDC.set((ev.clientX/innerWidth)*2-1, -(ev.clientY/innerHeight)*2+1);
+  raycaster.setFromCamera(pointerNDC, camera);
+  if (raycaster.intersectObjects([ant], true).length){
+    bending = true; lastPX = ev.clientX; lastPY = ev.clientY;
+    controls.enabled = false;
+    renderer.domElement.setPointerCapture(ev.pointerId);
+    renderer.domElement.style.cursor = 'grabbing';
+    tooltipEl.classList.remove('show');
+  }
+});
+renderer.domElement.addEventListener('pointerup',(ev)=>{
+  if (bending){
+    bending = false; controls.enabled = true;
+    renderer.domElement.releasePointerCapture(ev.pointerId);
+    renderer.domElement.style.cursor = hovered ? 'pointer' : '';
+  }
+});
+renderer.domElement.addEventListener('pointermove',(ev)=>{
+  if (bending){
+    const dx = ev.clientX - lastPX, dy = ev.clientY - lastPY;
+    lastPX = ev.clientX; lastPY = ev.clientY;
+    // map screen drag into the horizontal plane: right = camera-right, up-screen = away from camera
+    const camDir = new THREE.Vector3(); camera.getWorldDirection(camDir);
+    const fwd = new THREE.Vector2(camDir.x, camDir.z).normalize();
+    const right = new THREE.Vector2(-fwd.y, fwd.x);
+    // stiffer feel: lower base gain, and progressive resistance the further it's bent
+    const stiff = 0.0028 * (1 - 0.6 * (bendVec.length() / MAX_BEND));
+    bendVec.addScaledVector(right, dx*stiff).addScaledVector(fwd, dy*-stiff);
+    applyBend();
+    return;
+  }
+  pointerNDC.set((ev.clientX/innerWidth)*2-1, -(ev.clientY/innerHeight)*2+1);
+  raycaster.setFromCamera(pointerNDC, camera);
+  const hits = raycaster.intersectObjects([ant], true);
+  const hit = hits.length ? ant : null;
+  if (hit !== hovered){
+    if (hovered) setHighlight(hovered,false);
+    hovered = hit;
+    if (hovered){ setHighlight(hovered,true); showTooltip('antenna', ev.clientX, ev.clientY); }
+    else tooltipEl.classList.remove('show');
+    renderer.domElement.style.cursor = hovered ? 'pointer' : '';
+  } else if (hovered) moveTooltip(ev.clientX, ev.clientY);
+});
+renderer.domElement.addEventListener('pointerleave', ()=>{
+  if (hovered) setHighlight(hovered,false);
+  hovered=null; tooltipEl.classList.remove('show');
+});
+
+// ============================================================
+//  UI / FRAME
+// ============================================================
+function frame(){
+  // pivot on the antenna base at the top deck
+  controls.target.set(0.001, 0.325, 0.010);
+  camera.position.set(0.36, 0.50, 0.95);
+  controls.update();
+}
+const btnSpin=document.getElementById('btn-spin');
+btnSpin.addEventListener('click',()=>{ controls.autoRotate=!controls.autoRotate; btnSpin.classList.toggle('active',controls.autoRotate); });
+document.getElementById('btn-reset').addEventListener('click', frame);
+let idleTimer=null;
+controls.addEventListener('start',()=>{ if(btnSpin.classList.contains('active')){ controls.autoRotate=false; clearTimeout(idleTimer);} });
+controls.addEventListener('end',()=>{ if(btnSpin.classList.contains('active')){ idleTimer=setTimeout(()=>{controls.autoRotate=true;},2500);} });
+if (matchMedia('(prefers-reduced-motion: reduce)').matches){ controls.autoRotate=false; btnSpin.classList.remove('active'); }
+addEventListener('resize',()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
+const renderFrame = ()=>{ controls.update(); renderer.render(scene,camera); };
+let looping = false;
+function startLoop(){ if(!looping){ looping = true; renderer.setAnimationLoop(renderFrame); } }
+function stopLoop(){ if(looping){ looping = false; renderer.setAnimationLoop(null); } }
+startLoop();
+try {
+  const frameEl = window.frameElement;                  // null unless embedded
+  const ParentIO = frameEl && window.parent.IntersectionObserver;
+  if (ParentIO) {
+    // observed in the parent realm, so this tracks the PARENT viewport
+    new ParentIO((entries)=>{ entries[0].isIntersecting ? startLoop() : stopLoop(); },
+      { rootMargin: '250px' }).observe(frameEl);
+  }
+} catch (e) { /* cross-origin or unsupported: just keep rendering */ }
+frame();
+</script>
+</body>
+</html>

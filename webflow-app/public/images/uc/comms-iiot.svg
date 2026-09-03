@@ -1,0 +1,147 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Industrial IoT communications: a sensor sealed inside a pressurized tank linking through the metal shell to an external gateway, no drilled holes</title>
+  <style>
+    .l-flow { stroke-dasharray: 5 8; animation: flow 5.5s linear infinite; }
+    @keyframes flow { to { stroke-dashoffset: -156; } }
+    .dot-b { animation: blink 3.2s ease-in-out infinite; }
+    .dot-b2 { animation: blink 2.5s ease-in-out infinite 0.8s; }
+    @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+    .glow-x { animation: blink 4.5s ease-in-out infinite 1.4s; }
+    .wave-poly { animation: wv 2.8s linear infinite; }
+    @keyframes wv { from { transform: translateX(0); } to { transform: translateX(-24px); } }
+    .steam { animation: steam 9s ease-in-out infinite; opacity: 0; }
+    @keyframes steam { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 0.16; } 100% { transform: translateY(-16px); opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c141f"/><stop offset="0.5" stop-color="#0e1621"/><stop offset="1" stop-color="#121c28"/>
+    </linearGradient>
+    <radialGradient id="vg" cx="0.5" cy="0.42" r="0.8">
+      <stop offset="0.55" stop-color="#0a121d" stop-opacity="0"/><stop offset="1" stop-color="#0a121d" stop-opacity="0.5"/>
+    </radialGradient>
+    <symbol id="plus" viewBox="0 0 8 8"><path d="M4 0v8M0 4h8" stroke="#eef2f6" stroke-width="1" fill="none"/></symbol>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <g fill="none" stroke="#eef2f6" stroke-width="1">
+    <path d="M-20 80 C 180 66 380 92 580 78 S 770 62 820 72" opacity="0.035"/>
+    <path d="M-20 150 C 190 138 390 160 590 148 S 775 134 820 142" opacity="0.04"/>
+    <path d="M-20 225 C 180 212 380 236 580 222 S 770 208 820 216" opacity="0.035"/>
+    <path d="M120 -20 C 104 140 124 300 100 470" opacity="0.03"/>
+    <path d="M330 -20 C 315 150 336 310 316 470" opacity="0.035"/>
+    <path d="M560 -20 C 546 140 566 300 548 470" opacity="0.03"/>
+    <path d="M720 -20 C 708 150 726 310 712 470" opacity="0.03"/>
+    <path d="M-20 262 C 200 250 400 270 600 258 S 780 246 820 254" opacity="0.03"/>
+    <path d="M220 -20 C 206 140 224 300 204 470" opacity="0.025"/>
+    <path d="M460 -20 C 448 150 464 310 448 470" opacity="0.025"/>
+  </g>
+  <ellipse cx="300" cy="330" rx="210" ry="60" fill="#eef2f6" opacity="0.022"/>
+  <ellipse cx="620" cy="300" rx="140" ry="46" fill="#eef2f6" opacity="0.02"/>
+  <use href="#plus" x="80" y="90" width="8" height="8" opacity="0.11"/>
+  <use href="#plus" x="700" y="120" width="7" height="7" opacity="0.1"/>
+  <use href="#plus" x="420" y="70" width="7" height="7" opacity="0.09"/>
+  <use href="#plus" x="180" y="160" width="7" height="7" opacity="0.09"/>
+  <circle cx="260" cy="110" r="1" fill="#eef2f6" opacity="0.1"/>
+  <circle cx="540" cy="140" r="1" fill="#eef2f6" opacity="0.09"/>
+  <circle cx="660" cy="80" r="1.2" fill="#eef2f6" opacity="0.1"/>
+  <circle cx="80" cy="230" r="1" fill="#eef2f6" opacity="0.08"/>
+  <use href="#plus" x="620" y="230" width="7" height="7" opacity="0.09"/>
+  <use href="#plus" x="300" y="200" width="7" height="7" opacity="0.08"/>
+  <circle cx="380" cy="130" r="1" fill="#eef2f6" opacity="0.09"/>
+  <circle cx="180" cy="80" r="1" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="740" cy="300" r="1" fill="#eef2f6" opacity="0.08"/>
+
+  <line x1="-20" y1="392" x2="820" y2="392" stroke="#6b7885" stroke-width="1" opacity="0.35"/>
+
+  <g>
+    <ellipse cx="300" cy="404" rx="180" ry="9" fill="#1a2733" opacity="0.6"/>
+    <path d="M150 300 L450 300 A 46 46 0 0 1 450 392 L150 392 A 46 46 0 0 1 150 300 Z" fill="#232f3d"/>
+    <path d="M150 300 L450 300 A 46 46 0 0 1 450 392 L150 392 A 46 46 0 0 1 150 300 Z" fill="none" stroke="#6b7885" stroke-width="1.2"/>
+    <path d="M160 306 L440 306" stroke="#4a5560" stroke-width="1" opacity="0.7"/>
+    <line x1="215" y1="300" x2="215" y2="392" stroke="#4a5560" stroke-width="1" opacity="0.8"/>
+    <line x1="300" y1="300" x2="300" y2="392" stroke="#4a5560" stroke-width="1" opacity="0.8"/>
+    <line x1="385" y1="300" x2="385" y2="392" stroke="#4a5560" stroke-width="1" opacity="0.8"/>
+    <circle cx="215" cy="312" r="1" fill="#6b7885"/><circle cx="215" cy="380" r="1" fill="#6b7885"/>
+    <circle cx="300" cy="312" r="1" fill="#6b7885"/><circle cx="300" cy="380" r="1" fill="#6b7885"/>
+    <circle cx="385" cy="312" r="1" fill="#6b7885"/><circle cx="385" cy="380" r="1" fill="#6b7885"/>
+    <rect x="238" y="284" width="14" height="16" fill="#4a5560"/>
+    <rect x="233" y="280" width="24" height="6" rx="2" fill="#6b7885"/>
+    <ellipse cx="245" cy="276" rx="4" ry="2" fill="#8fa3b8" class="steam"/>
+    <path d="M170 392 L162 412 L196 412 L188 392 Z" fill="#1a2733"/>
+    <path d="M412 392 L404 412 L438 412 L430 392 Z" fill="#1a2733"/>
+    <line x1="452" y1="316" x2="452" y2="392" stroke="#6b7885" stroke-width="1"/>
+    <line x1="452" y1="326" x2="446" y2="326" stroke="#6b7885" stroke-width="1"/>
+    <line x1="452" y1="346" x2="446" y2="346" stroke="#6b7885" stroke-width="1"/>
+    <line x1="452" y1="366" x2="446" y2="366" stroke="#6b7885" stroke-width="1"/>
+  </g>
+
+  <g>
+    <circle cx="258" cy="346" r="26" fill="none" stroke="#8fa3b8" stroke-width="1" stroke-dasharray="3 4" opacity="0.55"/>
+    <rect x="250" y="340" width="16" height="10" fill="#6b7885"/>
+    <rect x="253" y="336" width="10" height="4" fill="#4a5560"/>
+    <circle cx="258" cy="332" r="2.4" fill="#6aa9e9" class="dot-b"/>
+  </g>
+  <rect x="222" y="310" width="72" height="66" rx="6" fill="none" stroke="#6aa9e9" stroke-width="1.3" opacity="0.7"/>
+  <circle cx="294" cy="310" r="7" fill="#6aa9e9"/>
+  <path d="M290.5 310 L293 312.5 L297.5 307.5" stroke="#0e1621" stroke-width="1.6" fill="none"/>
+
+  <path class="l-flow" d="M262 330 C 300 312 360 300 404 296 C 452 292 486 296 510 306" fill="none" stroke="#6aa9e9" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="450" cy="298" r="6" fill="#6aa9e9" opacity="0.12" class="glow-x"/>
+
+  <g>
+    <ellipse cx="524" cy="336" rx="20" ry="4" fill="#1a2733" opacity="0.6"/>
+    <rect x="508" y="306" width="32" height="26" rx="2" fill="#3a4a44"/>
+    <rect x="513" y="312" width="10" height="6" fill="#8fa3b8" opacity="0.5"/>
+    <line x1="524" y1="296" x2="524" y2="306" stroke="#d7dee6" stroke-width="1.2"/>
+    <circle cx="524" cy="293" r="2.4" fill="#58c184" class="dot-b2"/>
+  </g>
+
+  <g stroke="#6b7885" stroke-width="1" fill="none">
+    <path d="M540 322 L648 322"/>
+    <path d="M540 328 L648 328"/>
+    <ellipse cx="576" cy="325" rx="3" ry="6"/>
+    <ellipse cx="620" cy="325" rx="3" ry="6"/>
+  </g>
+  <g>
+    <ellipse cx="680" cy="398" rx="36" ry="6" fill="#1a2733" opacity="0.6"/>
+    <path d="M652 322 L708 322 L708 392 L652 392 Z" fill="#232f3d"/>
+    <path d="M652 322 A 28 12 0 0 1 708 322" fill="#232f3d" stroke="#6b7885" stroke-width="1"/>
+    <path d="M652 322 L708 322 L708 392 L652 392 Z" fill="none" stroke="#6b7885" stroke-width="1"/>
+    <line x1="652" y1="352" x2="708" y2="352" stroke="#4a5560" stroke-width="1" opacity="0.8"/>
+    <line x1="652" y1="374" x2="708" y2="374" stroke="#4a5560" stroke-width="1" opacity="0.8"/>
+  </g>
+  <g>
+    <rect x="86" y="352" width="46" height="40" fill="#1a2733" stroke="#4a5560" stroke-width="1"/>
+    <rect x="94" y="362" width="12" height="8" fill="#8fa3b8" opacity="0.35"/>
+    <rect x="112" y="362" width="12" height="8" fill="#8fa3b8" opacity="0.25"/>
+    <line x1="109" y1="332" x2="109" y2="352" stroke="#d7dee6" stroke-width="1.2"/>
+    <circle cx="109" cy="329" r="2.2" fill="#6aa9e9" class="dot-b2"/>
+  </g>
+
+  <text x="500" y="270" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="2" fill="#6aa9e9" opacity="0.9">THROUGH-METAL LINK</text>
+  <g>
+    <line x1="150" y1="256" x2="172" y2="256" stroke="#5b6b7a" stroke-width="1"/>
+    <text x="180" y="260" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" letter-spacing="2.5" fill="#8fa3b8">PRESSURIZED TANK</text>
+  </g>
+  <g>
+    <line x1="560" y1="420" x2="582" y2="420" stroke="#5b6b7a" stroke-width="1"/>
+    <text x="590" y="424" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" letter-spacing="2.5" fill="#8fa3b8">NO DRILLED HOLES</text>
+  </g>
+
+  <line x1="330" y1="196" x2="288" y2="306" stroke="#6aa9e9" stroke-width="1" opacity="0.4"/>
+  <g>
+    <rect x="330" y="138" width="176" height="58" rx="4" fill="#0e1621" opacity="0.92"/>
+    <rect x="330" y="138" width="176" height="58" rx="4" fill="none" stroke="#6aa9e9" stroke-width="1" opacity="0.55"/>
+    <circle cx="342" cy="150" r="2.4" fill="#58c184" class="dot-b"/>
+    <text x="350" y="154" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="1.5" fill="#d7dee6">TANK NODE 02</text>
+    <text x="470" y="154" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#6aa9e9">LIVE</text>
+    <clipPath id="wvclip"><rect x="340" y="160" width="156" height="14"/></clipPath>
+    <g clip-path="url(#wvclip)">
+      <polyline class="wave-poly" fill="none" stroke="#6aa9e9" stroke-width="1.1" opacity="0.85" points="316,167 321,167 324,162 327,172 330,164 333,171 336,166 338,167 340,167 345,167 348,162 351,172 354,164 357,171 360,166 362,167 364,167 369,167 372,162 375,172 378,164 381,171 384,166 386,167 388,167 393,167 396,162 399,172 402,164 405,171 408,166 410,167 412,167 417,167 420,162 423,172 426,164 429,171 432,166 434,167 436,167 441,167 444,162 447,172 450,164 453,171 456,166 458,167 460,167 465,167 468,162 471,172 474,164 477,171 480,166 482,167 484,167 489,167 492,162 495,172 498,164 501,171 504,166 506,167 508,167 513,167 516,162 519,172 522,164 525,171 528,166 530,167"/>
+    </g>
+    <text x="340" y="188" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#5b6b7a">PSI 180 · SNR 28 DB</text>
+  </g>
+
+  <rect width="800" height="450" fill="url(#vg)"/>
+</svg>

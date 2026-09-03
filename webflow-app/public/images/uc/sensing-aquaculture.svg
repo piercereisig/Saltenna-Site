@@ -1,0 +1,140 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Aquaculture sensing: a fish pen with drifting fish, an integrity pulse traveling the net, kelp on the seabed, and a monitoring buoy at the float line</title>
+  <style>
+    .l-flow { stroke-dasharray: 4 10; animation: flow 7s linear infinite; }
+    @keyframes flow { to { stroke-dashoffset: -154; } }
+    .dot-b { animation: blink 3.2s ease-in-out infinite; }
+    .dot-b2 { animation: blink 2.6s ease-in-out infinite 0.9s; }
+    @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+    .f1 { animation: swim1 16s ease-in-out infinite alternate; }
+    @keyframes swim1 { from { transform: translate(0,0); } to { transform: translate(56px, 10px); } }
+    .f2 { animation: swim2 13s ease-in-out infinite alternate; }
+    @keyframes swim2 { from { transform: translate(0,0); } to { transform: translate(-44px, -8px); } }
+    .f3 { animation: swim3 19s ease-in-out infinite alternate; }
+    @keyframes swim3 { from { transform: translate(0,0); } to { transform: translate(38px, -14px); } }
+    .kelp { animation: sway 8s ease-in-out infinite alternate; transform-origin: bottom center; }
+    .kelp.k2 { animation-duration: 10s; }
+    @keyframes sway { from { transform: rotate(-3.5deg); } to { transform: rotate(3.5deg); } }
+    .wave-poly { animation: wv 2.8s linear infinite; }
+    @keyframes wv { from { transform: translateX(0); } to { transform: translateX(-24px); } }
+    .snow { animation: snow 12s linear infinite; opacity: 0; }
+    .snow.s2 { animation-delay: 4s; }
+    .snow.s3 { animation-delay: 8s; }
+    @keyframes snow { 0% { transform: translateY(-8px); opacity: 0; } 15% { opacity: 0.14; } 100% { transform: translateY(60px); opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c141f"/><stop offset="0.5" stop-color="#0e1621"/><stop offset="1" stop-color="#121c28"/>
+    </linearGradient>
+    <radialGradient id="vg" cx="0.5" cy="0.45" r="0.8">
+      <stop offset="0.55" stop-color="#0a121d" stop-opacity="0"/><stop offset="1" stop-color="#0a121d" stop-opacity="0.5"/>
+    </radialGradient>
+    <symbol id="fish" viewBox="0 0 14 6">
+      <ellipse cx="6" cy="3" rx="5.4" ry="2.4" fill="#8b978f"/><polygon points="11,3 14,1 14,5" fill="#6b7885"/>
+    </symbol>
+    <symbol id="rock" viewBox="0 0 16 10"><path d="M2 10 L5 3 L9 5 L12 2 L15 10 Z" fill="#1a2733"/><path d="M5 3 L9 5 L8 10 L2 10 Z" fill="#232f3d"/></symbol>
+    <symbol id="plus" viewBox="0 0 8 8"><path d="M4 0v8M0 4h8" stroke="#eef2f6" stroke-width="1" fill="none"/></symbol>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <g fill="none" stroke="#eef2f6" stroke-width="1">
+    <path d="M-20 130 C 180 118 380 140 580 128 S 775 114 820 122" opacity="0.035"/>
+    <path d="M-20 210 C 190 198 390 220 590 208 S 775 194 820 202" opacity="0.04"/>
+    <path d="M-20 296 C 180 284 380 306 580 294 S 770 280 820 288" opacity="0.035"/>
+    <path d="M170 -20 C 156 140 174 300 152 470" opacity="0.025"/>
+    <path d="M660 -20 C 648 150 664 310 650 470" opacity="0.025"/>
+    <path d="M-20 170 C 190 160 400 174 610 164 S 790 154 820 160" opacity="0.03"/>
+    <path d="M-20 340 C 200 330 410 344 620 334 S 792 324 820 330" opacity="0.028"/>
+    <path d="M420 -20 C 410 150 422 310 410 470" opacity="0.02"/>
+    <path d="M540 -20 C 532 150 542 310 532 470" opacity="0.02"/>
+  </g>
+  <ellipse cx="300" cy="260" rx="200" ry="60" fill="#eef2f6" opacity="0.02"/>
+  <ellipse cx="620" cy="330" rx="130" ry="44" fill="#eef2f6" opacity="0.018"/>
+  <use href="#plus" x="100" y="160" width="7" height="7" opacity="0.1"/>
+  <use href="#plus" x="700" y="140" width="7" height="7" opacity="0.1"/>
+  <use href="#plus" x="480" y="300" width="7" height="7" opacity="0.09"/>
+  <circle cx="240" cy="130" r="1" fill="#eef2f6" opacity="0.1"/>
+  <circle cx="560" cy="180" r="1" fill="#eef2f6" opacity="0.09"/>
+  <circle cx="120" cy="300" r="1" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="300" cy="150" r="1.2" fill="#eef2f6" opacity="0.14" class="snow"/>
+  <circle cx="430" cy="200" r="1" fill="#eef2f6" opacity="0.14" class="snow s2"/>
+  <circle cx="560" cy="240" r="1.1" fill="#eef2f6" opacity="0.14" class="snow s3"/>
+
+  <line x1="-20" y1="86" x2="820" y2="86" stroke="#9fd4e8" stroke-width="1" opacity="0.22"/>
+  <ellipse cx="400" cy="86" rx="320" ry="14" fill="#9fd4e8" opacity="0.03"/>
+
+  <g>
+    <line x1="180" y1="86" x2="620" y2="86" stroke="#d7dee6" stroke-width="1.6" opacity="0.7"/>
+    <rect x="196" y="80" width="12" height="7" rx="2" fill="#aab6b0"/>
+    <rect x="286" y="80" width="12" height="7" rx="2" fill="#aab6b0"/>
+    <rect x="376" y="80" width="12" height="7" rx="2" fill="#aab6b0"/>
+    <rect x="466" y="80" width="12" height="7" rx="2" fill="#aab6b0"/>
+    <rect x="556" y="80" width="12" height="7" rx="2" fill="#aab6b0"/>
+  </g>
+
+  <g fill="none" stroke="#6b7885" stroke-width="1" opacity="0.4">
+    <path d="M200 87 C 206 160 216 230 240 286"/>
+    <path d="M290 87 C 293 164 299 238 314 296"/>
+    <path d="M400 87 C 400 166 400 240 402 300"/>
+    <path d="M510 87 C 507 164 501 238 488 296"/>
+    <path d="M600 87 C 594 160 584 230 562 286"/>
+    <path d="M196 130 C 330 142 470 142 604 130"/>
+    <path d="M208 190 C 336 202 466 202 594 190"/>
+    <path d="M222 250 C 342 262 460 262 580 250"/>
+    <path d="M240 286 C 342 300 460 300 562 286"/>
+  </g>
+  <path class="l-flow" d="M200 87 C 206 160 216 230 240 286 C 342 300 460 300 562 286 C 584 230 594 160 600 87" fill="none" stroke="#2ec4b6" stroke-width="1.4" opacity="0.55"/>
+
+  <g class="f1"><use href="#fish" x="300" y="150" width="14" height="6"/><use href="#fish" x="330" y="176" width="11" height="5"/></g>
+  <g class="f2"><use href="#fish" x="440" y="190" width="14" height="6"/><use href="#fish" x="470" y="160" width="10" height="4"/><use href="#fish" x="420" y="238" width="12" height="5"/></g>
+  <g class="f3"><use href="#fish" x="350" y="230" width="13" height="6"/><use href="#fish" x="384" y="130" width="10" height="4"/><use href="#fish" x="500" y="252" width="11" height="5"/></g>
+
+  <g>
+    <ellipse cx="648" cy="92" rx="26" ry="6" fill="#eef2f6" opacity="0.05"/>
+    <path d="M636 80 L660 80 L655 92 L641 92 Z" fill="#aab6b0"/>
+    <rect x="642" y="70" width="12" height="4" fill="#4a5560" transform="rotate(-18 648 72)"/>
+    <line x1="648" y1="58" x2="648" y2="80" stroke="#d7dee6" stroke-width="1.4"/>
+    <circle cx="648" cy="55" r="2.6" fill="#6aa9e9" class="dot-b"/>
+  </g>
+  <path d="M655 92 C 680 180 700 280 706 372" fill="none" stroke="#6b7885" stroke-width="1" opacity="0.4"/>
+  <g>
+    <line x1="640" y1="250" x2="662" y2="250" stroke="#5b6b7a" stroke-width="1"/>
+    <text x="670" y="254" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" letter-spacing="2.5" fill="#8fa3b8">MOORING</text>
+  </g>
+
+  <line x1="-20" y1="384" x2="820" y2="384" stroke="#6b7885" stroke-width="1" opacity="0.3"/>
+  <use href="#rock" x="140" y="372" width="16" height="10"/>
+  <use href="#rock" x="470" y="374" width="13" height="8"/>
+  <use href="#rock" x="600" y="370" width="14" height="9"/>
+  <g class="kelp" stroke="#3a4a44" stroke-width="1.4" fill="none">
+    <path d="M90 384 C 87 366 92 352 88 336 M98 384 C 98 364 103 354 101 340 M106 384 C 108 368 112 360 111 348"/>
+  </g>
+  <g class="kelp k2" stroke="#3a4a44" stroke-width="1.4" fill="none">
+    <path d="M700 384 C 697 368 702 356 699 342 M708 384 C 708 366 713 356 711 344"/>
+  </g>
+  <path d="M240 388 l10 -8 10 8" fill="none" stroke="#3a4a44" stroke-width="1"/>
+  <path d="M540 390 l8 -6 8 6" fill="none" stroke="#3a4a44" stroke-width="1"/>
+
+  <text x="282" y="330" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="2" fill="#6aa9e9" opacity="0.9">NET INTEGRITY SWEEP</text>
+  <g>
+    <line x1="60" y1="120" x2="82" y2="120" stroke="#5b6b7a" stroke-width="1"/>
+    <text x="90" y="124" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" letter-spacing="2.5" fill="#8fa3b8">FLOAT LINE</text>
+  </g>
+
+  <line x1="608" y1="152" x2="648" y2="80" stroke="#6aa9e9" stroke-width="1" opacity="0.4"/>
+  <g>
+    <rect x="548" y="152" width="176" height="58" rx="4" fill="#0e1621" opacity="0.92"/>
+    <rect x="548" y="152" width="176" height="58" rx="4" fill="none" stroke="#6aa9e9" stroke-width="1" opacity="0.55"/>
+    <circle cx="560" cy="164" r="2.4" fill="#58c184" class="dot-b2"/>
+    <text x="568" y="168" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="1.5" fill="#d7dee6">PEN 04</text>
+    <text x="688" y="168" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#6aa9e9">LIVE</text>
+    <clipPath id="wvclip"><rect x="558" y="174" width="156" height="14"/></clipPath>
+    <g clip-path="url(#wvclip)">
+      <polyline class="wave-poly" fill="none" stroke="#6aa9e9" stroke-width="1.1" opacity="0.85" points="534,181 539,181 542,176 545,186 548,178 551,185 554,180 556,181 558,181 563,181 566,176 569,186 572,178 575,185 578,180 580,181 582,181 587,181 590,176 593,186 596,178 599,185 602,180 604,181 606,181 611,181 614,176 617,186 620,178 623,185 626,180 628,181 630,181 635,181 638,176 641,186 644,178 647,185 650,180 652,181 654,181 659,181 662,176 665,186 668,178 671,185 674,180 676,181 678,181 683,181 686,176 689,186 692,178 695,185 698,180 700,181 702,181 707,181 710,176 713,186 716,178 719,185 722,180 724,181 726,181 731,181 734,176 737,186 740,178 743,185 746,180 748,181"/>
+    </g>
+    <text x="558" y="202" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#5b6b7a">FISH OK · NET 100%</text>
+  </g>
+
+  <rect width="800" height="450" fill="url(#vg)"/>
+</svg>

@@ -1,0 +1,98 @@
+---
+// Shared chrome for every page. The head, header and footer were byte-identical
+// across all six hand-built pages; only the title, meta description and the
+// nav item carrying .active ever differed, so those are props.
+//
+// Asset and page links stay RELATIVE ("css/styles.css", "about.html") exactly
+// as they were on the static site. That is deliberate: relative URLs resolve
+// against whatever mount path Webflow Cloud serves the app from, so the same
+// build works at the domain root or under a subpath like /app with no rewriting.
+interface Props {
+  title: string;
+  description: string;
+  active?: "home" | "products" | "maritime" | "communications" | "sensing" | "about";
+}
+
+const { title, description, active } = Astro.props;
+
+// Bump these together with the source files to bust caches on redeploy.
+const CSS_VERSION = "92";
+const JS_VERSION = "63";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="stylesheet" href={`css/styles.css?v=${CSS_VERSION}`} />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="logo" href="index.html" aria-label="Saltenna home">
+        <img src="images/logo-white.png" alt="Saltenna" />
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+      <nav class="main-nav">
+        <a href="index.html" class={active === "home" ? "active" : undefined}>Home</a>
+        <a href="products.html" class={active === "products" ? "active" : undefined}>Products</a>
+        <a href="maritime.html" class={active === "maritime" ? "active" : undefined}>Maritime</a>
+        <a href="communications.html" class={active === "communications" ? "active" : undefined}>Communications</a>
+        <a href="sensing.html" class={active === "sensing" ? "active" : undefined}>Sensing</a>
+        <a href="about.html" class={active === "about" ? "active" : undefined}>About</a>
+        <a href="contact.html" class="nav-cta">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <slot />
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="logo" href="index.html">
+            <img src="images/logo-white.png" alt="Saltenna" />
+          </a>
+          <p>Wireless communications and sensing in the most difficult environments on Earth.</p>
+        </div>
+        <div>
+          <h4>Technology</h4>
+          <ul>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="maritime.html">Maritime</a></li>
+            <li><a href="communications.html">Communications</a></li>
+            <li><a href="sensing.html">Sensing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="about.html#team">Leadership</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Headquarters</h4>
+          <p>1751 Pinnacle Dr, Suite 600<br />McLean, VA 22102-4007<br />United States</p>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <div class="codes">
+          <span>CAGE: 7VPY9</span>
+          <span>DUNS: 08-0672349</span>
+          <span>UEI: MHBLZ1BWMNQ3</span>
+        </div>
+        <div>© 2026 Saltenna Inc. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script is:inline src={`js/main.js?v=${JS_VERSION}`}></script>
+</body>
+</html>

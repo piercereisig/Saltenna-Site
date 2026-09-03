@@ -1,0 +1,173 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Jungle canopy communications: two ground stations holding a surface-wave link beneath dense overlapping tree cover and drifting fog</title>
+  <style>
+    .l-flow { stroke-dasharray: 5 8; animation: flow 5.5s linear infinite; }
+    @keyframes flow { to { stroke-dashoffset: -156; } }
+    .dot-b { animation: blink 3.2s ease-in-out infinite; }
+    .dot-b2 { animation: blink 2.6s ease-in-out infinite 0.9s; }
+    @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+    .fog1 { animation: fog1 22s ease-in-out infinite alternate; }
+    @keyframes fog1 { from { transform: translateX(0); } to { transform: translateX(60px); } }
+    .fog2 { animation: fog2 30s ease-in-out infinite alternate; }
+    @keyframes fog2 { from { transform: translateX(0); } to { transform: translateX(-50px); } }
+    .wave-poly { animation: wv 2.8s linear infinite; }
+    @keyframes wv { from { transform: translateX(0); } to { transform: translateX(-24px); } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c141f"/><stop offset="0.5" stop-color="#0e1621"/><stop offset="1" stop-color="#121c28"/>
+    </linearGradient>
+    <radialGradient id="vg" cx="0.5" cy="0.45" r="0.8">
+      <stop offset="0.55" stop-color="#0a121d" stop-opacity="0"/><stop offset="1" stop-color="#0a121d" stop-opacity="0.5"/>
+    </radialGradient>
+    <symbol id="crown1" viewBox="0 0 40 24">
+      <ellipse cx="14" cy="14" rx="14" ry="9" fill="#37453e"/><ellipse cx="26" cy="12" rx="13" ry="8.4" fill="#48564e"/><ellipse cx="20" cy="8" rx="9" ry="6" fill="#5d6b62"/><ellipse cx="24" cy="6" rx="4.6" ry="3" fill="#6f7d70"/>
+    </symbol>
+    <symbol id="crown2" viewBox="0 0 32 20">
+      <ellipse cx="11" cy="12" rx="11" ry="7.4" fill="#48564e"/><ellipse cx="21" cy="10" rx="10" ry="6.6" fill="#37453e"/><ellipse cx="16" cy="7" rx="6.6" ry="4.4" fill="#5d6b62"/>
+    </symbol>
+    <symbol id="shrub" viewBox="0 0 16 10">
+      <ellipse cx="6" cy="6" rx="6" ry="4" fill="#37453e"/><ellipse cx="11" cy="5" rx="4.6" ry="3.4" fill="#48564e"/>
+    </symbol>
+    <symbol id="plus" viewBox="0 0 8 8"><path d="M4 0v8M0 4h8" stroke="#eef2f6" stroke-width="1" fill="none"/></symbol>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <g fill="none" stroke="#eef2f6" stroke-width="1">
+    <path d="M-20 214 C 180 204 380 222 580 212 S 775 200 820 208" opacity="0.03"/>
+    <path d="M-20 250 C 180 238 380 260 580 248 S 775 234 820 242" opacity="0.03"/>
+    <path d="M-20 286 C 190 276 390 294 590 284 S 775 272 820 280" opacity="0.033"/>
+    <path d="M-20 320 C 190 308 390 330 590 318 S 775 304 820 312" opacity="0.035"/>
+    <path d="M-20 352 C 180 342 380 360 580 350 S 775 338 820 346" opacity="0.03"/>
+    <path d="M110 -20 C 98 140 112 300 96 470" opacity="0.022"/>
+    <path d="M170 -20 C 156 140 174 300 152 470" opacity="0.025"/>
+    <path d="M340 -20 C 330 150 342 310 330 470" opacity="0.022"/>
+    <path d="M470 -20 C 462 150 472 310 462 470" opacity="0.022"/>
+    <path d="M620 -20 C 608 150 624 310 610 470" opacity="0.025"/>
+    <path d="M730 -20 C 720 150 732 310 720 470" opacity="0.022"/>
+    <path d="M240 236 C 280 230 310 236 350 231" opacity="0.035"/>
+    <path d="M480 300 C 520 294 550 300 590 295" opacity="0.033"/>
+    <path d="M120 300 C 155 295 180 300 210 296" opacity="0.03"/>
+  </g>
+  <ellipse cx="250" cy="272" rx="170" ry="42" fill="#eef2f6" opacity="0.02"/>
+  <ellipse cx="560" cy="300" rx="150" ry="38" fill="#eef2f6" opacity="0.018"/>
+  <use href="#plus" x="90" y="250" width="7" height="7" opacity="0.1"/>
+  <use href="#plus" x="700" y="270" width="7" height="7" opacity="0.1"/>
+  <use href="#plus" x="330" y="212" width="7" height="7" opacity="0.09"/>
+  <use href="#plus" x="540" y="240" width="7" height="7" opacity="0.08"/>
+  <use href="#plus" x="210" y="330" width="7" height="7" opacity="0.08"/>
+  <use href="#plus" x="620" y="336" width="7" height="7" opacity="0.08"/>
+  <circle cx="260" cy="240" r="1" fill="#eef2f6" opacity="0.09"/>
+  <circle cx="560" cy="260" r="1" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="150" cy="290" r="1" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="430" cy="250" r="1" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="680" cy="230" r="1" fill="#eef2f6" opacity="0.07"/>
+  <circle cx="370" cy="340" r="1" fill="#eef2f6" opacity="0.07"/>
+  <circle cx="90" cy="220" r="1" fill="#eef2f6" opacity="0.07"/>
+  <circle cx="740" cy="320" r="1" fill="#eef2f6" opacity="0.07"/>
+
+  <g fill="none" opacity="0.9">
+    <path d="M70 150 C 67 220 72 300 69 378" stroke="#3a4a44" stroke-width="3.4"/>
+    <path d="M185 128 C 188 200 182 300 186 378" stroke="#37453e" stroke-width="2.6"/>
+    <path d="M298 142 C 295 210 301 300 297 378" stroke="#3a4a44" stroke-width="4"/>
+    <path d="M410 120 C 413 200 406 290 411 378" stroke="#4a5560" stroke-width="2.4"/>
+    <path d="M524 140 C 521 210 527 300 523 378" stroke="#3a4a44" stroke-width="3.2"/>
+    <path d="M638 126 C 641 200 634 300 639 378" stroke="#37453e" stroke-width="2.8"/>
+    <path d="M742 148 C 739 220 745 310 741 378" stroke="#3a4a44" stroke-width="3.6"/>
+    <path d="M66 370 L58 378 M74 370 L82 378 M294 368 L285 378 M302 368 L311 378 M635 370 L627 378 M643 370 L651 378" stroke="#3a4a44" stroke-width="1.6"/>
+  </g>
+  <g stroke="#3a4a44" stroke-width="1.4" fill="none" opacity="0.8">
+    <path d="M70 240 L52 258 M70 300 L88 318 M185 220 L204 240 M298 250 L280 270 M410 210 L430 232 M524 244 L506 264 M638 226 L657 246 M742 250 L724 270"/>
+  </g>
+
+  <g>
+    <use href="#crown1" x="26" y="96" width="52" height="31"/>
+    <use href="#crown2" x="86" y="112" width="42" height="26"/>
+    <use href="#crown1" x="130" y="84" width="58" height="35"/>
+    <use href="#crown2" x="196" y="106" width="46" height="29"/>
+    <use href="#crown1" x="244" y="90" width="54" height="32"/>
+    <use href="#crown2" x="304" y="112" width="42" height="26"/>
+    <use href="#crown1" x="348" y="78" width="62" height="37"/>
+    <use href="#crown2" x="416" y="102" width="46" height="29"/>
+    <use href="#crown1" x="466" y="88" width="56" height="34"/>
+    <use href="#crown2" x="528" y="110" width="44" height="27"/>
+    <use href="#crown1" x="576" y="82" width="58" height="35"/>
+    <use href="#crown2" x="640" y="104" width="46" height="29"/>
+    <use href="#crown1" x="690" y="92" width="54" height="32"/>
+    <use href="#crown2" x="748" y="112" width="42" height="26"/>
+    <use href="#crown2" x="0" y="116" width="40" height="25"/>
+    <use href="#crown1" x="60" y="118" width="44" height="26"/>
+    <use href="#crown1" x="222" y="120" width="46" height="28"/>
+    <use href="#crown1" x="388" y="118" width="48" height="29"/>
+    <use href="#crown1" x="550" y="120" width="46" height="28"/>
+    <use href="#crown1" x="716" y="120" width="44" height="26"/>
+  </g>
+
+  <ellipse cx="240" cy="190" rx="220" ry="26" fill="#eef2f6" opacity="0.03" class="fog1"/>
+  <ellipse cx="560" cy="238" rx="200" ry="22" fill="#eef2f6" opacity="0.025" class="fog2"/>
+
+  <line x1="-20" y1="378" x2="820" y2="378" stroke="#6b7885" stroke-width="1" opacity="0.35"/>
+  <g stroke="#3a4a44" stroke-width="1" fill="none" opacity="0.8">
+    <path d="M70 378 C 60 384 48 386 38 384 M185 378 C 196 384 208 386 218 384 M410 378 C 400 385 388 387 378 385 M638 378 C 648 384 660 386 670 384"/>
+  </g>
+  <use href="#shrub" x="120" y="366" width="16" height="10"/>
+  <use href="#shrub" x="250" y="368" width="14" height="9"/>
+  <use href="#shrub" x="452" y="366" width="16" height="10"/>
+  <use href="#shrub" x="580" y="368" width="14" height="9"/>
+  <use href="#shrub" x="700" y="366" width="15" height="9"/>
+  <path d="M330 374 L366 372 L364 378 L332 380 Z" fill="#232f3d"/>
+  <path d="M498 400 L512 392 L520 400 Z" fill="#1a2733"/>
+  <path d="M92 404 L104 396 L114 404 Z" fill="#1a2733"/>
+
+  <g>
+    <ellipse cx="120" cy="382" rx="22" ry="4" fill="#0a121d" opacity="0.7"/>
+    <rect x="104" y="348" width="30" height="26" rx="2" fill="#3a4a44"/>
+    <line x1="104" y1="356" x2="134" y2="356" stroke="#232f3d" stroke-width="1"/>
+    <line x1="104" y1="366" x2="134" y2="366" stroke="#232f3d" stroke-width="1"/>
+    <rect x="110" y="354" width="9" height="6" fill="#8fa3b8" opacity="0.5"/>
+    <rect x="136" y="352" width="4" height="14" fill="#4a5560"/>
+    <line x1="108" y1="374" x2="104" y2="382" stroke="#232f3d" stroke-width="1.6"/>
+    <line x1="130" y1="374" x2="134" y2="382" stroke="#232f3d" stroke-width="1.6"/>
+    <line x1="119" y1="336" x2="119" y2="348" stroke="#d7dee6" stroke-width="1.2"/>
+    <circle cx="119" cy="333" r="2.4" fill="#6aa9e9" class="dot-b"/>
+  </g>
+  <g>
+    <ellipse cx="686" cy="382" rx="22" ry="4" fill="#0a121d" opacity="0.7"/>
+    <rect x="670" y="348" width="30" height="26" rx="2" fill="#3a4a44"/>
+    <line x1="670" y1="356" x2="700" y2="356" stroke="#232f3d" stroke-width="1"/>
+    <line x1="670" y1="366" x2="700" y2="366" stroke="#232f3d" stroke-width="1"/>
+    <rect x="676" y="354" width="9" height="6" fill="#8fa3b8" opacity="0.5"/>
+    <rect x="662" y="352" width="4" height="14" fill="#4a5560"/>
+    <line x1="674" y1="374" x2="670" y2="382" stroke="#232f3d" stroke-width="1.6"/>
+    <line x1="696" y1="374" x2="700" y2="382" stroke="#232f3d" stroke-width="1.6"/>
+    <line x1="685" y1="336" x2="685" y2="348" stroke="#d7dee6" stroke-width="1.2"/>
+    <circle cx="685" cy="333" r="2.4" fill="#58c184" class="dot-b2"/>
+  </g>
+
+  <rect x="652" y="322" width="60" height="66" rx="6" fill="none" stroke="#6aa9e9" stroke-width="1.3" opacity="0.7"/>
+  <circle cx="712" cy="322" r="7" fill="#6aa9e9"/>
+  <path d="M708.5 322 L711 324.5 L715.5 319.5" stroke="#0e1621" stroke-width="1.6" fill="none"/>
+  <path class="l-flow" d="M136 352 C 220 322 260 340 320 330 C 390 318 420 336 490 328 C 560 320 610 340 668 350" fill="none" stroke="#6aa9e9" stroke-width="1.5" opacity="0.6"/>
+  <text x="300" y="300" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="2" fill="#6aa9e9" opacity="0.9">CANOPY GROUND LINK</text>
+  <g>
+    <line x1="60" y1="64" x2="82" y2="64" stroke="#5b6b7a" stroke-width="1"/>
+    <text x="90" y="68" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" letter-spacing="2.5" fill="#8fa3b8">DENSE CANOPY</text>
+  </g>
+
+  <line x1="560" y1="196" x2="672" y2="330" stroke="#6aa9e9" stroke-width="1" opacity="0.35"/>
+  <g>
+    <rect x="428" y="150" width="176" height="58" rx="4" fill="#0e1621" opacity="0.92"/>
+    <rect x="428" y="150" width="176" height="58" rx="4" fill="none" stroke="#6aa9e9" stroke-width="1" opacity="0.55"/>
+    <circle cx="440" cy="162" r="2.4" fill="#58c184" class="dot-b"/>
+    <text x="448" y="166" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="1.5" fill="#d7dee6">STATION B</text>
+    <text x="568" y="166" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#6aa9e9">LIVE</text>
+    <clipPath id="wvclip"><rect x="438" y="172" width="156" height="14"/></clipPath>
+    <g clip-path="url(#wvclip)">
+      <polyline class="wave-poly" fill="none" stroke="#6aa9e9" stroke-width="1.1" opacity="0.85" points="414,179 419,179 422,174 425,184 428,176 431,183 434,178 436,179 438,179 443,179 446,174 449,184 452,176 455,183 458,178 460,179 462,179 467,179 470,174 473,184 476,176 479,183 482,178 484,179 486,179 491,179 494,174 497,184 500,176 503,183 506,178 508,179 510,179 515,179 518,174 521,184 524,176 527,183 530,178 532,179 534,179 539,179 542,174 545,184 548,176 551,183 554,178 556,179 558,179 563,179 566,174 569,184 572,176 575,183 578,178 580,179 582,179 587,179 590,174 593,184 596,176 599,183 602,178 604,179 606,179 611,179 614,174 617,184 620,176 623,183 626,178 628,179"/>
+    </g>
+    <text x="438" y="200" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#5b6b7a">SNR 24 DB · PKT 99%</text>
+  </g>
+
+  <rect width="800" height="450" fill="url(#vg)"/>
+</svg>

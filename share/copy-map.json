@@ -1,0 +1,3371 @@
+[
+  {
+    "id": "base.a.1",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Home",
+    "display": "Home",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "base.a.2",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Products",
+    "display": "Products",
+    "shared": true,
+    "shared_with": [
+      "base.a.8",
+      "products.h1.1",
+      "products.span.1"
+    ]
+  },
+  {
+    "id": "base.a.3",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Maritime",
+    "display": "Maritime",
+    "shared": true,
+    "shared_with": [
+      "base.a.9",
+      "prod-d2d.domain"
+    ]
+  },
+  {
+    "id": "base.a.4",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Communications",
+    "display": "Communications",
+    "shared": true,
+    "shared_with": [
+      "base.a.10",
+      "prod-remora.domain",
+      "prod-stingray.domain",
+      "prod-ibex.domain"
+    ]
+  },
+  {
+    "id": "base.a.5",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Sensing",
+    "display": "Sensing",
+    "shared": true,
+    "shared_with": [
+      "base.a.11"
+    ]
+  },
+  {
+    "id": "base.a.6",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "About",
+    "display": "About",
+    "shared": true,
+    "shared_with": [
+      "base.a.12"
+    ]
+  },
+  {
+    "id": "base.a.7",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Contact Us",
+    "display": "Contact Us",
+    "shared": true,
+    "shared_with": [
+      "index.a.5",
+      "products.a.3",
+      "maritime.a.11",
+      "communications.a.6",
+      "sensing.a.5",
+      "about.a.1",
+      "contact.h1.1"
+    ]
+  },
+  {
+    "id": "base.p.1",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "Wireless communications and sensing in the most difficult environments on Earth.",
+    "display": "Wireless communications and sensing in the most difficult environments on Earth.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "base.h4.1",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "h4",
+    "text": "Technology",
+    "display": "Technology",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "base.a.8",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Products",
+    "display": "Products",
+    "shared": true,
+    "shared_with": [
+      "base.a.2",
+      "products.h1.1",
+      "products.span.1"
+    ]
+  },
+  {
+    "id": "base.a.9",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Maritime",
+    "display": "Maritime",
+    "shared": true,
+    "shared_with": [
+      "base.a.3",
+      "prod-d2d.domain"
+    ]
+  },
+  {
+    "id": "base.a.10",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Communications",
+    "display": "Communications",
+    "shared": true,
+    "shared_with": [
+      "base.a.4",
+      "prod-remora.domain",
+      "prod-stingray.domain",
+      "prod-ibex.domain"
+    ]
+  },
+  {
+    "id": "base.a.11",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Sensing",
+    "display": "Sensing",
+    "shared": true,
+    "shared_with": [
+      "base.a.5"
+    ]
+  },
+  {
+    "id": "base.h4.2",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "h4",
+    "text": "Company",
+    "display": "Company",
+    "shared": true,
+    "shared_with": [
+      "contact.label.2"
+    ]
+  },
+  {
+    "id": "base.a.12",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "About",
+    "display": "About",
+    "shared": true,
+    "shared_with": [
+      "base.a.6"
+    ]
+  },
+  {
+    "id": "base.a.13",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Leadership",
+    "display": "Leadership",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "base.a.14",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Contact",
+    "display": "Contact",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "base.h4.3",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "h4",
+    "text": "Headquarters",
+    "display": "Headquarters",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "base.p.2",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "1751 Pinnacle Dr, Suite 600McLean, VA 22102-4007United States",
+    "display": "1751 Pinnacle Dr, Suite 600McLean, VA 22102-4007United States",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "base.div.1",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "div",
+    "text": "CAGE: 7VPY9 DUNS: 08-0672349 UEI: MHBLZ1BWMNQ3",
+    "display": "CAGE: 7VPY9 DUNS: 08-0672349 UEI: MHBLZ1BWMNQ3",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "base.div.2",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "—",
+    "kind": "div",
+    "text": "© 2026 Saltenna Inc. All rights reserved.",
+    "display": "© 2026 Saltenna Inc. All rights reserved.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.meta.title",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "SEO title (search results)",
+    "kind": "meta",
+    "text": "Saltenna — Wireless Communications & Sensing in the Most Difficult Environments on Earth",
+    "display": "Saltenna — Wireless Communications & Sensing in the Most Difficult Environments on Earth",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.meta.description",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "SEO description (search results)",
+    "kind": "meta",
+    "text": "Saltenna's plasmonic technology enables high-speed, secure wireless communications and sensing through water, ice, metal, soil, and rock — where conventional wireless fails.",
+    "display": "Saltenna's plasmonic technology enables high-speed, secure wireless communications and sensing through water, ice, metal, soil, and rock — where conventional wireless fails.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.h1.1",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "h1",
+    "text": "Communications beyond the limits of legacy radio frequency",
+    "display": "Communications beyond the limits of legacy radio frequency",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.div.1",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "div",
+    "text": "Redefiningthelimits ofwireless",
+    "display": "Redefiningthelimits ofwireless",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.div.2",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "div",
+    "text": "Est. 2017 &rarr; Beyond",
+    "display": "Est. 2017 → Beyond",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.div.3",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "div",
+    "text": "UnderwaterThrough IceThrough MetalUndergroundDense VegetationSeabedsCollapsed InfrastructureLunar Surface UnderwaterThrough IceThrough MetalUndergroundDense VegetationSeabedsCollapsed InfrastructureLunar Surface",
+    "display": "UnderwaterThrough IceThrough MetalUndergroundDense VegetationSeabedsCollapsed InfrastructureLunar Surface UnderwaterThrough IceThrough MetalUndergroundDense VegetationSeabedsCollapsed InfrastructureLunar Surface",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.h2.1",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "— · section intro",
+    "kind": "h2",
+    "text": "Environments previously thought impossible.",
+    "display": "Environments previously thought impossible.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.p.1",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "— · section intro",
+    "kind": "p",
+    "text": "Where current radios, Wi‑Fi, Bluetooth, optical, audio, and other systems fail, Saltenna's Plasmonic waves keep working.",
+    "display": "Where current radios, Wi‑Fi, Bluetooth, optical, audio, and other systems fail, Saltenna's Plasmonic waves keep working.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.span.1",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "span",
+    "text": "&rarr;",
+    "display": "→",
+    "shared": true,
+    "shared_with": [
+      "index.span.2",
+      "index.span.3",
+      "index.span.4"
+    ]
+  },
+  {
+    "id": "index.h3.1",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "h3",
+    "text": "Water &amp; Ice",
+    "display": "Water & Ice",
+    "shared": true,
+    "shared_with": [
+      "communications.a.1"
+    ]
+  },
+  {
+    "id": "index.p.2",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "Saltenna is developing high-bandwidth stealthy communications underwater without needing line of sight, and through and along ice sheets to connect above-ice and air assets with those submerged beneath.",
+    "display": "Saltenna is developing high-bandwidth stealthy communications underwater without needing line of sight, and through and along ice sheets to connect above-ice and air assets with those submerged beneath.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.span.2",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "span",
+    "text": "&rarr;",
+    "display": "→",
+    "shared": true,
+    "shared_with": [
+      "index.span.1",
+      "index.span.3",
+      "index.span.4"
+    ]
+  },
+  {
+    "id": "index.h3.2",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "h3",
+    "text": "Metal &amp; Solid Obstacles",
+    "display": "Metal & Solid Obstacles",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.p.3",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "Rather than being blocked by metal bulkheads, Saltenna's Plasmonics leverage them. Saltenna has demonstrated wireless communications along and through pressurized tanks and pipes without drilling holes or running wires.",
+    "display": "Rather than being blocked by metal bulkheads, Saltenna's Plasmonics leverage them. Saltenna has demonstrated wireless communications along and through pressurized tanks and pipes without drilling holes or running wires.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.span.3",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "span",
+    "text": "&rarr;",
+    "display": "→",
+    "shared": true,
+    "shared_with": [
+      "index.span.1",
+      "index.span.2",
+      "index.span.4"
+    ]
+  },
+  {
+    "id": "index.h3.3",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "h3",
+    "text": "Soil, Rock &amp; Infrastructure",
+    "display": "Soil, Rock & Infrastructure",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.p.4",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "Saltenna has demonstrated significantly enhanced range over current wireless technology in solid underground facilities, tunnels, and through multiple levels of parking garages.",
+    "display": "Saltenna has demonstrated significantly enhanced range over current wireless technology in solid underground facilities, tunnels, and through multiple levels of parking garages.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.span.4",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "span",
+    "text": "&rarr;",
+    "display": "→",
+    "shared": true,
+    "shared_with": [
+      "index.span.1",
+      "index.span.2",
+      "index.span.3"
+    ]
+  },
+  {
+    "id": "index.h3.4",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "h3",
+    "text": "Dense Vegetation",
+    "display": "Dense Vegetation",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.p.5",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "Where radios may fail, Saltenna is working on Plasmonics that can carry communications within and through dense jungle canopy to support commercial, military, law enforcement, and intelligence operations.",
+    "display": "Where radios may fail, Saltenna is working on Plasmonics that can carry communications within and through dense jungle canopy to support commercial, military, law enforcement, and intelligence operations.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.h2.2",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "— · section intro",
+    "kind": "h2",
+    "text": "Communications and sensing.",
+    "display": "Communications and sensing.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.h3.5",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "h3",
+    "text": "Game-changing communications at the edge.",
+    "display": "Game-changing communications at the edge.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.p.6",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "Because Plasmonic waves travel along surfaces, Saltenna can carry communications underwater, under ice, through metal, and along pipelines — across government and commercial sectors alike.",
+    "display": "Because Plasmonic waves travel along surfaces, Saltenna can carry communications underwater, under ice, through metal, and along pipelines — across government and commercial sectors alike.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.a.1",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Explore Communications →",
+    "display": "Explore Communications →",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.h3.6",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "h3",
+    "text": "Sensing subtle changes in any environment.",
+    "display": "Sensing subtle changes in any environment.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.p.7",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "Plasmonics can be used for an array of sensing applications — from detecting the movement of submarines underwater to detecting people through solid sheet metal.",
+    "display": "Plasmonics can be used for an array of sensing applications — from detecting the movement of submarines underwater to detecting people through solid sheet metal.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.a.2",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Explore Sensing →",
+    "display": "Explore Sensing →",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.h2.3",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "h2",
+    "text": "Built for the maritime edge.",
+    "display": "Built for the maritime edge.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.p.8",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "Divers, uncrewed vehicles, surface vessels, and the seabed — Saltenna is developing links for the domain where wireless has never worked before.",
+    "display": "Divers, uncrewed vehicles, surface vessels, and the seabed — Saltenna is developing links for the domain where wireless has never worked before.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.a.3",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "— · button",
+    "kind": "a",
+    "text": "Explore Maritime",
+    "display": "Explore Maritime",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.h2.4",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "— · section intro",
+    "kind": "h2",
+    "text": "A dual-use company strategically located in the Washington DC metro area.",
+    "display": "A dual-use company strategically located in the Washington DC metro area.",
+    "shared": true,
+    "shared_with": [
+      "about.h3.1"
+    ]
+  },
+  {
+    "id": "index.p.9",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "— · section intro",
+    "kind": "p",
+    "text": "Saltenna is leveraging its revolutionary technology to develop highly innovative solutions for a wide array of government and commercial customers.",
+    "display": "Saltenna is leveraging its revolutionary technology to develop highly innovative solutions for a wide array of government and commercial customers.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.h3.7",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "h3",
+    "text": "U.S. Department of Defense",
+    "display": "U.S. Department of Defense",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.p.10",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "Saltenna has performed on multiple contracts and done demonstrations of its technology for the U.S. Department of Defense and commercial customers.",
+    "display": "Saltenna has performed on multiple contracts and done demonstrations of its technology for the U.S. Department of Defense and commercial customers.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.h3.8",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "h3",
+    "text": "Patented Technology",
+    "display": "Patented Technology",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.p.11",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "Saltenna has multiple patents on its technology and is heavily engaged in further R&amp;D.",
+    "display": "Saltenna has multiple patents on its technology and is heavily engaged in further R&D.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.h3.9",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "h3",
+    "text": "World-Class Team",
+    "display": "World-Class Team",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.p.12",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "Led by a founding CTO with 400+ published papers and executives with decades of experience across defense, semiconductors, wireless, and subsea systems.",
+    "display": "Led by a founding CTO with 400+ published papers and executives with decades of experience across defense, semiconductors, wireless, and subsea systems.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.h2.5",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "news · section intro",
+    "kind": "h2",
+    "text": "The latest from Saltenna.",
+    "display": "The latest from Saltenna.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.p.13",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "news · section intro",
+    "kind": "p",
+    "text": "Company news and updates, live from our LinkedIn page.",
+    "display": "Company news and updates, live from our LinkedIn page.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.h3.10",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "linkedin-feed",
+    "kind": "h3",
+    "text": "Follow Saltenna on LinkedIn",
+    "display": "Follow Saltenna on LinkedIn",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.p.14",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "linkedin-feed",
+    "kind": "p",
+    "text": "Once the company LinkedIn page is connected, our latest posts will appear here automatically.",
+    "display": "Once the company LinkedIn page is connected, our latest posts will appear here automatically.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.a.4",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "linkedin-feed · button",
+    "kind": "a",
+    "text": "Visit Our LinkedIn",
+    "display": "Visit Our LinkedIn",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.h2.6",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "— · call to action",
+    "kind": "h2",
+    "text": "Saltenna is evolving fast.",
+    "display": "Saltenna is evolving fast.",
+    "shared": true,
+    "shared_with": [
+      "maritime.h2.4",
+      "communications.h2.3",
+      "sensing.h2.3",
+      "about.h2.2"
+    ]
+  },
+  {
+    "id": "index.p.15",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "— · call to action",
+    "kind": "p",
+    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "shared": true,
+    "shared_with": [
+      "maritime.p.12",
+      "communications.p.10",
+      "sensing.p.9",
+      "about.p.13",
+      "contact.p.1"
+    ]
+  },
+  {
+    "id": "index.a.5",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "— · button, call to action",
+    "kind": "a",
+    "text": "Contact Us",
+    "display": "Contact Us",
+    "shared": true,
+    "shared_with": [
+      "base.a.7",
+      "products.a.3",
+      "maritime.a.11",
+      "communications.a.6",
+      "sensing.a.5",
+      "about.a.1",
+      "contact.h1.1"
+    ]
+  },
+  {
+    "id": "products.meta.title",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "SEO title (search results)",
+    "kind": "meta",
+    "text": "Products — Saltenna",
+    "display": "Products — Saltenna",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "products.meta.description",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "SEO description (search results)",
+    "kind": "meta",
+    "text": "Saltenna hardware and software: diver-to-diver underwater communications, wireless data links for subsea pipelines, and tools built on plasmonic wireless technology.",
+    "display": "Saltenna hardware and software: diver-to-diver underwater communications, wireless data links for subsea pipelines, and tools built on plasmonic wireless technology.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "products.h1.1",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "—",
+    "kind": "h1",
+    "text": "Products",
+    "display": "Products",
+    "shared": true,
+    "shared_with": [
+      "base.a.2",
+      "base.a.8",
+      "products.span.1"
+    ]
+  },
+  {
+    "id": "products.p.1",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "— · hero tagline",
+    "kind": "p",
+    "text": "Physics, packaged.",
+    "display": "Physics, packaged.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "products.p.2",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "— · hero description",
+    "kind": "p",
+    "text": "Hardware and software built on Saltenna's plasmonic wireless technology — for the environments where legacy radio frequency fails.",
+    "display": "Hardware and software built on Saltenna's plasmonic wireless technology — for the environments where legacy radio frequency fails.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "products.a.1",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Software",
+    "display": "Software",
+    "shared": true,
+    "shared_with": [
+      "products.span.2",
+      "products.h2.2"
+    ]
+  },
+  {
+    "id": "products.span.1",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "products · section kicker, section intro",
+    "kind": "span",
+    "text": "Products",
+    "display": "Products",
+    "shared": true,
+    "shared_with": [
+      "base.a.2",
+      "base.a.8",
+      "products.h1.1"
+    ]
+  },
+  {
+    "id": "products.h2.1",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "products · section intro",
+    "kind": "h2",
+    "text": "Built for the edge.",
+    "display": "Built for the edge.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "products.p.3",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "products · section intro",
+    "kind": "p",
+    "text": "Each product carries its maturity plainly — from prototype to fielded — so you know exactly what you are evaluating.",
+    "display": "Each product carries its maturity plainly — from prototype to fielded — so you know exactly what you are evaluating.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "products.div.1",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "products · section intro",
+    "kind": "div",
+    "text": "Hardware Maritime Communications",
+    "display": "Hardware Maritime Communications",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "products.a.2",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "{p.id} · domain link",
+    "kind": "a",
+    "text": "{p.domain.label} &rarr;",
+    "display": "{p.domain.label} →",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "products.span.2",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "software · section kicker, section intro",
+    "kind": "span",
+    "text": "Software",
+    "display": "Software",
+    "shared": true,
+    "shared_with": [
+      "products.a.1",
+      "products.h2.2"
+    ]
+  },
+  {
+    "id": "products.h2.2",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "software · section intro",
+    "kind": "h2",
+    "text": "Software",
+    "display": "Software",
+    "shared": true,
+    "shared_with": [
+      "products.a.1",
+      "products.span.2"
+    ]
+  },
+  {
+    "id": "products.p.4",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "software · section intro",
+    "kind": "p",
+    "text": "Technology we license.",
+    "display": "Technology we license.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "products.div.2",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "software · section intro",
+    "kind": "div",
+    "text": "Software-defined Extreme path loss Low-power embedded",
+    "display": "Software-defined Extreme path loss Low-power embedded",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "products.div.3",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "software · readout line",
+    "kind": "div",
+    "text": "RX LOCK &middot; &minus;142 dBm LIVE",
+    "display": "RX LOCK · −142 dBm LIVE",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "products.h2.3",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "— · call to action",
+    "kind": "h2",
+    "text": "Evaluate it on your mission.",
+    "display": "Evaluate it on your mission.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "products.p.5",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "— · call to action",
+    "kind": "p",
+    "text": "Talk to us about trials, integration with fielded equipment, and delivery timelines.",
+    "display": "Talk to us about trials, integration with fielded equipment, and delivery timelines.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "products.a.3",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "— · button, call to action",
+    "kind": "a",
+    "text": "Contact Us",
+    "display": "Contact Us",
+    "shared": true,
+    "shared_with": [
+      "base.a.7",
+      "index.a.5",
+      "maritime.a.11",
+      "communications.a.6",
+      "sensing.a.5",
+      "about.a.1",
+      "contact.h1.1"
+    ]
+  },
+  {
+    "id": "maritime.meta.title",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "SEO title (search results)",
+    "kind": "meta",
+    "text": "Maritime — Saltenna",
+    "display": "Maritime — Saltenna",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.meta.description",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "SEO description (search results)",
+    "kind": "meta",
+    "text": "Saltenna is developing Plasmonic communications for maritime environments — between divers, uncrewed underwater and surface vehicles, and along the seabed — where wireless has never worked before.",
+    "display": "Saltenna is developing Plasmonic communications for maritime environments — between divers, uncrewed underwater and surface vehicles, and along the seabed — where wireless has never worked before.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.h1.1",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "—",
+    "kind": "h1",
+    "text": "Maritime Communications and Sensing",
+    "display": "Maritime Communications and Sensing",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.p.1",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "— · hero tagline",
+    "kind": "p",
+    "text": "Where wireless can't reach.",
+    "display": "Where wireless can't reach.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.p.2",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "— · hero description",
+    "kind": "p",
+    "text": "Saltenna's Plasmonic technology extends underwater, on the surface, and along the seabed — connecting divers, uncrewed vehicles, and vessels without needing line of sight.",
+    "display": "Saltenna's Plasmonic technology extends underwater, on the surface, and along the seabed — connecting divers, uncrewed vehicles, and vessels without needing line of sight.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.a.1",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "UUV Swarming",
+    "display": "UUV Swarming",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.a.2",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Oil &amp; Gas",
+    "display": "Oil & Gas",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.a.3",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Divers",
+    "display": "Divers",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.a.4",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "USV",
+    "display": "USV",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.a.5",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Seabed",
+    "display": "Seabed",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.h2.1",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "challenge · section intro",
+    "kind": "h2",
+    "text": "The ocean is a wireless dead zone.",
+    "display": "The ocean is a wireless dead zone.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.p.3",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "challenge · section intro",
+    "kind": "p",
+    "text": "Wireless systems that thrive on land stop at the waterline. Saltenna's Plasmonic surface waves are being developed to work where the maritime domain defeats them.",
+    "display": "Wireless systems that thrive on land stop at the waterline. Saltenna's Plasmonic surface waves are being developed to work where the maritime domain defeats them.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.h3.1",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "challenge",
+    "kind": "h3",
+    "text": "Seawater Stops RF",
+    "display": "Seawater Stops RF",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.p.4",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "challenge",
+    "kind": "p",
+    "text": "Conventional radio is absorbed just below the surface, cutting off divers, vehicles, and sensors from the assets above them.",
+    "display": "Conventional radio is absorbed just below the surface, cutting off divers, vehicles, and sensors from the assets above them.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.h3.2",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "challenge",
+    "kind": "h3",
+    "text": "No Line of Sight",
+    "display": "No Line of Sight",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.p.5",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "challenge",
+    "kind": "p",
+    "text": "Hulls, seawalls, islands, and the air-water boundary itself break the direct paths that optical and acoustic links depend on.",
+    "display": "Hulls, seawalls, islands, and the air-water boundary itself break the direct paths that optical and acoustic links depend on.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.h3.3",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "challenge",
+    "kind": "h3",
+    "text": "Contested Spectrum",
+    "display": "Contested Spectrum",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.p.6",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "challenge",
+    "kind": "p",
+    "text": "Above the surface, jamming and interference can deny conventional RF exactly when the link matters most.",
+    "display": "Above the surface, jamming and interference can deny conventional RF exactly when the link matters most.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.h2.2",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "use-cases · section intro",
+    "kind": "h2",
+    "text": "Communications across the maritime domain.",
+    "display": "Communications across the maritime domain.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.h3.4",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-uncrewed",
+    "kind": "h3",
+    "text": "UUV Communications and Swarming",
+    "display": "UUV Communications and Swarming",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.p.7",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-uncrewed",
+    "kind": "p",
+    "text": "Saltenna is developing communications between uncrewed underwater vehicles (UUVs) at range, enabling swarming behavior underwater. This extends to communications between UUVs and UAVs, bridging the air-water barrier.",
+    "display": "Saltenna is developing communications between uncrewed underwater vehicles (UUVs) at range, enabling swarming behavior underwater. This extends to communications between UUVs and UAVs, bridging the air-water barrier.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.a.6",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-uncrewed",
+    "kind": "a",
+    "text": "Learn More",
+    "display": "Learn More",
+    "shared": true,
+    "shared_with": [
+      "maritime.a.7",
+      "maritime.a.8",
+      "maritime.a.9",
+      "maritime.a.10"
+    ]
+  },
+  {
+    "id": "maritime.div.1",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-uncrewed",
+    "kind": "div",
+    "text": "&#8634; replay",
+    "display": "↺ replay",
+    "shared": true,
+    "shared_with": [
+      "maritime.div.2",
+      "maritime.div.3",
+      "maritime.div.4",
+      "maritime.div.5"
+    ]
+  },
+  {
+    "id": "maritime.h3.5",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-oilgas",
+    "kind": "h3",
+    "text": "Oil &amp; Gas Communications",
+    "display": "Oil & Gas Communications",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.p.8",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-oilgas",
+    "kind": "p",
+    "text": "Saltenna is working on wireless communications along and through subsea energy infrastructure — risers, pipelines, and platforms, including those filled with hazardous liquids — supporting offshore inspection and monitoring.",
+    "display": "Saltenna is working on wireless communications along and through subsea energy infrastructure — risers, pipelines, and platforms, including those filled with hazardous liquids — supporting offshore inspection and monitoring.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.a.7",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-oilgas",
+    "kind": "a",
+    "text": "Learn More",
+    "display": "Learn More",
+    "shared": true,
+    "shared_with": [
+      "maritime.a.6",
+      "maritime.a.8",
+      "maritime.a.9",
+      "maritime.a.10"
+    ]
+  },
+  {
+    "id": "maritime.div.2",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-oilgas",
+    "kind": "div",
+    "text": "&#8634; replay",
+    "display": "↺ replay",
+    "shared": true,
+    "shared_with": [
+      "maritime.div.1",
+      "maritime.div.3",
+      "maritime.div.4",
+      "maritime.div.5"
+    ]
+  },
+  {
+    "id": "maritime.h3.6",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-divers",
+    "kind": "h3",
+    "text": "Diver-to-Diver Communications",
+    "display": "Diver-to-Diver Communications",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.p.9",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-divers",
+    "kind": "p",
+    "text": "Saltenna is developing underwater communications between dive teams at significant range, including through solid obstacles such as seawalls or the hull of a passing vessel.",
+    "display": "Saltenna is developing underwater communications between dive teams at significant range, including through solid obstacles such as seawalls or the hull of a passing vessel.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.a.8",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-divers",
+    "kind": "a",
+    "text": "Learn More",
+    "display": "Learn More",
+    "shared": true,
+    "shared_with": [
+      "maritime.a.6",
+      "maritime.a.7",
+      "maritime.a.9",
+      "maritime.a.10"
+    ]
+  },
+  {
+    "id": "maritime.div.3",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-divers",
+    "kind": "div",
+    "text": "&#8634; replay",
+    "display": "↺ replay",
+    "shared": true,
+    "shared_with": [
+      "maritime.div.1",
+      "maritime.div.2",
+      "maritime.div.4",
+      "maritime.div.5"
+    ]
+  },
+  {
+    "id": "maritime.h3.7",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-surface",
+    "kind": "h3",
+    "text": "USV / Surface Vessel Communications",
+    "display": "USV / Surface Vessel Communications",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.p.10",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-surface",
+    "kind": "p",
+    "text": "Saltenna is developing communications between uncrewed surface vessels (USVs) at range, engineered to withstand jamming.",
+    "display": "Saltenna is developing communications between uncrewed surface vessels (USVs) at range, engineered to withstand jamming.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.a.9",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-surface",
+    "kind": "a",
+    "text": "Learn More",
+    "display": "Learn More",
+    "shared": true,
+    "shared_with": [
+      "maritime.a.6",
+      "maritime.a.7",
+      "maritime.a.8",
+      "maritime.a.10"
+    ]
+  },
+  {
+    "id": "maritime.div.4",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-surface",
+    "kind": "div",
+    "text": "&#8634; replay",
+    "display": "↺ replay",
+    "shared": true,
+    "shared_with": [
+      "maritime.div.1",
+      "maritime.div.2",
+      "maritime.div.3",
+      "maritime.div.5"
+    ]
+  },
+  {
+    "id": "maritime.h3.8",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-seabed",
+    "kind": "h3",
+    "text": "Seabed Communications",
+    "display": "Seabed Communications",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.p.11",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-seabed",
+    "kind": "p",
+    "text": "Saltenna is developing communications along the seabed between UUVs, including through obstacles such as vertical pipes near the seabed — supporting infrastructure inspection and monitoring applications.",
+    "display": "Saltenna is developing communications along the seabed between UUVs, including through obstacles such as vertical pipes near the seabed — supporting infrastructure inspection and monitoring applications.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.a.10",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-seabed",
+    "kind": "a",
+    "text": "Learn More",
+    "display": "Learn More",
+    "shared": true,
+    "shared_with": [
+      "maritime.a.6",
+      "maritime.a.7",
+      "maritime.a.8",
+      "maritime.a.9"
+    ]
+  },
+  {
+    "id": "maritime.div.5",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "uc-seabed",
+    "kind": "div",
+    "text": "&#8634; replay",
+    "display": "↺ replay",
+    "shared": true,
+    "shared_with": [
+      "maritime.div.1",
+      "maritime.div.2",
+      "maritime.div.3",
+      "maritime.div.4"
+    ]
+  },
+  {
+    "id": "maritime.h2.3",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "—",
+    "kind": "h2",
+    "text": "Along the seabed.",
+    "display": "Along the seabed.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "maritime.h2.4",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "— · call to action",
+    "kind": "h2",
+    "text": "Saltenna is evolving fast.",
+    "display": "Saltenna is evolving fast.",
+    "shared": true,
+    "shared_with": [
+      "index.h2.6",
+      "communications.h2.3",
+      "sensing.h2.3",
+      "about.h2.2"
+    ]
+  },
+  {
+    "id": "maritime.p.12",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "— · call to action",
+    "kind": "p",
+    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "shared": true,
+    "shared_with": [
+      "index.p.15",
+      "communications.p.10",
+      "sensing.p.9",
+      "about.p.13",
+      "contact.p.1"
+    ]
+  },
+  {
+    "id": "maritime.a.11",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "— · button, call to action",
+    "kind": "a",
+    "text": "Contact Us",
+    "display": "Contact Us",
+    "shared": true,
+    "shared_with": [
+      "base.a.7",
+      "index.a.5",
+      "products.a.3",
+      "communications.a.6",
+      "sensing.a.5",
+      "about.a.1",
+      "contact.h1.1"
+    ]
+  },
+  {
+    "id": "communications.meta.title",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "SEO title (search results)",
+    "kind": "meta",
+    "text": "Communications — Saltenna",
+    "display": "Communications — Saltenna",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.meta.description",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "SEO description (search results)",
+    "kind": "meta",
+    "text": "Saltenna plasmonic communications: high-bandwidth, stealthy wireless links underwater, through ice, through metal, underground, and in dense vegetation.",
+    "display": "Saltenna plasmonic communications: high-bandwidth, stealthy wireless links underwater, through ice, through metal, underground, and in dense vegetation.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.h1.1",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "—",
+    "kind": "h1",
+    "text": "Communications where wireless can't reach.",
+    "display": "Communications where wireless can't reach.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.p.1",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "— · hero tagline",
+    "kind": "p",
+    "text": "Beyond legacy radio frequency.",
+    "display": "Beyond legacy radio frequency.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.p.2",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "— · hero description",
+    "kind": "p",
+    "text": "Saltenna is developing high-bandwidth communications underwater, under ice, through metal and dense infrastructure, and beyond — across government and commercial sectors.",
+    "display": "Saltenna is developing high-bandwidth communications underwater, under ice, through metal and dense infrastructure, and beyond — across government and commercial sectors.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.a.1",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Water &amp; Ice",
+    "display": "Water & Ice",
+    "shared": true,
+    "shared_with": [
+      "index.h3.1"
+    ]
+  },
+  {
+    "id": "communications.a.2",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Steel &amp; Concrete",
+    "display": "Steel & Concrete",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.a.3",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Surfaces",
+    "display": "Surfaces",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.a.4",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Pipes",
+    "display": "Pipes",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.a.5",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Beyond",
+    "display": "Beyond",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.h2.1",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "use-cases · section intro",
+    "kind": "h2",
+    "text": "Five barriers. One physics.",
+    "display": "Five barriers. One physics.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.p.3",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "use-cases · section intro",
+    "kind": "p",
+    "text": "Plasmonic waves travel along the boundaries other signals can't cross. If an environment defeats today's wireless, it's a candidate.",
+    "display": "Plasmonic waves travel along the boundaries other signals can't cross. If an environment defeats today's wireless, it's a candidate.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.h3.1",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "uc-water",
+    "kind": "h3",
+    "text": "Through Water and Ice",
+    "display": "Through Water and Ice",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.p.4",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "uc-water",
+    "kind": "p",
+    "text": "Saltenna is developing high-bandwidth, stealthy communications underwater — no line of sight required — and through and along ice sheets, connecting air and above-ice assets with those submerged beneath.",
+    "display": "Saltenna is developing high-bandwidth, stealthy communications underwater — no line of sight required — and through and along ice sheets, connecting air and above-ice assets with those submerged beneath.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.h3.2",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "uc-metal",
+    "kind": "h3",
+    "text": "Through Steel and Concrete",
+    "display": "Through Steel and Concrete",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.p.5",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "uc-metal",
+    "kind": "p",
+    "text": "Saltenna has demonstrated significantly enhanced range in solid underground facilities, tunnels, and multi-level structures, and is working on robust links inside ships, submarines, and dense or collapsed infrastructure — with no cables run and no holes drilled.",
+    "display": "Saltenna has demonstrated significantly enhanced range in solid underground facilities, tunnels, and multi-level structures, and is working on robust links inside ships, submarines, and dense or collapsed infrastructure — with no cables run and no holes drilled.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.h3.3",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "uc-surfaces",
+    "kind": "h3",
+    "text": "Along Surfaces",
+    "display": "Along Surfaces",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.p.6",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "uc-surfaces",
+    "kind": "p",
+    "text": "Any long conductive surface can become the network. Saltenna is developing stealthy, resilient communications along linear infrastructure — runways, flightlines, roads — and around metal airframes themselves, with signals riding the surface instead of broadcasting into contested spectrum.",
+    "display": "Any long conductive surface can become the network. Saltenna is developing stealthy, resilient communications along linear infrastructure — runways, flightlines, roads — and around metal airframes themselves, with signals riding the surface instead of broadcasting into contested spectrum.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.h3.4",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "uc-pipes",
+    "kind": "h3",
+    "text": "Along Pipes and Industrial Metal",
+    "display": "Along Pipes and Industrial Metal",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.p.7",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "uc-pipes",
+    "kind": "p",
+    "text": "Saltenna has demonstrated wireless communications along and through pressurized tanks and pipes, and is working on links for pipelines above ground, buried, or underwater — including lines filled with hazardous liquids — without drilling holes or running wires.",
+    "display": "Saltenna has demonstrated wireless communications along and through pressurized tanks and pipes, and is working on links for pipelines above ground, buried, or underwater — including lines filled with hazardous liquids — without drilling holes or running wires.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.h3.5",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "uc-beyond",
+    "kind": "h3",
+    "text": "Where Nothing Else Reaches",
+    "display": "Where Nothing Else Reaches",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.p.8",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "uc-beyond",
+    "kind": "p",
+    "text": "Where there are no towers and no ionosphere, the physics still holds. Saltenna is working on carrying communications within and through dense jungle canopy, and simulations show the technology could work on the lunar surface and other planets.",
+    "display": "Where there are no towers and no ionosphere, the physics still holds. Saltenna is working on carrying communications within and through dense jungle canopy, and simulations show the technology could work on the lunar surface and other planets.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.h2.2",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "—",
+    "kind": "h2",
+    "text": "Through and along the ice.",
+    "display": "Through and along the ice.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.h3.6",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "—",
+    "kind": "h3",
+    "text": "A technology that behaves differently from all others.",
+    "display": "A technology that behaves differently from all others.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.p.9",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "Current radios, Wi‑Fi, Bluetooth, optical, audio, and other systems radiate through free space and fail at dense obstacles. Plasmonic waves instead travel along surfaces — the boundaries between water, metal, soil, and air — so no line of sight is needed, and the energy stays stealthy on the surface instead of broadcasting into contested spectrum.",
+    "display": "Current radios, Wi‑Fi, Bluetooth, optical, audio, and other systems radiate through free space and fail at dense obstacles. Plasmonic waves instead travel along surfaces — the boundaries between water, metal, soil, and air — so no line of sight is needed, and the energy stays stealthy on the surface instead of broadcasting into contested spectrum.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.h2.3",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "— · call to action",
+    "kind": "h2",
+    "text": "Saltenna is evolving fast.",
+    "display": "Saltenna is evolving fast.",
+    "shared": true,
+    "shared_with": [
+      "index.h2.6",
+      "maritime.h2.4",
+      "sensing.h2.3",
+      "about.h2.2"
+    ]
+  },
+  {
+    "id": "communications.p.10",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "— · call to action",
+    "kind": "p",
+    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "shared": true,
+    "shared_with": [
+      "index.p.15",
+      "maritime.p.12",
+      "sensing.p.9",
+      "about.p.13",
+      "contact.p.1"
+    ]
+  },
+  {
+    "id": "communications.a.6",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "— · button, call to action",
+    "kind": "a",
+    "text": "Contact Us",
+    "display": "Contact Us",
+    "shared": true,
+    "shared_with": [
+      "base.a.7",
+      "index.a.5",
+      "products.a.3",
+      "maritime.a.11",
+      "sensing.a.5",
+      "about.a.1",
+      "contact.h1.1"
+    ]
+  },
+  {
+    "id": "sensing.meta.title",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "SEO title (search results)",
+    "kind": "meta",
+    "text": "Sensing — Saltenna",
+    "display": "Sensing — Saltenna",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.meta.description",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "SEO description (search results)",
+    "kind": "meta",
+    "text": "Saltenna plasmonic sensing detects and characterizes humans, animals, and objects through solid metal, underwater, and in other environments no sensor could reach before.",
+    "display": "Saltenna plasmonic sensing detects and characterizes humans, animals, and objects through solid metal, underwater, and in other environments no sensor could reach before.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.h1.1",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "—",
+    "kind": "h1",
+    "text": "Wireless Sensing and Detection",
+    "display": "Wireless Sensing and Detection",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.p.1",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "— · hero tagline",
+    "kind": "p",
+    "text": "Sensing where others can't.",
+    "display": "Sensing where others can't.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.p.2",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "— · hero description",
+    "kind": "p",
+    "text": "Saltenna is developing technology that can detect and characterize the presence of humans, animals, and objects in new environments considered impossible with current wireless detection technologies.",
+    "display": "Saltenna is developing technology that can detect and characterize the presence of humans, animals, and objects in new environments considered impossible with current wireless detection technologies.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.a.1",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Sealed Metal",
+    "display": "Sealed Metal",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.a.2",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Presence",
+    "display": "Presence",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.a.3",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Water",
+    "display": "Water",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.a.4",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "Tissue",
+    "display": "Tissue",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.h2.1",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "use-cases · section intro",
+    "kind": "h2",
+    "text": "Sensing through the opaque.",
+    "display": "Sensing through the opaque.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.p.3",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "use-cases · section intro",
+    "kind": "p",
+    "text": "Four barriers plasmonics can read through. What's behind yours?",
+    "display": "Four barriers plasmonics can read through. What's behind yours?",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.h3.1",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "uc-sealed",
+    "kind": "h3",
+    "text": "Inside Sealed Metal",
+    "display": "Inside Sealed Metal",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.p.4",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "uc-sealed",
+    "kind": "p",
+    "text": "Saltenna is working on sensor reporting and object detection through solid metal — pressurized tanks, shipping containers, sealed vessels — without drilling holes or running wires. Contents, condition, and chain of custody, read through the wall.",
+    "display": "Saltenna is working on sensor reporting and object detection through solid metal — pressurized tanks, shipping containers, sealed vessels — without drilling holes or running wires. Contents, condition, and chain of custody, read through the wall.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.h3.2",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "uc-presence",
+    "kind": "h3",
+    "text": "Presence Through Barriers",
+    "display": "Presence Through Barriers",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.p.5",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "uc-presence",
+    "kind": "p",
+    "text": "Saltenna has demonstrated sensing through metal, and is developing detection of presence and activity in spaces nothing else can see into — sealed containers, hulls, and denied environments underwater and ashore.",
+    "display": "Saltenna has demonstrated sensing through metal, and is developing detection of presence and activity in spaces nothing else can see into — sealed containers, hulls, and denied environments underwater and ashore.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.h3.3",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "uc-water",
+    "kind": "h3",
+    "text": "Through Water",
+    "display": "Through Water",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.p.6",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "uc-water",
+    "kind": "p",
+    "text": "Saltenna believes its Plasmonics may monitor what happens beneath the surface — the health of stock and structures, ice-sheet thickness, salinity, long-term environmental change — in places where today's sensors can't report back.",
+    "display": "Saltenna believes its Plasmonics may monitor what happens beneath the surface — the health of stock and structures, ice-sheet thickness, salinity, long-term environmental change — in places where today's sensors can't report back.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.h3.4",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "uc-tissue",
+    "kind": "h3",
+    "text": "Through Tissue",
+    "display": "Through Tissue",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.p.7",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "uc-tissue",
+    "kind": "p",
+    "text": "Saltenna is moving towards scanning organic tissue to detect the presence of cancers and other ailments — the same physics that reads through steel, tuned to living tissue.",
+    "display": "Saltenna is moving towards scanning organic tissue to detect the presence of cancers and other ailments — the same physics that reads through steel, tuned to living tissue.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.h2.2",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "—",
+    "kind": "h2",
+    "text": "Every container, accounted for.",
+    "display": "Every container, accounted for.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.h3.5",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "—",
+    "kind": "h3",
+    "text": "Leveraging barriers instead of being blocked by them.",
+    "display": "Leveraging barriers instead of being blocked by them.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.p.8",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "Saltenna's Plasmonic waves travel along and through solid metal rather than being blocked by it. Saltenna has demonstrated detection through metal — without drilling holes or running wires, and with vessels, containers, and hulls staying sealed and intact.",
+    "display": "Saltenna's Plasmonic waves travel along and through solid metal rather than being blocked by it. Saltenna has demonstrated detection through metal — without drilling holes or running wires, and with vessels, containers, and hulls staying sealed and intact.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.h2.3",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "— · call to action",
+    "kind": "h2",
+    "text": "Saltenna is evolving fast.",
+    "display": "Saltenna is evolving fast.",
+    "shared": true,
+    "shared_with": [
+      "index.h2.6",
+      "maritime.h2.4",
+      "communications.h2.3",
+      "about.h2.2"
+    ]
+  },
+  {
+    "id": "sensing.p.9",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "— · call to action",
+    "kind": "p",
+    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "shared": true,
+    "shared_with": [
+      "index.p.15",
+      "maritime.p.12",
+      "communications.p.10",
+      "about.p.13",
+      "contact.p.1"
+    ]
+  },
+  {
+    "id": "sensing.a.5",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "— · button, call to action",
+    "kind": "a",
+    "text": "Contact Us",
+    "display": "Contact Us",
+    "shared": true,
+    "shared_with": [
+      "base.a.7",
+      "index.a.5",
+      "products.a.3",
+      "maritime.a.11",
+      "communications.a.6",
+      "about.a.1",
+      "contact.h1.1"
+    ]
+  },
+  {
+    "id": "about.meta.title",
+    "page": "About",
+    "source": "about.astro",
+    "location": "SEO title (search results)",
+    "kind": "meta",
+    "text": "About — Saltenna",
+    "display": "About — Saltenna",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.meta.description",
+    "page": "About",
+    "source": "about.astro",
+    "location": "SEO description (search results)",
+    "kind": "meta",
+    "text": "Saltenna is a dual-use technology company in McLean, VA developing plasmonic wireless communications and sensing, led by pioneers in physics, defense, and engineering.",
+    "display": "Saltenna is a dual-use technology company in McLean, VA developing plasmonic wireless communications and sensing, led by pioneers in physics, defense, and engineering.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.h1.1",
+    "page": "About",
+    "source": "about.astro",
+    "location": "—",
+    "kind": "h1",
+    "text": "Working at the boundary.",
+    "display": "Working at the boundary.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.p.1",
+    "page": "About",
+    "source": "about.astro",
+    "location": "— · hero tagline",
+    "kind": "p",
+    "text": "Est. 2017 — McLean, Virginia.",
+    "display": "Est. 2017 — McLean, Virginia.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.p.2",
+    "page": "About",
+    "source": "about.astro",
+    "location": "— · hero description",
+    "kind": "p",
+    "text": "Saltenna is developing communications where land, sea, and air meet — and is always interested in hearing from scientists, engineers, and potential partners.",
+    "display": "Saltenna is developing communications where land, sea, and air meet — and is always interested in hearing from scientists, engineers, and potential partners.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.h3.1",
+    "page": "About",
+    "source": "about.astro",
+    "location": "who-we-are",
+    "kind": "h3",
+    "text": "A dual-use company strategically located in the Washington DC metro area.",
+    "display": "A dual-use company strategically located in the Washington DC metro area.",
+    "shared": true,
+    "shared_with": [
+      "index.h2.4"
+    ]
+  },
+  {
+    "id": "about.p.3",
+    "page": "About",
+    "source": "about.astro",
+    "location": "who-we-are",
+    "kind": "p",
+    "text": "Saltenna holds multiple patents on its technology and is heavily engaged in further R&amp;D. It has performed on multiple contracts and demonstrated its technology for the U.S. Department of Defense and commercial customers.",
+    "display": "Saltenna holds multiple patents on its technology and is heavily engaged in further R&D. It has performed on multiple contracts and demonstrated its technology for the U.S. Department of Defense and commercial customers.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.h2.1",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · section intro",
+    "kind": "h2",
+    "text": "Management Team",
+    "display": "Management Team",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.p.4",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · section intro",
+    "kind": "p",
+    "text": "Executives and scientists with decades of experience across defense, government, semiconductors, wireless, and subsea systems.",
+    "display": "Executives and scientists with decades of experience across defense, government, semiconductors, wireless, and subsea systems.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.h3.2",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "h3",
+    "text": "M. Dendy Young",
+    "display": "M. Dendy Young",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.div.1",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · job title",
+    "kind": "div",
+    "text": "Executive Chairman",
+    "display": "Executive Chairman",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.p.5",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "p",
+    "text": "Dendy Young brings over 50 years of executive leadership in defense, government, and commercial technology. As Managing Partner of McLean Capital and a founding partner of Blu Venture Investors, he has launched and scaled early-stage ventures with strategic capital and operational expertise. Beyond technology, he operates Hidden Creek Farm in Virginia, a regenerative farm focused on restoring soil health and ecological balance, reflecting his belief that healthy soil yields healthy food and healthy people. B.S. Electrical Engineering and Computer Science, MIT. M.B.A. Harvard Business School.",
+    "display": "Dendy Young brings over 50 years of executive leadership in defense, government, and commercial technology. As Managing Partner of McLean Capital and a founding partner of Blu Venture Investors, he has launched and scaled early-stage ventures with strategic capital and operational expertise. Beyond technology, he operates Hidden Creek Farm in Virginia, a regenerative farm focused on restoring soil health and ecological balance, reflecting his belief that healthy soil yields healthy food and healthy people. B.S. Electrical Engineering and Computer Science, MIT. M.B.A. Harvard Business School.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.h3.3",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "h3",
+    "text": "Dr. Igor Smolyaninov, PhD",
+    "display": "Dr. Igor Smolyaninov, PhD",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.div.2",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · job title",
+    "kind": "div",
+    "text": "CTO and Founder",
+    "display": "CTO and Founder",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.p.6",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "p",
+    "text": "Dr. Igor Smolyaninov is a globally recognized physicist with expertise in plasmonics, surface optics, and electromagnetic metamaterials. Former Research Scientist at the University of Maryland, CTO of Gradient Dynamics, and Senior Principal Engineer at BAE Systems, he has authored 400+ papers and holds numerous patents. OSA Fellow, recipient of the Scientific American 50 Award, and gold medalist for young scientists of the USSR Academy of Science, Igor is a pioneer of game-changing technology. M.Sc. Moscow Institute of Physics and Technology. Ph.D. Physics, Kapitza Institute, Russian Academy of Sciences.",
+    "display": "Dr. Igor Smolyaninov is a globally recognized physicist with expertise in plasmonics, surface optics, and electromagnetic metamaterials. Former Research Scientist at the University of Maryland, CTO of Gradient Dynamics, and Senior Principal Engineer at BAE Systems, he has authored 400+ papers and holds numerous patents. OSA Fellow, recipient of the Scientific American 50 Award, and gold medalist for young scientists of the USSR Academy of Science, Igor is a pioneer of game-changing technology. M.Sc. Moscow Institute of Physics and Technology. Ph.D. Physics, Kapitza Institute, Russian Academy of Sciences.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.h3.4",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "h3",
+    "text": "Robert \"Ashley\" Johnston",
+    "display": "Robert \"Ashley\" Johnston",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.div.3",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · job title",
+    "kind": "div",
+    "text": "COO",
+    "display": "COO",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.p.7",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "p",
+    "text": "Robert \"Ashley\" Johnston is a technology executive with over 30 years experience leading growth and innovation across the semiconductor, wireless, and AI software industries. CEO of VanGogh Imaging, a developer of advanced 3D computer vision, machine learning, and generative AI technologies used in consumer electronics, robotics, and medical applications. President of Setcom Wireless Products GmbH, where he restructured the company around wireless IP services and security testing and led its sale to the market leader. Earlier leadership roles at Texas Instruments and Motorola Semiconductor, driving business development and major telecom infrastructure design wins across Europe and Asia. Bachelor of Engineering, Electronic Systems, University of Limerick.",
+    "display": "Robert \"Ashley\" Johnston is a technology executive with over 30 years experience leading growth and innovation across the semiconductor, wireless, and AI software industries. CEO of VanGogh Imaging, a developer of advanced 3D computer vision, machine learning, and generative AI technologies used in consumer electronics, robotics, and medical applications. President of Setcom Wireless Products GmbH, where he restructured the company around wireless IP services and security testing and led its sale to the market leader. Earlier leadership roles at Texas Instruments and Motorola Semiconductor, driving business development and major telecom infrastructure design wins across Europe and Asia. Bachelor of Engineering, Electronic Systems, University of Limerick.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.h3.5",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "h3",
+    "text": "Captain Denny Brisley, USN (Ret.)",
+    "display": "Captain Denny Brisley, USN (Ret.)",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.div.4",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · job title",
+    "kind": "div",
+    "text": "Chief Strategy Officer",
+    "display": "Chief Strategy Officer",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.p.8",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "p",
+    "text": "Denny is an aerospace executive with 30+ years advancing dual-use tech for national security &amp; commercial markets. She held senior executive roles at General Dynamics, SAIC, CAE, and NorthStar Earth &amp; Space. Retired USN Captain (Intelligence), post-9/11 active duty, senior civilian at ONI &amp; OSD HQE, Silicon Valley entrepreneur, Presidential Appointee, Hoover Institution Fellow, and Stanford Visiting Scholar. B.A. International Relations, Stanford University. M.A. Defense and Strategic Studies, U.S. Naval War College.",
+    "display": "Denny is an aerospace executive with 30+ years advancing dual-use tech for national security & commercial markets. She held senior executive roles at General Dynamics, SAIC, CAE, and NorthStar Earth & Space. Retired USN Captain (Intelligence), post-9/11 active duty, senior civilian at ONI & OSD HQE, Silicon Valley entrepreneur, Presidential Appointee, Hoover Institution Fellow, and Stanford Visiting Scholar. B.A. International Relations, Stanford University. M.A. Defense and Strategic Studies, U.S. Naval War College.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.h3.6",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "h3",
+    "text": "John Mulholland",
+    "display": "John Mulholland",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.div.5",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · job title",
+    "kind": "div",
+    "text": "Division President — Energy Systems",
+    "display": "Division President — Energy Systems",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.p.9",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "p",
+    "text": "John is a strategic technology leader with over 25 years experience in development of advanced controls infrastructure and sensor systems within both Military and Subsea Oil &amp; Gas markets. He leads projects introducing new technologies and supporting life extension of high-value assets. Numerous patents in wireless subsea sensing and communications and a Senior Member of the IEEE. Associate Professor in Systems Engineering, bridging the gap between high-level academic research and mission-critical industrial applications. M.Eng Electrical &amp; Mechanical Engineering, University of Edinburgh.",
+    "display": "John is a strategic technology leader with over 25 years experience in development of advanced controls infrastructure and sensor systems within both Military and Subsea Oil & Gas markets. He leads projects introducing new technologies and supporting life extension of high-value assets. Numerous patents in wireless subsea sensing and communications and a Senior Member of the IEEE. Associate Professor in Systems Engineering, bridging the gap between high-level academic research and mission-critical industrial applications. M.Eng Electrical & Mechanical Engineering, University of Edinburgh.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.h3.7",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "h3",
+    "text": "Sanjee Singla",
+    "display": "Sanjee Singla",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.div.6",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · job title",
+    "kind": "div",
+    "text": "Division President — AI and Robotics",
+    "display": "Division President — AI and Robotics",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.p.10",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "p",
+    "text": "Sanjee Singla brings 20+ years of innovation in hardware and software engineering, has invented several proprietary technologies, and founded Import Zen, Apply.co, and AT Strategic. A former infrastructure project finance investment banker at Taylor-DeJongh and researcher at Stanford's SIEPR and GSB, Sanjee leads Saltenna's strategy, products, and contracts for AI and Robotic platforms across all domains. B.A. Economics and Physics, Stanford University. M.S. Management Science and Engineering, Stanford University. Certified Associate in Project Management (CAPM), Project Management Institute.",
+    "display": "Sanjee Singla brings 20+ years of innovation in hardware and software engineering, has invented several proprietary technologies, and founded Import Zen, Apply.co, and AT Strategic. A former infrastructure project finance investment banker at Taylor-DeJongh and researcher at Stanford's SIEPR and GSB, Sanjee leads Saltenna's strategy, products, and contracts for AI and Robotic platforms across all domains. B.A. Economics and Physics, Stanford University. M.S. Management Science and Engineering, Stanford University. Certified Associate in Project Management (CAPM), Project Management Institute.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.h3.8",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "h3",
+    "text": "Dr. Quirino Balzano, PhD",
+    "display": "Dr. Quirino Balzano, PhD",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.div.7",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · job title",
+    "kind": "div",
+    "text": "Senior Scientist",
+    "display": "Senior Scientist",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.p.11",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "p",
+    "text": "Dr. Quirino Balzano is a pioneer in RF dosimetry and antenna technology with 50+ papers and 31 patents. Former VP of Technical Staff at Motorola and researcher at Raytheon's Missile Systems, he led R&amp;D on Patriot phased arrays. Now Senior Staff Researcher at University of Maryland, Quirino advances Saltenna's electromagnetic and plasmonic innovations for defense and extreme environments. Ph.D. Electronics Engineering, University of Rome, La Sapienza, Rome, Italy.",
+    "display": "Dr. Quirino Balzano is a pioneer in RF dosimetry and antenna technology with 50+ papers and 31 patents. Former VP of Technical Staff at Motorola and researcher at Raytheon's Missile Systems, he led R&D on Patriot phased arrays. Now Senior Staff Researcher at University of Maryland, Quirino advances Saltenna's electromagnetic and plasmonic innovations for defense and extreme environments. Ph.D. Electronics Engineering, University of Rome, La Sapienza, Rome, Italy.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.h3.9",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "h3",
+    "text": "Maj. Gen. Patrick Higby, USAF (Ret.)",
+    "display": "Maj. Gen. Patrick Higby, USAF (Ret.)",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.div.8",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · job title",
+    "kind": "div",
+    "text": "Advisor",
+    "display": "Advisor",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.p.12",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team",
+    "kind": "p",
+    "text": "Principal, Deep Water Point. US Air Force: Director for DevOps &amp; Lethality, Director for Cyberspace Strategy, Commander (81st Training Wing and Keesler, 75th Air Base Wing and Hill AFB), Deputy Commander, White House Communications Agency. B.S. Electrical Engineering, Georgia Institute of Technology. Masters Degree, Electrical Engineering, Colorado Technical University. Masters Degrees in Strategic Studies at USAF War College, National Security and Strategic Studies at U.S. Naval War College.",
+    "display": "Principal, Deep Water Point. US Air Force: Director for DevOps & Lethality, Director for Cyberspace Strategy, Commander (81st Training Wing and Keesler, 75th Air Base Wing and Hill AFB), Deputy Commander, White House Communications Agency. B.S. Electrical Engineering, Georgia Institute of Technology. Masters Degree, Electrical Engineering, Colorado Technical University. Masters Degrees in Strategic Studies at USAF War College, National Security and Strategic Studies at U.S. Naval War College.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.h2.2",
+    "page": "About",
+    "source": "about.astro",
+    "location": "— · call to action",
+    "kind": "h2",
+    "text": "Saltenna is evolving fast.",
+    "display": "Saltenna is evolving fast.",
+    "shared": true,
+    "shared_with": [
+      "index.h2.6",
+      "maritime.h2.4",
+      "communications.h2.3",
+      "sensing.h2.3"
+    ]
+  },
+  {
+    "id": "about.p.13",
+    "page": "About",
+    "source": "about.astro",
+    "location": "— · call to action",
+    "kind": "p",
+    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "shared": true,
+    "shared_with": [
+      "index.p.15",
+      "maritime.p.12",
+      "communications.p.10",
+      "sensing.p.9",
+      "contact.p.1"
+    ]
+  },
+  {
+    "id": "about.a.1",
+    "page": "About",
+    "source": "about.astro",
+    "location": "— · button, call to action",
+    "kind": "a",
+    "text": "Contact Us",
+    "display": "Contact Us",
+    "shared": true,
+    "shared_with": [
+      "base.a.7",
+      "index.a.5",
+      "products.a.3",
+      "maritime.a.11",
+      "communications.a.6",
+      "sensing.a.5",
+      "contact.h1.1"
+    ]
+  },
+  {
+    "id": "contact.meta.title",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "SEO title (search results)",
+    "kind": "meta",
+    "text": "Contact — Saltenna",
+    "display": "Contact — Saltenna",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "contact.meta.description",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "SEO description (search results)",
+    "kind": "meta",
+    "text": "Contact Saltenna in McLean, VA to discuss plasmonic communications and sensing for your government or commercial mission.",
+    "display": "Contact Saltenna in McLean, VA to discuss plasmonic communications and sensing for your government or commercial mission.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "contact.h1.1",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "—",
+    "kind": "h1",
+    "text": "Contact Us",
+    "display": "Contact Us",
+    "shared": true,
+    "shared_with": [
+      "base.a.7",
+      "index.a.5",
+      "products.a.3",
+      "maritime.a.11",
+      "communications.a.6",
+      "sensing.a.5",
+      "about.a.1"
+    ]
+  },
+  {
+    "id": "contact.p.1",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "—",
+    "kind": "p",
+    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "shared": true,
+    "shared_with": [
+      "index.p.15",
+      "maritime.p.12",
+      "communications.p.10",
+      "sensing.p.9",
+      "about.p.13"
+    ]
+  },
+  {
+    "id": "contact.label.1",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "contact-form",
+    "kind": "label",
+    "text": "Name",
+    "display": "Name",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "contact.label.2",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "contact-form",
+    "kind": "label",
+    "text": "Company",
+    "display": "Company",
+    "shared": true,
+    "shared_with": [
+      "base.h4.2"
+    ]
+  },
+  {
+    "id": "contact.label.3",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "contact-form",
+    "kind": "label",
+    "text": "Email Address",
+    "display": "Email Address",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "contact.label.4",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "contact-form",
+    "kind": "label",
+    "text": "Phone (optional)",
+    "display": "Phone (optional)",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "contact.label.5",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "contact-form",
+    "kind": "label",
+    "text": "Message",
+    "display": "Message",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "contact.button.1",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "contact-form · button",
+    "kind": "button",
+    "text": "Send Message",
+    "display": "Send Message",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "contact.p.2",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "contact-form",
+    "kind": "p",
+    "text": "This opens your email client addressed to info@saltenna.com.",
+    "display": "This opens your email client addressed to info@saltenna.com.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "contact.div.1",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "—",
+    "kind": "div",
+    "text": "Saltenna Inc. 1751 Pinnacle Dr, Ste 600McLean, VA 22102-4007United States",
+    "display": "Saltenna Inc. 1751 Pinnacle Dr, Ste 600McLean, VA 22102-4007United States",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "contact.b.1",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "—",
+    "kind": "b",
+    "text": "Direct Email Contact",
+    "display": "Direct Email Contact",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "contact.a.1",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "—",
+    "kind": "a",
+    "text": "info@saltenna.com",
+    "display": "info@saltenna.com",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "contact.div.2",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "—",
+    "kind": "div",
+    "text": "Government Identifiers CAGE: 7VPY9DUNS: 08-0672349UEI: MHBLZ1BWMNQ3",
+    "display": "Government Identifiers CAGE: 7VPY9DUNS: 08-0672349UEI: MHBLZ1BWMNQ3",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-d2d.name",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "D2D — list name",
+    "kind": "product-field",
+    "text": "D2D",
+    "display": "D2D",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-d2d.fullName",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "D2D — heading",
+    "kind": "product-field",
+    "text": "D2D — Diver-to-Diver Communications",
+    "display": "D2D — Diver-to-Diver Communications",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-d2d.status",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "D2D — status badge",
+    "kind": "product-field",
+    "text": "Prototype",
+    "display": "Prototype",
+    "shared": true,
+    "shared_with": [
+      "prod-ibex.status"
+    ]
+  },
+  {
+    "id": "prod-d2d.claim",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "D2D — one-line claim",
+    "kind": "product-field",
+    "text": "Underwater voice for dive teams — no line of sight, no buoy relay.",
+    "display": "Underwater voice for dive teams — no line of sight, no buoy relay.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-d2d.body",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "D2D — body paragraph",
+    "kind": "product-field",
+    "text": "D2D lets divers talk in non-line-of-sight, silt-out, and blackout conditions — and through the air/water barrier to surface teams over a compatible two-way radio, with no transducer or buoy relay. A bone-conduction earpiece and push-to-talk configure rapidly for full-face and half-mask systems, integrating with a wide range of currently fielded dive equipment.",
+    "display": "D2D lets divers talk in non-line-of-sight, silt-out, and blackout conditions — and through the air/water barrier to surface teams over a compatible two-way radio, with no transducer or buoy relay. A bone-conduction earpiece and push-to-talk configure rapidly for full-face and half-mask systems, integrating with a wide range of currently fielded dive equipment.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-d2d.domain",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "D2D — domain link",
+    "kind": "product-field",
+    "text": "Maritime",
+    "display": "Maritime",
+    "shared": true,
+    "shared_with": [
+      "base.a.3",
+      "base.a.9"
+    ]
+  },
+  {
+    "id": "prod-d2d.spec1",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "D2D — spec chip 1",
+    "kind": "spec-chip",
+    "text": "Depth rating 20 m",
+    "display": "Depth rating 20 m",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-d2d.spec2",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "D2D — spec chip 2",
+    "kind": "spec-chip",
+    "text": "Range up to 300 m",
+    "display": "Range up to 300 m",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-d2d.spec3",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "D2D — spec chip 3",
+    "kind": "spec-chip",
+    "text": "2.12 kg total",
+    "display": "2.12 kg total",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-d2d.spec4",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "D2D — spec chip 4",
+    "kind": "spec-chip",
+    "text": "2 °C to 35 °C",
+    "display": "2 °C to 35 °C",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-d2d.hint890",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "D2D — 3D model caption",
+    "kind": "model-hint",
+    "text": "Diver kit fit \\u00b7 drag to rotate",
+    "display": "Diver kit fit · drag to rotate",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-remora.name",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "REMORA — list name",
+    "kind": "product-field",
+    "text": "Remora",
+    "display": "Remora",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-remora.fullName",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "REMORA — heading",
+    "kind": "product-field",
+    "text": "Remora — Pipeline Data Links",
+    "display": "Remora — Pipeline Data Links",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-remora.status",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "REMORA — status badge",
+    "kind": "product-field",
+    "text": "Customer engagement ready",
+    "display": "Customer engagement ready",
+    "shared": true,
+    "shared_with": [
+      "prod-stingray.status"
+    ]
+  },
+  {
+    "id": "prod-remora.claim",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "REMORA — one-line claim",
+    "kind": "product-field",
+    "text": "Wireless data links along subsea pipelines, cables, and umbilicals.",
+    "display": "Wireless data links along subsea pipelines, cables, and umbilicals.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-remora.body",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "REMORA — body paragraph",
+    "kind": "product-field",
+    "text": "Remora replaces conductive cable links with a wireless hop that uses the pipe or cable itself as the transmission medium. Built for subsea pipelines, flexibles, and umbilicals, it removes the cost and complexity of cable installation — no cable pull, no ROV connector alignment on either end, and no galvanic earth-loop issues on aging infrastructure.",
+    "display": "Remora replaces conductive cable links with a wireless hop that uses the pipe or cable itself as the transmission medium. Built for subsea pipelines, flexibles, and umbilicals, it removes the cost and complexity of cable installation — no cable pull, no ROV connector alignment on either end, and no galvanic earth-loop issues on aging infrastructure.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-remora.domain",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "REMORA — domain link",
+    "kind": "product-field",
+    "text": "Communications",
+    "display": "Communications",
+    "shared": true,
+    "shared_with": [
+      "base.a.4",
+      "base.a.10",
+      "prod-stingray.domain",
+      "prod-ibex.domain"
+    ]
+  },
+  {
+    "id": "prod-remora.spec1",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "REMORA — spec chip 1",
+    "kind": "spec-chip",
+    "text": "Up to 200 m per hop",
+    "display": "Up to 200 m per hop",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-remora.spec2",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "REMORA — spec chip 2",
+    "kind": "spec-chip",
+    "text": "Retrofit — no cable pull",
+    "display": "Retrofit — no cable pull",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-remora.spec3",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "REMORA — spec chip 3",
+    "kind": "spec-chip",
+    "text": "Non-galvanic coupling",
+    "display": "Non-galvanic coupling",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-remora.spec4",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "REMORA — spec chip 4",
+    "kind": "spec-chip",
+    "text": "High & low frequency paths",
+    "display": "High & low frequency paths",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-remora.hint1113",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "REMORA — 3D model caption",
+    "kind": "model-hint",
+    "text": "Clamp-on pipe limpet \\u00b7 drag to rotate",
+    "display": "Clamp-on pipe limpet · drag to rotate",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-stingray.name",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "STINGRAY — list name",
+    "kind": "product-field",
+    "text": "Stingray",
+    "display": "Stingray",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-stingray.fullName",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "STINGRAY — heading",
+    "kind": "product-field",
+    "text": "Stingray — Cognitive Wireless Penetrator",
+    "display": "Stingray — Cognitive Wireless Penetrator",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-stingray.status",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "STINGRAY — status badge",
+    "kind": "product-field",
+    "text": "Customer engagement ready",
+    "display": "Customer engagement ready",
+    "shared": true,
+    "shared_with": [
+      "prod-remora.status"
+    ]
+  },
+  {
+    "id": "prod-stingray.claim",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "STINGRAY — one-line claim",
+    "kind": "product-field",
+    "text": "Contactless data through sealed metal walls, flanges, and pressure barriers.",
+    "display": "Contactless data through sealed metal walls, flanges, and pressure barriers.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-stingray.body",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "STINGRAY — body paragraph",
+    "kind": "product-field",
+    "text": "Stingray couples RF plasmons straight through a sealed metal wall, flange, or pressure boundary — replacing wired penetrators and bulkhead connectors with a fully contactless wireless feedthrough. Internal and external units mount magnetically on opposite faces of the boundary, giving 360° coverage around a flange with no drilling, no leak path, and no alignment constraints.",
+    "display": "Stingray couples RF plasmons straight through a sealed metal wall, flange, or pressure boundary — replacing wired penetrators and bulkhead connectors with a fully contactless wireless feedthrough. Internal and external units mount magnetically on opposite faces of the boundary, giving 360° coverage around a flange with no drilling, no leak path, and no alignment constraints.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-stingray.domain",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "STINGRAY — domain link",
+    "kind": "product-field",
+    "text": "Communications",
+    "display": "Communications",
+    "shared": true,
+    "shared_with": [
+      "base.a.4",
+      "base.a.10",
+      "prod-remora.domain",
+      "prod-ibex.domain"
+    ]
+  },
+  {
+    "id": "prod-stingray.spec1",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "STINGRAY — spec chip 1",
+    "kind": "spec-chip",
+    "text": "Up to 1 Mbps bidirectional",
+    "display": "Up to 1 Mbps bidirectional",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-stingray.spec2",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "STINGRAY — spec chip 2",
+    "kind": "spec-chip",
+    "text": "3,000 m design depth",
+    "display": "3,000 m design depth",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-stingray.spec3",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "STINGRAY — spec chip 3",
+    "kind": "spec-chip",
+    "text": "Magnetic, tool-less mounting",
+    "display": "Magnetic, tool-less mounting",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-stingray.spec4",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "STINGRAY — spec chip 4",
+    "kind": "spec-chip",
+    "text": "Seawater & saturated brine",
+    "display": "Seawater & saturated brine",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-stingray.hint1140",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "STINGRAY — 3D model caption",
+    "kind": "model-hint",
+    "text": "System interface module · drag to rotate",
+    "display": "System interface module · drag to rotate",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-ibex.name",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "IBEX — list name",
+    "kind": "product-field",
+    "text": "Ibex",
+    "display": "Ibex",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-ibex.fullName",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "IBEX — heading",
+    "kind": "product-field",
+    "text": "Ibex — Handheld Radio Antenna",
+    "display": "Ibex — Handheld Radio Antenna",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-ibex.status",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "IBEX — status badge",
+    "kind": "product-field",
+    "text": "Prototype",
+    "display": "Prototype",
+    "shared": true,
+    "shared_with": [
+      "prod-d2d.status"
+    ]
+  },
+  {
+    "id": "prod-ibex.claim",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "IBEX — one-line claim",
+    "kind": "product-field",
+    "text": "A plasmonic antenna that fits fielded handheld radios.",
+    "display": "A plasmonic antenna that fits fielded handheld radios.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-ibex.body",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "IBEX — body paragraph",
+    "kind": "product-field",
+    "text": "Ibex replaces the standard whip on a handheld radio with a plasmonic launch, quick-mounting to the existing RF port with no change to the radio itself. The sealed housing is built for marine use, and the gooseneck bends to stow against a pack or vest.",
+    "display": "Ibex replaces the standard whip on a handheld radio with a plasmonic launch, quick-mounting to the existing RF port with no change to the radio itself. The sealed housing is built for marine use, and the gooseneck bends to stow against a pack or vest.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-ibex.domain",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "IBEX — domain link",
+    "kind": "product-field",
+    "text": "Communications",
+    "display": "Communications",
+    "shared": true,
+    "shared_with": [
+      "base.a.4",
+      "base.a.10",
+      "prod-remora.domain",
+      "prod-stingray.domain"
+    ]
+  },
+  {
+    "id": "prod-ibex.spec1",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "IBEX — spec chip 1",
+    "kind": "spec-chip",
+    "text": "AN/PRC-163 fit",
+    "display": "AN/PRC-163 fit",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-ibex.spec2",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "IBEX — spec chip 2",
+    "kind": "spec-chip",
+    "text": "Plasmonic surface-wave launch",
+    "display": "Plasmonic surface-wave launch",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-ibex.spec3",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "IBEX — spec chip 3",
+    "kind": "spec-chip",
+    "text": "SMA, quick-mount",
+    "display": "SMA, quick-mount",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-ibex.spec4",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "IBEX — spec chip 4",
+    "kind": "spec-chip",
+    "text": "250 mm",
+    "display": "250 mm",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-ibex.hint1161",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "IBEX — 3D model caption",
+    "kind": "model-hint",
+    "text": "AN/PRC-163 fit \\u00b7 drag to rotate",
+    "display": "AN/PRC-163 fit · drag to rotate",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "prod-ibex.hint1401",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "IBEX — 3D model caption",
+    "kind": "model-hint",
+    "text": "ROVER 1 \\u00b7 drag to rotate",
+    "display": "ROVER 1 · drag to rotate",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "tool.name",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "Software tool — tool name",
+    "kind": "product-field",
+    "text": "The Saltenna Waveform",
+    "display": "The Saltenna Waveform",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "tool.claim",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "Software tool — one-line claim",
+    "kind": "product-field",
+    "text": "A software-defined waveform for links with extreme path loss.",
+    "display": "A software-defined waveform for links with extreme path loss.",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "tool.body",
+    "page": "Products",
+    "source": "products.ts",
+    "location": "Software tool — body paragraph",
+    "kind": "product-field",
+    "text": "Our waveform is designed for links with extreme path loss, where conventional radios lose synchronization or drop out entirely. Paired with our antenna technology, it forms a complete communications system: the antenna establishes a usable RF path through difficult media, and the waveform sustains a reliable data link over it. The entire receiver and transmitter run as software on compact, low-power embedded hardware.",
+    "display": "Our waveform is designed for links with extreme path loss, where conventional radios lose synchronization or drop out entirely. Paired with our antenna technology, it forms a complete communications system: the antenna establishes a usable RF path through difficult media, and the waveform sustains a reliable data link over it. The entire receiver and transmitter run as software on compact, low-power embedded hardware.",
+    "shared": false,
+    "shared_with": []
+  }
+]

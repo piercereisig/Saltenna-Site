@@ -1,0 +1,149 @@
+---
+import Base from "../layouts/Base.astro";
+import ProductMedia from "../components/ProductMedia.astro";
+import { products, tools } from "../data/products";
+
+// Static page — generated at build time, not per request. Webflow Cloud
+// requires output: "server". These pages were prerendered (`= true`); the
+// Basic-auth gate in src/middleware.ts only runs for on-demand routes, so they
+// are server-rendered instead. Flip back to `true` and delete the middleware to
+// restore static generation.
+export const prerender = false;
+
+// Bump when a graphics/*.html viewer or the .glb it loads changes. Those iframes
+// were previously un-versioned, so a browser could pair a cached OLD viewer with
+// a NEW mesh and hang on "loading model" — same reason css/js carry ?v=.
+const MODEL_VERSION = "5";
+
+---
+
+<Base title="Products — Saltenna" description="Saltenna hardware and software: diver-to-diver underwater communications, wireless data links for subsea pipelines, and tools built on plasmonic wireless technology." active="products">
+
+  <section class="page-hero color-media sea-hero terrain-hero">
+    <canvas class="fx-canvas" data-fx="terrain" aria-hidden="true"></canvas>
+    <div class="container hero-lead">
+      <h1>Products</h1>
+    </div>
+    <div class="container hero-info">
+      <div class="hero-info-tag">
+        <p>Physics, packaged.</p>
+        <a class="hero-scroll" href="#products" aria-label="Scroll to content">&#8595;</a>
+      </div>
+      <p class="hero-info-desc">Hardware and software built on Saltenna's plasmonic wireless technology — for the environments where legacy radio frequency fails.</p>
+      <nav class="hero-info-links" aria-label="Products">
+        {products.map((p) => <a href={`#${p.id}`}>{p.name}</a>)}
+        {tools.length > 0 && <a href="#software">Software</a>}
+      </nav>
+    </div>
+  </section>
+
+  <section class="block deep has-fx" id="products">
+    <canvas class="fx-canvas" data-fx="sonar" aria-hidden="true"></canvas>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="pp-eyebrow">Products</span>
+        <h2>Built for the edge.</h2>
+        <p>Each product carries its maturity plainly — from prototype to fielded — so you know exactly what you are evaluating.</p>
+        <div class="pp-pills" aria-hidden="true">
+          <span class="pp-pill">Hardware</span>
+          <span class="pp-pill">Maritime</span>
+          <span class="pp-pill">Communications</span>
+        </div>
+      </div>
+
+      <!-- No-JS / SEO fallback: every detail item renders stacked; main.js adds
+           .js to the explorer and collapses the pane to the active item. -->
+      <div class="uc-explorer reveal" data-explorer>
+        <ul class="uc-list" role="tablist" aria-label="Products">
+          {products.map((p, i) => (
+            <li>
+              <button type="button" class={i === 0 ? "is-active" : undefined} aria-controls={p.id}>
+                <span class="idx">{String(i + 1).padStart(2, "0")}</span>
+                {p.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+        {/* First card: the interactive 3D model on its own, to the left of the
+            spec card. Only products with a `model` get one — the column simply
+            sits empty for the others, which keeps the grid from reflowing when
+            you switch products. */}
+        <div class="uc-models">
+          {products.filter((p) => p.models?.length).map((p) => (
+            <article class={`uc-model-card${p.id === products[0].id ? " is-active" : ""}`} data-model-for={p.id}>
+              {p.models.map((m) => (
+                <div class="uc-model-frame">
+                  <iframe src={`${m.src}?v=${MODEL_VERSION}`} title={`Interactive 3D: ${p.fullName}`} loading="lazy"></iframe>
+                  {m.hint && <div class="uc-model-hint" aria-hidden="true">{m.hint}</div>}
+                </div>
+              ))}
+            </article>
+          ))}
+        </div>
+        <div class="uc-detail">
+          {products.map((p, i) => (
+            <article class={`uc-detail-item${i === 0 ? " is-active" : ""}`} id={p.id}>
+              <ProductMedia product={p} />
+              <div class="product-meta">
+                <span class="status-badge">{p.status}</span>
+                <a class="product-domain" href={p.domain.href}>{p.domain.label} &rarr;</a>
+              </div>
+              <h3>{p.fullName}</h3>
+              <p class="product-claim">{p.claim}</p>
+              <p>{p.body}</p>
+              <ul class="spec-chips">
+                {p.specs.map((s) => <li>{s}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  {tools.length > 0 && (
+    <section class="block dark" id="software">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="pp-eyebrow">Software</span>
+          <h2>Software</h2>
+          <p>Technology we license.</p>
+          <div class="pp-pills" aria-hidden="true">
+            <span class="pp-pill">Software-defined</span>
+            <span class="pp-pill">Extreme path loss</span>
+            <span class="pp-pill">Low-power embedded</span>
+          </div>
+        </div>
+        {tools.map((t) => (
+          <div class="split tool-split reveal">
+            <div>
+              <h3 class="tool-name">{t.name}</h3>
+              <p class="tool-claim">{t.claim}</p>
+              <p>{t.body}</p>
+            </div>
+            <article class="tool-card">
+              <div class="tool-media">
+                <canvas class="fx-canvas" data-fx="waveform" aria-hidden="true"></canvas>
+              </div>
+              <div class="tool-status" aria-hidden="true">
+                <span>RX LOCK &middot; &minus;142 dBm</span>
+                <span class="live">LIVE</span>
+              </div>
+            </article>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="cta-band has-fx">
+    <canvas class="fx-canvas" data-fx="field" aria-hidden="true"></canvas>
+    <div class="container reveal">
+      <h2>Evaluate it on your mission.</h2>
+      <p>Talk to us about trials, integration with fielded equipment, and delivery timelines.</p>
+      <a class="btn btn-primary" href="contact.html">Contact Us</a>
+    </div>
+  </section>
+
+</Base>

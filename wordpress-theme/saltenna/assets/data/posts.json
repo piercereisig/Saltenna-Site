@@ -1,0 +1,26 @@
+{
+  "_howto": "Add new posts to the top of the list below. Fields: tag (News/Technology/Event), date (free text), title, text, url (https://… opens in new tab; relative links open in-site). The site shows the first 6. If a LinkedIn widget embed is connected in Appearance → Customize → LinkedIn Feed, that live feed replaces these.",
+  "posts": [
+    {
+      "tag": "News",
+      "date": "September 2023",
+      "title": "Saltenna hires Dennis Defensor as Chief Executive Officer",
+      "text": "Saltenna announces the appointment of Dennis Defensor as Chief Executive Officer.",
+      "url": "https://www.saltenna.com/newsroom"
+    },
+    {
+      "tag": "Technology",
+      "date": "",
+      "title": "Significantly enhanced range underground",
+      "text": "Saltenna has demonstrated significantly enhanced range over current wireless technology in solid underground facilities, tunnels, and through multiple levels of parking garages.",
+      "url": "/communications/"
+    },
+    {
+      "tag": "Technology",
+      "date": "",
+      "title": "Wireless along and through pressurized tanks and pipes",
+      "text": "In high-pressure, high-value IIoT networks, Saltenna has demonstrated wireless communications and sensing along and through pressurized tanks and pipes without drilling holes or running wires.",
+      "url": "/sensing/"
+    }
+  ]
+}

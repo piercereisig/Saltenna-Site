@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Remora — surface-wave pipeline communications</title>
+  <script type="module" crossorigin src="./assets/index-DZ0kCfsp.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CIR2MhL9.css">
+</head>
+<body>
+  <main id="app">
+    <div id="stage" aria-label="Interactive 3D model of the Remora device on a pipe spool">
+      <div id="loader" role="status" aria-live="polite">
+        <div class="bar"><span id="bar-fill"></span></div>
+        <p id="loader-text">Loading model…</p>
+      </div>
+      <noscript>
+        <p class="fallback">This viewer needs JavaScript. The description below covers the
+        same information.</p>
+      </noscript>
+    </div>
+
+    <header class="titleblock">
+      <p class="eyebrow">Concept study</p>
+      <h1>Remora</h1>
+      <p class="sub">A clamp-on limpet that turns the pipeline itself into the
+        transmission line.</p>
+      <button id="reset" type="button">Reset view</button>
+    </header>
+
+    <!-- Real text, not just 3D labels: the page must still inform with WebGL off. -->
+    <section class="readout" id="readout">
+      <h2>What it is</h2>
+      <p>
+        Remora attaches to an oil &amp; gas pipe and launches a radio-frequency
+        <em>surface wave</em> that travels bound to the pipe's own outer surface, using the
+        line as a waveguide instead of radiating into open water or soil.
+      </p>
+      <h2>Parts</h2>
+      <dl id="parts-list"></dl>
+      <h2>Physics note</h2>
+      <p>
+        A bare conductor guides a <strong>Sommerfeld surface wave</strong>. At radio and
+        microwave frequencies this is a bound guided mode, not an optical surface plasmon
+        — periodically structured conductors are what produce genuine
+        <em>spoof</em> surface-plasmon behaviour.
+      </p>
+      <p>
+        The device shown couples through its bolted baseplate, i.e. by direct contact with
+        the pipe wall. That is a different proposition from the conical Goubau-style
+        transition usually drawn for this job, and a flat contact does not on its own
+        provide the impedance taper such a transition exists to give.
+      </p>
+      <p class="caveat">
+        Concept study. Geometry and dimensions are plausible but not a validated design;
+        no propagation figures are claimed, and the coupling arrangement in particular is
+        unresolved.
+      </p>
+    </section>
+  </main>
+
+</body>
+</html>

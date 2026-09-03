@@ -1,0 +1,38 @@
+# ---- dependencies & build output (regenerated, never committed) ----
+node_modules/
+webflow-app/dist/
+webflow-app/.astro/
+webflow-app/.wrangler/
+webflow-app/webflow-app/          # stray nested artifact from a mis-run command
+
+# ---- assembled preview/deploy folders (rebuildable from dist/ + videos/) ----
+preview-deploy/
+
+# ---- video: 197 MB of binaries. Destined for Cloudflare R2, not git.
+# Git stores every version of a binary forever; two heroes alone are ~65 MB.
+# Upload with webflow-app/scripts/upload-videos.sh instead.
+videos/
+
+# ---- large archives. GitHub HARD-REJECTS any file over 100 MB.
+# share/saltenna-draft.zip is 130 MB and would block the whole push.
+share/*.zip
+share/copy-backups/
+wordpress-theme/saltenna.zip
+saltenna.zip
+underwater_drone_swarm.mp4
+
+# ---- secrets: never commit. PREVIEW_PASSWORD lives in Webflow Cloud env secrets.
+.dev.vars
+.dev.vars.*
+.env
+.env.*
+*.pem
+*.key
+
+# ---- os / editor cruft ----
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+*.swp

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saltenna Vs Conventional</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#0a0a0b;overflow:hidden;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  .card{position:relative;width:100%;height:100%;overflow:hidden;cursor:grab;
+    background:linear-gradient(160deg,#161618,#0a0a0b 70%);}
+  .card.dragging{cursor:grabbing;}
+  canvas{display:block;width:100%;height:100%;}
+  .hud{position:absolute;left:16px;top:14px;font-size:10px;letter-spacing:0.14em;
+    color:#8a8a90;pointer-events:none;line-height:1.9;text-transform:uppercase;}
+  .hud .k{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:-1px;}
+  .hint{position:absolute;right:14px;bottom:11px;font-size:10px;letter-spacing:0.12em;
+    color:#55555a;pointer-events:none;text-transform:uppercase;}
+</style>
+</head>
+<body>
+<div class="card" id="card">
+    <canvas id="c3d"></canvas>
+    <div class="hud">
+      <div><span class="k" style="background:#7a7a80"></span>conventional rf &mdash; radiates, reflects, blocked</div>
+      <div><span class="k" style="background:#8fd6ff"></span>plasmonic packet &mdash; bound to the surface</div>
+      <div><span class="k" style="background:#f1f1f2"></span>surface charge riding with it</div>
+    </div>
+    <div class="hint">drag to orbit</div>
+  </div>
+<script src="../js/vendor/three.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  if(!window.THREE){ document.getElementById("card").insertAdjacentHTML("beforeend",
+    "<div style='position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#77777c;font-size:12px'>three.js failed to load — check your connection and reload.</div>");
+    return; }
+
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var card   = document.getElementById("card");
+  var canvas = document.getElementById("c3d");
+  var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
+  renderer.setClearColor(0x000000, 0);
+
+  var scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0x0a0a0b, 130, 260);
+
+  var camera = new THREE.PerspectiveCamera(40, 1.5, 0.1, 600);
+
+  /* ---------- layout ---------- */
+  var CZ=-17, PZ=17;                    // lane centers: conventional (back), plasmonic (front)
+  var DATA = new THREE.Color(0x8fd6ff);
+  var WHITE= new THREE.Color(0xf1f1f2);
+  var GREY = new THREE.Color(0x7a7a80);
+
+  /* ---------- sprite helpers ---------- */
+  function textSprite(text, color, w, checkBlue){
+    var c=document.createElement("canvas"); c.width=1024; c.height=96;
+    var g=c.getContext("2d");
+    g.font="600 34px -apple-system, Segoe UI, sans-serif";
+    g.textAlign="center"; g.textBaseline="middle";
+    var sp=text.split("").join("\u200a\u200a");
+    if(checkBlue){
+      g.fillStyle=color; g.fillText(sp,512-34,50);
+      var tw=g.measureText(sp).width;
+      g.fillStyle="#8fd6ff"; g.fillText("\u2713", 512+tw/2+8, 50);
+    }else{
+      g.fillStyle=color; g.fillText(sp,512,50);
+    }
+    var s=new THREE.Sprite(new THREE.SpriteMaterial({
+      map:new THREE.CanvasTexture(c), transparent:true, depthWrite:false}));
+    s.scale.set(w, w*96/1024, 1);
+    return s;
+  }
+  function haloSprite(){
+    var hc=document.createElement("canvas"); hc.width=hc.height=128;
+    var hg=hc.getContext("2d");
+    var rg=hg.createRadialGradient(64,64,0,64,64,64);
+    rg.addColorStop(0,"rgba(255,255,255,1)"); rg.addColorStop(1,"rgba(255,255,255,0)");
+    hg.fillStyle=rg; hg.fillRect(0,0,128,128);
+    var m=new THREE.SpriteMaterial({color:0x8fd6ff, transparent:true, opacity:0,
+      blending:THREE.AdditiveBlending, depthWrite:false, map:new THREE.CanvasTexture(hc)});
+    var s=new THREE.Sprite(m); s.scale.set(9,9,1);
+    return {sprite:s, mat:m};
+  }
+
+  /* ================================================================
+     LANE 1 — CONVENTIONAL RF (back)
+     ================================================================ */
+  var laneTitleC=textSprite("CONVENTIONAL RF","#8a8a90",34);
+  laneTitleC.position.set(0,21,CZ); scene.add(laneTitleC);
+
+  /* transmitter orb */
+  var txOrb=new THREE.Mesh(new THREE.SphereGeometry(1.2,20,16),
+    new THREE.MeshBasicMaterial({color:0xb9b9bd}));
+  txOrb.position.set(-35,6,CZ); scene.add(txOrb);
+
+  /* barrier */
+  var barrier=new THREE.Mesh(new THREE.BoxGeometry(3,16,16),
+    new THREE.MeshBasicMaterial({color:0x141416, transparent:true, opacity:0.55, depthWrite:false}));
+  barrier.position.set(0,8,CZ); scene.add(barrier);
+  var barrierEdges=new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.BoxGeometry(3,16,16)),
+    new THREE.LineBasicMaterial({color:0xf1f1f2, transparent:true, opacity:0.30}));
+  barrierEdges.position.copy(barrier.position); scene.add(barrierEdges);
+
+  /* blocked mark on the far side */
+  var blockedLab=textSprite("\u2715  BLOCKED","#8a8a90",20);
+  blockedLab.position.set(17,8,CZ); scene.add(blockedLab);
+  var blockedFlash=0;
+
+  /* expanding spherical wavefronts */
+  var WALLDIST=33.5, FRONT_V=15, FRONT_T=1.7;
+  var fronts=[];
+  for(var fi=0; fi<4; fi++){
+    var m=new THREE.Mesh(new THREE.SphereGeometry(1,20,14),
+      new THREE.MeshBasicMaterial({color:0x7a7a80, wireframe:true, transparent:true,
+        opacity:0, depthWrite:false}));
+    m.position.copy(txOrb.position);
+    scene.add(m);
+    fronts.push({mesh:m, age:fi*FRONT_T - 4*FRONT_T});   // staggered, start inactive
+  }
+
+  /* impact ripple on the barrier face */
+  var impactMat=new THREE.MeshBasicMaterial({color:0x9a9aa0, transparent:true, opacity:0,
+    side:THREE.DoubleSide, blending:THREE.AdditiveBlending, depthWrite:false});
+  var impact=new THREE.Mesh(new THREE.RingGeometry(1.0,1.14,64), impactMat);
+  impact.rotation.y=Math.PI/2;
+  impact.position.set(-1.7,7,CZ);
+  scene.add(impact);
+  var impactAge=99;
+
+  /* ================================================================
+     LANE 2 — SALTENNA PLASMONICS (front)
+     ================================================================ */
+  var laneTitleP=textSprite("SALTENNA PLASMONICS","#8a8a90",34);
+  laneTitleP.position.set(0,15.5,PZ); scene.add(laneTitleP);
+
+  var followLab=textSprite("WAVE FOLLOWS THE SURFACE","#8a8a90",34,true);
+  followLab.position.set(0,-7.5,PZ); scene.add(followLab);
+
+  var SXMIN=-40, SXMAX=40, SZ_HALF=5;
+  var LAMBDA=16, K=2*Math.PI/LAMBDA, OMEGA=2*Math.PI*0.45;
+  var D_AIR=6.0, SIG=6.5;
+  var NODE_A=-35, NODE_B=35;
+  var pos=NODE_A, dir=1, hold=0;
+
+  function amp(x){ var g=Math.exp(-(x-pos)*(x-pos)/(2*SIG*SIG)); return 0.22+0.78*g; }
+  function pk (x){ return Math.exp(-(x-pos)*(x-pos)/(2*SIG*SIG)); }
+
+  /* the metal strip */
+  var strip=new THREE.Mesh(new THREE.BoxGeometry(SXMAX-SXMIN,3,SZ_HALF*2),
+    new THREE.MeshBasicMaterial({color:0x141416, transparent:true, opacity:0.5, depthWrite:false}));
+  strip.position.set(0,-1.5,PZ); scene.add(strip);
+  var stripTop=new THREE.LineLoop(
+    new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(SXMIN,0,PZ-SZ_HALF), new THREE.Vector3(SXMAX,0,PZ-SZ_HALF),
+      new THREE.Vector3(SXMAX,0,PZ+SZ_HALF), new THREE.Vector3(SXMIN,0,PZ+SZ_HALF)
+    ]),
+    new THREE.LineBasicMaterial({color:0xf1f1f2, transparent:true, opacity:0.7}));
+  scene.add(stripTop);
+
+  /* surface charge points */
+  var sc={xs:[],zs:[]};
+  (function(){
+    for(var x=SXMIN+1; x<=SXMAX-1; x+=1.3)
+      for(var z=PZ-SZ_HALF+0.8; z<=PZ+SZ_HALF-0.8; z+=1.5){ sc.xs.push(x); sc.zs.push(z); }
+  })();
+  var scN=sc.xs.length;
+  var scPos=new Float32Array(scN*3), scCol=new Float32Array(scN*3);
+  for(var i=0;i<scN;i++){ scPos[i*3]=sc.xs[i]; scPos[i*3+1]=0.12; scPos[i*3+2]=sc.zs[i]; }
+  var scGeo=new THREE.BufferGeometry();
+  scGeo.setAttribute("position", new THREE.BufferAttribute(scPos,3));
+  scGeo.setAttribute("color",    new THREE.BufferAttribute(scCol,3));
+  scene.add(new THREE.Points(scGeo, new THREE.PointsMaterial({
+    size:0.8, vertexColors:true, transparent:true, opacity:0.95, depthWrite:false,
+    blending:THREE.AdditiveBlending})));
+
+  /* bound field vectors above the strip */
+  var fv={xs:[],ys:[],zs:[]};
+  (function(){
+    var hs=[1.0,2.6,4.6,7.2];
+    var zr=[PZ-3.4, PZ, PZ+3.4];
+    for(var zi=0;zi<zr.length;zi++)
+      for(var hi=0;hi<hs.length;hi++)
+        for(var x=SXMIN+2; x<=SXMAX-2; x+=2.5){ fv.xs.push(x); fv.ys.push(hs[hi]); fv.zs.push(zr[zi]); }
+  })();
+  var fvN=fv.xs.length;
+  var fvPos=new Float32Array(fvN*6), fvCol=new Float32Array(fvN*6);
+  var fvGeo=new THREE.BufferGeometry();
+  fvGeo.setAttribute("position", new THREE.BufferAttribute(fvPos,3));
+  fvGeo.setAttribute("color",    new THREE.BufferAttribute(fvCol,3));
+  scene.add(new THREE.LineSegments(fvGeo, new THREE.LineBasicMaterial({
+    vertexColors:true, transparent:true, opacity:0.9, depthWrite:false,
+    blending:THREE.AdditiveBlending})));
+
+  /* sleek ring nodes (vertical axis, hovering over the strip) */
+  function makeNode(x,label){
+    var grp=new THREE.Group();
+    var stripMat2=new THREE.MeshBasicMaterial({color:0xf1f1f2, transparent:true, opacity:0.45});
+    for(var sI=-1;sI<=1;sI++){
+      var inlay=new THREE.Mesh(new THREE.BoxGeometry(0.24,0.08,SZ_HALF*2*0.78), stripMat2);
+      inlay.position.set(sI*1.4, 0.10, 0);
+      grp.add(inlay);
+    }
+    var beamMat=new THREE.MeshBasicMaterial({color:0x8fd6ff, transparent:true, opacity:0.06,
+      blending:THREE.AdditiveBlending, depthWrite:false});
+    var beam=new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.05,7.4,8,1,true), beamMat);
+    beam.position.set(0,3.8,0); grp.add(beam);
+
+    var ringMatA=new THREE.MeshBasicMaterial({color:0xb9b9bd});
+    var ringMatB=new THREE.MeshBasicMaterial({color:0x8a8a90});
+    var arcA=new THREE.Mesh(new THREE.TorusGeometry(2.1,0.06,10,72,Math.PI*1.65), ringMatA);
+    var arcB=new THREE.Mesh(new THREE.TorusGeometry(1.35,0.045,10,72,Math.PI*1.30), ringMatB);
+    arcA.rotation.x=Math.PI/2; arcB.rotation.x=Math.PI/2;
+    var holderA=new THREE.Group(), holderB=new THREE.Group();
+    holderA.add(arcA); holderB.add(arcB);
+    holderA.position.set(0,7.6,0); holderB.position.set(0,7.6,0);
+    holderA.rotation.z=0.10; holderB.rotation.z=-0.14;
+    grp.add(holderA); grp.add(holderB);
+
+    var coreMat=new THREE.MeshBasicMaterial({color:0xf1f1f2});
+    var core=new THREE.Mesh(new THREE.SphereGeometry(0.30,16,12), coreMat);
+    core.position.set(0,7.6,0); grp.add(core);
+
+    var halo=haloSprite();
+    halo.sprite.position.set(0,7.6,0); grp.add(halo.sprite);
+
+    var rippleMat=new THREE.MeshBasicMaterial({color:0x8fd6ff, transparent:true, opacity:0,
+      side:THREE.DoubleSide, blending:THREE.AdditiveBlending, depthWrite:false});
+    var ripple=new THREE.Mesh(new THREE.RingGeometry(1.5,1.62,72), rippleMat);
+    ripple.rotation.x=-Math.PI/2; ripple.position.set(0,0.14,0);
+    grp.add(ripple);
+
+    var lab=textSprite(label,"#8a8a90",11);
+    lab.position.set(0,11.4,0); grp.add(lab);
+
+    grp.position.set(x,0,PZ);
+    scene.add(grp);
+    return {holderA:holderA, holderB:holderB, ringMatA:ringMatA, ringMatB:ringMatB,
+            core:core, coreMat:coreMat, haloMat:halo.mat, beamMat:beamMat,
+            ripple:ripple, rippleMat:rippleMat, rippleAge:99};
+  }
+  var nodeA=makeNode(NODE_A,"NODE A");
+  var nodeB=makeNode(NODE_B,"NODE B");
+
+  /* ---------- per-frame update ---------- */
+  var tmpC=new THREE.Color();
+  function update(t, dt){
+    var th0=-OMEGA*t;
+
+    /* --- conventional lane --- */
+    fronts.forEach(function(f){
+      f.age+=dt;
+      if(f.age<0){ f.mesh.material.opacity=0; return; }
+      var r=f.age*FRONT_V;
+      if(r>=WALLDIST){                       // strike the barrier
+        impactAge=0; blockedFlash=1;
+        /* recycle: wait so the launch rhythm stays evenly spaced */
+        f.age = -((fronts.length*FRONT_T) - WALLDIST/FRONT_V);
+        f.mesh.material.opacity=0;
+        return;
+      }
+      var s=Math.max(0.001,r);
+      f.mesh.scale.set(s,s,s);
+      f.mesh.material.opacity=0.30*(1-r/WALLDIST)+0.03;
+    });
+    impactAge+=dt;
+    if(impactAge<1.0){
+      var isc=1+impactAge*5.5;
+      impact.scale.set(isc,isc,1);
+      impactMat.opacity=0.45*(1-impactAge);
+    }else impactMat.opacity=0;
+    blockedFlash=Math.max(0,blockedFlash-dt*1.4);
+    blockedLab.material.opacity=0.45+0.55*blockedFlash;
+    var tp=1+0.10*Math.sin(t*2*Math.PI*0.9);
+    txOrb.scale.set(tp,tp,tp);
+
+    /* --- plasmonic lane --- */
+    for(var i=0;i<scN;i++){
+      var x=sc.xs[i];
+      var s2=Math.sin(K*x+th0)*amp(x);
+      var m2=Math.abs(s2);
+      if(s2<0) tmpC.copy(DATA).multiplyScalar(m2*0.95);
+      else     tmpC.copy(WHITE).multiplyScalar(m2*0.65);
+      scCol[i*3]=tmpC.r; scCol[i*3+1]=tmpC.g; scCol[i*3+2]=tmpC.b;
+    }
+    scGeo.attributes.color.needsUpdate=true;
+
+    for(i=0;i<fvN;i++){
+      var fx=fv.xs[i], fy=fv.ys[i], fz=fv.zs[i];
+      var A=amp(fx), P=pk(fx);
+      var e=Math.exp(-fy/D_AIR)*A;
+      var th=K*fx+th0;
+      var ex=Math.cos(th)*e, ey=Math.sin(th)*e;
+      var L=2.6;
+      fvPos[i*6  ]=fx;      fvPos[i*6+1]=fy;      fvPos[i*6+2]=fz;
+      fvPos[i*6+3]=fx+ex*L; fvPos[i*6+4]=fy+ey*L; fvPos[i*6+5]=fz;
+      var mag=Math.min(1,Math.hypot(ex,ey));
+      tmpC.copy(GREY).lerp(DATA, Math.min(1,P*1.3)).multiplyScalar(0.75*mag+0.05);
+      fvCol[i*6  ]=tmpC.r*0.5; fvCol[i*6+1]=tmpC.g*0.5; fvCol[i*6+2]=tmpC.b*0.5;
+      fvCol[i*6+3]=tmpC.r;     fvCol[i*6+4]=tmpC.g;     fvCol[i*6+5]=tmpC.b;
+    }
+    fvGeo.attributes.position.needsUpdate=true;
+    fvGeo.attributes.color.needsUpdate=true;
+
+    var GREYA=new THREE.Color(0xb9b9bd), GREYB=new THREE.Color(0x8a8a90);
+    [ [nodeA,NODE_A], [nodeB,NODE_B] ].forEach(function(pair){
+      var n=pair[0], nx=pair[1];
+      var prox=Math.exp(-(pos-nx)*(pos-nx)/(2*(SIG*0.8)*(SIG*0.8)));
+      n.holderA.rotation.y += dt*(0.45 + 3.6*prox);
+      n.holderB.rotation.y -= dt*(0.70 + 4.8*prox);
+      n.ringMatA.color.copy(GREYA).lerp(DATA, prox);
+      n.ringMatB.color.copy(GREYB).lerp(DATA, prox*0.8);
+      n.coreMat.color.copy(WHITE).lerp(DATA, prox);
+      var sN=1+0.55*prox; n.core.scale.set(sN,sN,sN);
+      n.haloMat.opacity=0.45*prox;
+      n.beamMat.opacity=0.05+0.45*prox;
+      n.rippleAge+=dt;
+      var ra=n.rippleAge;
+      if(ra<1.4){
+        var rs=1+ra*3.4;
+        n.ripple.scale.set(rs,rs,1);
+        n.rippleMat.opacity=0.5*(1-ra/1.4);
+      }else n.rippleMat.opacity=0;
+    });
+  }
+
+  /* ---------- camera : custom orbit ---------- */
+  var theta=0.55, phi=1.10, radius=105;
+  var target=new THREE.Vector3(0,3,0);
+  var dragging=false, lx=0, ly=0, idle=0;
+
+  function applyCam(){
+    phi=Math.max(0.35, Math.min(1.45, phi));
+    radius=Math.max(55, Math.min(190, radius));
+    camera.position.set(
+      target.x + radius*Math.sin(phi)*Math.sin(theta),
+      target.y + radius*Math.cos(phi),
+      target.z + radius*Math.sin(phi)*Math.cos(theta)
+    );
+    camera.lookAt(target);
+  }
+  card.addEventListener("pointerdown",function(e){
+    dragging=true; lx=e.clientX; ly=e.clientY; idle=0;
+    card.classList.add("dragging"); card.setPointerCapture(e.pointerId);
+  });
+  card.addEventListener("pointermove",function(e){
+    if(!dragging) return;
+    theta -= (e.clientX-lx)*0.006;
+    phi   -= (e.clientY-ly)*0.005;
+    lx=e.clientX; ly=e.clientY; idle=0;
+    if(reduced){ applyCam(); renderer.render(scene,camera); }
+  });
+  card.addEventListener("pointerup",function(e){
+    dragging=false; card.classList.remove("dragging");
+  });
+
+  /* ---------- resize ---------- */
+  function resize(){
+    var r=card.getBoundingClientRect();
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    renderer.setPixelRatio(dpr);
+    renderer.setSize(r.width,r.height,false);
+    camera.aspect=r.width/r.height;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener("resize",function(){
+    resize();
+    if(reduced) renderer.render(scene,camera);
+  });
+  resize();
+
+  /* ---------- main loop ---------- */
+  var last=null;
+  function step(now){
+    if(last==null) last=now;
+    var dt=Math.min(0.05,(now-last)/1000); last=now;
+
+    if(hold>0) hold-=dt;
+    else{
+      pos += dir*dt*13;
+      if(pos>=NODE_B){pos=NODE_B; dir=-1; hold=0.55; nodeB.rippleAge=0;}
+      if(pos<=NODE_A){pos=NODE_A; dir= 1; hold=0.55; nodeA.rippleAge=0;}
+    }
+    idle+=dt;
+    if(!dragging && idle>2.2) theta += dt*0.05;   // gentle auto-orbit when idle
+
+    update(now/1000, dt);
+    applyCam();
+    renderer.render(scene,camera);
+    requestAnimationFrame(step);
+  }
+
+  if(reduced){
+    pos=0; update(0.7,0); applyCam(); renderer.render(scene,camera);
+  }else{
+    requestAnimationFrame(step);
+  }
+})();
+</script>
+
+</body>
+</html>

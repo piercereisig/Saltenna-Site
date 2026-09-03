@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.saltenna.com)",
+      "Bash(curl -sL https://www.saltenna.com/about)",
+      "Bash(curl -sL __TRACKED_VAR__/66033bc6a79193ff249393ee_Color%20logo%20-%20no%20background-p-500.png -o images/logo-color.png)",
+      "Bash(curl -sL __TRACKED_VAR__/66033c02d052046f224823eb_White%20logo%20-%20no%20background-p-500.png -o images/logo-white.png)",
+      "Bash(curl -sL __TRACKED_VAR__/69963863d55f874eb3555ae1_Saltenna_%20Inc.-120-Edit-p-500.jpg -o images/dendy-young.jpg)",
+      "Bash(curl -sL __TRACKED_VAR__/69963863c1e80029951ed4ad_Saltenna_%20Inc.-142-Edit-p-500.jpg -o images/igor-smolyaninov.jpg)",
+      "Bash(curl -sL __TRACKED_VAR__/699637162f92ba4d9403a1ef_Saltenna_%20Inc.-115-Edit-p-500.jpg -o images/ashley-johnston.jpg)",
+      "Bash(python3 -)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{content_type}\\\\n\" http://localhost:4173/images/dendy-young.jpg http://localhost:4173/images/logo-white.png)",
+      "Bash(sips --matchTo '/System/Library/ColorSync/Profiles/Generic Gray Profile.icc' images/patrick-higby.jpeg --out images/patrick-higby.jpeg)",
+      "Bash(sleep 12; ls -la ~/Downloads/SoundCloud 2>/dev/null)",
+      "WebFetch(domain:www.anduril.com)",
+      "Bash(/opt/anaconda3/lib/python3.13/site-packages/static_ffmpeg/bin/darwin_arm64/ffmpeg -y -i temp_video.mp4 -i audio.wav -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -c:a aac -b:a 192k -shortest -movflags +faststart /Users/piercereisig/Saltenna/underwater_drone_swarm.mp4)"
+    ]
+  }
+}

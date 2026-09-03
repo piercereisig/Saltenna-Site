@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sealed Container Link</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#0a0a0b;overflow:hidden;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  .card{position:relative;width:100%;height:100%;overflow:hidden;cursor:grab;
+    background:linear-gradient(160deg,#161618,#0a0a0b 70%);}
+  .card.dragging{cursor:grabbing;}
+  canvas{display:block;width:100%;height:100%;}
+  .hud{position:absolute;left:16px;top:14px;font-size:10px;letter-spacing:0.14em;
+    color:#8a8a90;pointer-events:none;line-height:1.9;text-transform:uppercase;}
+  .hud .k{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:-1px;}
+  .hint{position:absolute;right:14px;bottom:11px;font-size:10px;letter-spacing:0.12em;
+    color:#55555a;pointer-events:none;text-transform:uppercase;}
+</style>
+</head>
+<body>
+<div class="card" id="card">
+    <canvas id="c3d"></canvas>
+    <div class="hud">
+      <div><span class="k" style="background:#8fd6ff"></span>probe pulse &amp; returning echo</div>
+      <div><span class="k" style="background:#f1f1f2"></span>presence inside</div>
+    </div>
+    <div class="hint">drag to orbit</div>
+  </div>
+<script src="../js/vendor/three.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  if(!window.THREE){ document.getElementById("card").insertAdjacentHTML("beforeend",
+    "<div style='position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#77777c;font-size:12px'>three.js failed to load — check your connection and reload.</div>");
+    return; }
+
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var card   = document.getElementById("card");
+  var canvas = document.getElementById("c3d");
+  var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
+  renderer.setClearColor(0x000000, 0);
+
+  var scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0x0a0a0b, 110, 230);
+
+  var camera = new THREE.PerspectiveCamera(40, 1.5, 0.1, 600);
+
+  var DATA=new THREE.Color(0x8fd6ff), WHITE=new THREE.Color(0xf1f1f2);
+  var GREYA=new THREE.Color(0xb9b9bd), GREYB=new THREE.Color(0x8a8a90);
+
+  /* ---------- sprite helpers ---------- */
+  function textSprite(text, color, w){
+    var c=document.createElement("canvas"); c.width=1024; c.height=96;
+    var g=c.getContext("2d");
+    g.font="600 34px -apple-system, Segoe UI, sans-serif";
+    g.fillStyle=color; g.textAlign="center"; g.textBaseline="middle";
+    g.fillText(text.split("").join("\u200a\u200a"),512,50);
+    var s=new THREE.Sprite(new THREE.SpriteMaterial({
+      map:new THREE.CanvasTexture(c), transparent:true, depthWrite:false}));
+    s.scale.set(w, w*96/1024, 1);
+    return s;
+  }
+  function haloSprite(){
+    var hc=document.createElement("canvas"); hc.width=hc.height=128;
+    var hg=hc.getContext("2d");
+    var rg=hg.createRadialGradient(64,64,0,64,64,64);
+    rg.addColorStop(0,"rgba(255,255,255,1)"); rg.addColorStop(1,"rgba(255,255,255,0)");
+    hg.fillStyle=rg; hg.fillRect(0,0,128,128);
+    var m=new THREE.SpriteMaterial({color:0x8fd6ff, transparent:true, opacity:0,
+      blending:THREE.AdditiveBlending, depthWrite:false, map:new THREE.CanvasTexture(hc)});
+    var s=new THREE.Sprite(m); s.scale.set(9,9,1);
+    return {sprite:s, mat:m};
+  }
+
+  /* ---------- the sealed container ---------- */
+  var CX=20, CY=20, CZ=13;                    // half-x, height, half-z
+  var box=new THREE.Mesh(new THREE.BoxGeometry(CX*2, CY, CZ*2),
+    new THREE.MeshBasicMaterial({color:0x141416, transparent:true, opacity:0.38, depthWrite:false}));
+  box.position.set(0, CY/2, 0);
+  scene.add(box);
+  var boxEdges=new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.BoxGeometry(CX*2, CY, CZ*2)),
+    new THREE.LineBasicMaterial({color:0xf1f1f2, transparent:true, opacity:0.40}));
+  boxEdges.position.copy(box.position); scene.add(boxEdges);
+
+  /* corrugation ribs, like the reference */
+  (function(){
+    var pts=[];
+    for(var x=-CX+4; x<=CX-4; x+=4){
+      pts.push(new THREE.Vector3(x,0.4, CZ+0.06), new THREE.Vector3(x,CY-0.4, CZ+0.06));
+      pts.push(new THREE.Vector3(x,0.4,-CZ-0.06), new THREE.Vector3(x,CY-0.4,-CZ-0.06));
+    }
+    for(var z=-CZ+4; z<=CZ-4; z+=4){
+      pts.push(new THREE.Vector3(CX+0.06,0.4,z), new THREE.Vector3(CX+0.06,CY-0.4,z));
+    }
+    var g=new THREE.BufferGeometry().setFromPoints(pts);
+    scene.add(new THREE.LineSegments(g,
+      new THREE.LineBasicMaterial({color:0x9a9aa0, transparent:true, opacity:0.16})));
+  })();
+
+  var titleLab=textSprite("SEALED CONTAINER","#8a8a90",30);
+  titleLab.position.set(0, CY+5, 0); scene.add(titleLab);
+
+  /* ---------- the sensor outside ---------- */
+  var SENSOR_X=-31, COUPLE_Y=9;
+  var sensor=(function(){
+    var grp=new THREE.Group();
+    var ringMatA=new THREE.MeshBasicMaterial({color:0xb9b9bd});
+    var ringMatB=new THREE.MeshBasicMaterial({color:0x8a8a90});
+    var arcA=new THREE.Mesh(new THREE.TorusGeometry(2.2,0.06,10,72,Math.PI*1.65), ringMatA);
+    var arcB=new THREE.Mesh(new THREE.TorusGeometry(1.4,0.045,10,72,Math.PI*1.30), ringMatB);
+    var spinA=new THREE.Group(), spinB=new THREE.Group();
+    spinA.add(arcA); spinB.add(arcB);
+    var aim=new THREE.Group();
+    aim.add(spinA); aim.add(spinB);
+    aim.rotation.y=Math.PI/2;                 // ring axis along x, facing the wall
+    grp.add(aim);
+    var coreMat=new THREE.MeshBasicMaterial({color:0xf1f1f2});
+    var core=new THREE.Mesh(new THREE.SphereGeometry(0.30,16,12), coreMat);
+    grp.add(core);
+    var halo=haloSprite(); grp.add(halo.sprite);
+    var lab=textSprite("SENSOR","#8a8a90",11);
+    lab.position.set(0,-4.6,0); grp.add(lab);
+    grp.position.set(SENSOR_X, COUPLE_Y, 0);
+    scene.add(grp);
+    return {spinA:spinA, spinB:spinB, ringMatA:ringMatA, ringMatB:ringMatB,
+            core:core, coreMat:coreMat, haloMat:halo.mat};
+  })();
+
+  /* ---------- the figure inside ---------- */
+  var PX=6, personMat=new THREE.MeshBasicMaterial({color:0x8a8a90});
+  var person=new THREE.Group();
+  var head=new THREE.Mesh(new THREE.SphereGeometry(1.25,18,14), personMat);
+  head.position.set(0,8.3,0); person.add(head);
+  var torso=new THREE.Mesh(new THREE.ConeGeometry(1.8,5.6,14), personMat);
+  torso.position.set(0,4.2,0); person.add(torso);
+  var ground=new THREE.Mesh(new THREE.BoxGeometry(3.4,0.12,0.5), personMat);
+  ground.position.set(0,0.4,0); person.add(ground);
+  person.position.set(PX,0,0);
+  scene.add(person);
+
+  /* presence rings around the figure */
+  function presenceRing(){
+    var m=new THREE.MeshBasicMaterial({color:0xf1f1f2, transparent:true, opacity:0,
+      side:THREE.DoubleSide, depthWrite:false});
+    var r=new THREE.Mesh(new THREE.RingGeometry(1.9,2.02,72), m);
+    r.rotation.y=Math.PI/2;
+    r.position.set(PX,5.4,0);
+    scene.add(r);
+    return {mesh:r, mat:m};
+  }
+  var pr1=presenceRing(), pr2=presenceRing();
+
+  /* wall ripples at the coupling point (outer + inner, each face fires twice a cycle) */
+  function wallRipple(x){
+    var m=new THREE.MeshBasicMaterial({color:0x8fd6ff, transparent:true, opacity:0,
+      side:THREE.DoubleSide, blending:THREE.AdditiveBlending, depthWrite:false});
+    var r=new THREE.Mesh(new THREE.RingGeometry(1.0,1.12,64), m);
+    r.rotation.y=Math.PI/2;
+    r.position.set(x, COUPLE_Y, 0);
+    scene.add(r);
+    return {mesh:r, mat:m};
+  }
+  var ripOutA=wallRipple(-CX-0.12), ripInA=wallRipple(-CX+0.12);
+  var ripOutB=wallRipple(-CX-0.12), ripInB=wallRipple(-CX+0.12);
+
+  /* traveling wavefront inside (probe) and its echo */
+  function frontRing(color){
+    var m=new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:0,
+      side:THREE.DoubleSide, depthWrite:false});
+    var r=new THREE.Mesh(new THREE.RingGeometry(0.94,1.0,64), m);
+    r.rotation.y=Math.PI/2;
+    r.position.set(0, COUPLE_Y, 0);
+    scene.add(r);
+    return {mesh:r, mat:m};
+  }
+  var probe=frontRing(0x9fb8c6);
+  var echo =frontRing(0x8fd6ff);
+
+  /* small pulse dots between sensor and wall */
+  function dot(){
+    var m=new THREE.MeshBasicMaterial({color:0x8fd6ff, transparent:true, opacity:0});
+    var d=new THREE.Mesh(new THREE.SphereGeometry(0.34,12,10), m);
+    d.position.set(0,COUPLE_Y,0);
+    scene.add(d);
+    return {mesh:d, mat:m};
+  }
+  var dotOut=dot(), dotBack=dot();
+
+  /* status readout */
+  var labScan=textSprite("SCANNING","#8a8a90",26);
+  var labDet =textSprite("PRESENCE DETECTED THROUGH METAL","#c9c9cd",40);
+  labScan.position.set(0,-5,0); labDet.position.set(0,-5,0);
+  labDet.material.opacity=0;
+  scene.add(labScan); scene.add(labDet);
+  var detected=0;
+
+  /* ---------- the cycle ----------
+     0.0–0.5  pulse leaves sensor, crosses the gap
+     0.5      outer face ripples ; 0.62 inner face ripples
+     0.62–2.2 probe front sweeps to the figure
+     2.2      presence rings flare
+     2.3–3.9  echo sweeps back
+     3.9      inner ripples ; 4.02 outer ripples
+     4.02–4.5 echo crosses the gap to the sensor
+     4.5–6.6  DETECTED
+     7.2      repeat                                   */
+  var T=7.2;
+  var INNER=-CX+0.5, V=16.5;
+
+  function rippleDrive(r, age, dur){
+    if(age>=0 && age<dur){
+      var s=1+age*4.6;
+      r.mesh.scale.set(s,s,1);
+      r.mat.opacity=0.5*(1-age/dur);
+    }else r.mat.opacity=0;
+  }
+  function gauss(x,c,w){ return Math.exp(-(x-c)*(x-c)/(2*w*w)); }
+
+  var tmpC=new THREE.Color();
+  function update(t, dt){
+    var ct=t%T;
+
+    /* pulse dot out */
+    if(ct<0.5){
+      dotOut.mat.opacity=0.9;
+      dotOut.mesh.position.x=SENSOR_X+2 + ((-CX-0.4)-(SENSOR_X+2))*(ct/0.5);
+    }else dotOut.mat.opacity=0;
+
+    /* wall ripples */
+    rippleDrive(ripOutA, ct-0.50, 0.9);
+    rippleDrive(ripInA,  ct-0.62, 0.9);
+    rippleDrive(ripInB,  ct-3.90, 0.9);
+    rippleDrive(ripOutB, ct-4.02, 0.9);
+
+    /* probe front, inner wall → figure */
+    var tA=ct-0.62, travelIn=(PX-INNER)/V;
+    if(tA>=0 && tA<travelIn){
+      var frac=tA/travelIn;
+      probe.mesh.position.x=INNER+tA*V;
+      var s=2.2+frac*7.5;
+      probe.mesh.scale.set(s,s,1);
+      probe.mat.opacity=0.38*(1-0.55*frac);
+    }else probe.mat.opacity=0;
+
+    /* presence rings */
+    var hitT=0.62+travelIn;
+    (function(){
+      var a1=ct-hitT, a2=ct-hitT-0.3;
+      [[pr1,a1],[pr2,a2]].forEach(function(p){
+        var r=p[0], age=p[1];
+        if(age>=0 && age<1.3){
+          var s=1+age*4.4;
+          r.mesh.scale.set(s,s,1);
+          r.mat.opacity=0.55*(1-age/1.3);
+        }else r.mat.opacity=0;
+      });
+    })();
+
+    /* figure brightens as the pulse washes over it */
+    var pglow=gauss(ct,hitT+0.15,0.35);
+    personMat.color.copy(GREYB).lerp(WHITE, 0.55*pglow).lerp(DATA, 0.35*pglow);
+
+    /* echo, figure → inner wall */
+    var tE=ct-(hitT+0.1), travelOut=(PX-INNER)/V;
+    if(tE>=0 && tE<travelOut){
+      var fracE=tE/travelOut;
+      echo.mesh.position.x=PX-tE*V;
+      var sE=2.0+fracE*5.0;
+      echo.mesh.scale.set(sE,sE,1);
+      echo.mat.opacity=0.30*(1-0.4*fracE);
+    }else echo.mat.opacity=0;
+
+    /* pulse dot back */
+    var backT0=hitT+0.1+travelOut+0.12;
+    var tB=ct-backT0;
+    if(tB>=0 && tB<0.5){
+      dotBack.mat.opacity=0.9;
+      dotBack.mesh.position.x=(-CX-0.4) + ((SENSOR_X+2)-(-CX-0.4))*(tB/0.5);
+    }else dotBack.mat.opacity=0;
+
+    /* sensor: spin, and flare on emit + on echo return */
+    var emitG=gauss(ct,0.12,0.22), recvG=gauss(ct,backT0+0.5,0.35);
+    var act=Math.min(1, emitG+1.25*recvG);
+    sensor.spinA.rotation.z += dt*(0.45 + 3.4*act);
+    sensor.spinB.rotation.z -= dt*(0.70 + 4.4*act);
+    sensor.ringMatA.color.copy(GREYA).lerp(DATA, act);
+    sensor.ringMatB.color.copy(GREYB).lerp(DATA, act*0.8);
+    sensor.coreMat.color.copy(WHITE).lerp(DATA, act);
+    var cs=1+0.55*act; sensor.core.scale.set(cs,cs,cs);
+    sensor.haloMat.opacity=0.5*act;
+
+    /* readout crossfade */
+    var goal=(ct>backT0+0.5 && ct<T-0.5)?1:0;
+    detected += (goal-detected)*Math.min(1,dt*7);
+    labDet.material.opacity=detected;
+    labScan.material.opacity=(1-detected)*0.85;
+  }
+
+  /* ---------- camera : custom orbit ---------- */
+  var theta=0.50, phi=1.12, radius=82;
+  var target=new THREE.Vector3(-2,8,0);
+  var dragging=false, lx=0, ly=0, idle=0;
+
+  function applyCam(){
+    phi=Math.max(0.35, Math.min(1.45, phi));
+    radius=Math.max(42, Math.min(170, radius));
+    camera.position.set(
+      target.x + radius*Math.sin(phi)*Math.sin(theta),
+      target.y + radius*Math.cos(phi),
+      target.z + radius*Math.sin(phi)*Math.cos(theta)
+    );
+    camera.lookAt(target);
+  }
+  card.addEventListener("pointerdown",function(e){
+    dragging=true; lx=e.clientX; ly=e.clientY; idle=0;
+    card.classList.add("dragging"); card.setPointerCapture(e.pointerId);
+  });
+  card.addEventListener("pointermove",function(e){
+    if(!dragging) return;
+    theta -= (e.clientX-lx)*0.006;
+    phi   -= (e.clientY-ly)*0.005;
+    lx=e.clientX; ly=e.clientY; idle=0;
+    if(reduced){ applyCam(); renderer.render(scene,camera); }
+  });
+  card.addEventListener("pointerup",function(){
+    dragging=false; card.classList.remove("dragging");
+  });
+
+  /* ---------- resize ---------- */
+  function resize(){
+    var r=card.getBoundingClientRect();
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    renderer.setPixelRatio(dpr);
+    renderer.setSize(r.width,r.height,false);
+    camera.aspect=r.width/r.height;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener("resize",function(){
+    resize();
+    if(reduced) renderer.render(scene,camera);
+  });
+  resize();
+
+  /* ---------- main loop ---------- */
+  var last=null;
+  function step(now){
+    if(last==null) last=now;
+    var dt=Math.min(0.05,(now-last)/1000); last=now;
+    idle+=dt;
+    if(!dragging && idle>2.2) theta += dt*0.045;
+
+    update(now/1000, dt);
+    applyCam();
+    renderer.render(scene,camera);
+    requestAnimationFrame(step);
+  }
+
+  if(reduced){
+    update(2.4,0); applyCam(); renderer.render(scene,camera);
+  }else{
+    requestAnimationFrame(step);
+  }
+})();
+</script>
+
+</body>
+</html>

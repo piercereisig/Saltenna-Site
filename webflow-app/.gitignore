@@ -1,0 +1,8 @@
+dist/
+node_modules/
+.astro/
+# public/videos is NO LONGER ignored: the staging deploy ships the trimmed
+# MP4s inside the bundle (see docs/PREVIEW-HOSTING.md). Re-add this line if
+# you go back to serving video from R2.
+.dev.vars
+.wrangler/

@@ -1,0 +1,233 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Under-ice communications: a polar surface station relays data down through a thick ice sheet, along its underside, and down to a tracked unmanned underwater vehicle drifting through marine snow above the seabed</title>
+  <style>
+    .l-flow { stroke-dasharray: 5 8; animation: flow 5.5s linear infinite; }
+    .l-flow2 { stroke-dasharray: 3 9; animation: flow 8s linear infinite; }
+    @keyframes flow { to { stroke-dashoffset: -156; } }
+    .ring { transform-origin: 96px 30px; animation: ping 7s ease-out infinite; opacity: 0; }
+    .ring.r2 { animation-delay: 3.5s; }
+    .iring { transform-origin: 520px 160px; animation: ping 6.5s ease-out infinite 1.2s; opacity: 0; }
+    .iring.r2 { animation-delay: 4.4s; }
+    @keyframes ping { 0% { transform: scale(0.15); opacity: 0.35; } 65% { transform: scale(1); opacity: 0; } 100% { transform: scale(1); opacity: 0; } }
+    .uuv-g { animation: drift 12s ease-in-out infinite alternate; }
+    @keyframes drift { from { transform: translate(0, 0); } to { transform: translate(-18px, -6px); } }
+    .dot-b { animation: blink 3.4s ease-in-out infinite; }
+    .dot-b2 { animation: blink 2.7s ease-in-out infinite 0.9s; }
+    @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+    .bub { animation: bub 5s linear infinite; opacity: 0; }
+    .bub.b2 { animation-delay: 1.7s; }
+    .bub.b3 { animation-delay: 3.4s; }
+    @keyframes bub { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 0.5; } 100% { transform: translateY(-30px); opacity: 0; } }
+    .snw { animation: fall 10s linear infinite; opacity: 0; }
+    .snw.s2 { animation-delay: 2.5s; }
+    .snw.s3 { animation-delay: 5s; }
+    .snw.s4 { animation-delay: 7.5s; }
+    @keyframes fall { 0% { transform: translateY(-4px); opacity: 0; } 12% { opacity: 0.35; } 85% { opacity: 0.3; } 100% { transform: translateY(24px); opacity: 0; } }
+    .wave-poly { animation: wv 2.8s linear infinite; }
+    @keyframes wv { from { transform: translateX(0); } to { transform: translateX(-24px); } }
+    .twinkle { animation: blink 5.5s ease-in-out infinite 2s; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c141f"/><stop offset="0.45" stop-color="#0e1621"/><stop offset="1" stop-color="#121c28"/>
+    </linearGradient>
+    <radialGradient id="vg" cx="0.46" cy="0.42" r="0.8">
+      <stop offset="0.55" stop-color="#0a121d" stop-opacity="0"/><stop offset="1" stop-color="#0a121d" stop-opacity="0.5"/>
+    </radialGradient>
+    <symbol id="plus" viewBox="0 0 8 8">
+      <path d="M4 0v8M0 4h8" stroke="#eef2f6" stroke-width="1" fill="none"/>
+    </symbol>
+    <symbol id="ridge" viewBox="0 0 34 13">
+      <polygon points="0,13 17,0 34,13" fill="#d7dee6"/>
+      <polygon points="17,0 34,13 22,13" fill="#97a5ad"/>
+    </symbol>
+    <symbol id="rockch" viewBox="0 0 32 13">
+      <path d="M0 13 L16 0 L32 13" fill="none" stroke="#3a4a44" stroke-width="1"/>
+    </symbol>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg)"/>
+
+  <path d="M-10 34 C 150 12 330 30 520 14 C 620 6 730 16 810 8" fill="none" stroke="#2ec4b6" stroke-width="7" opacity="0.05"/>
+  <path d="M-10 44 C 160 24 340 42 530 26 C 640 18 740 28 810 20" fill="none" stroke="#9fd4e8" stroke-width="3.5" opacity="0.05"/>
+  <path d="M60 22 C 220 4 420 20 600 6" fill="none" stroke="#2ec4b6" stroke-width="10" opacity="0.03"/>
+  <ellipse cx="400" cy="97" rx="430" ry="26" fill="#9fd4e8" opacity="0.03"/>
+  <circle cx="250" cy="20" r="1" fill="#eef2f6" opacity="0.13"/>
+  <circle cx="340" cy="60" r="1" fill="#eef2f6" opacity="0.1" class="twinkle"/>
+  <circle cx="480" cy="26" r="1.2" fill="#eef2f6" opacity="0.12"/>
+  <circle cx="630" cy="40" r="1" fill="#eef2f6" opacity="0.11"/>
+  <circle cx="720" cy="18" r="1" fill="#eef2f6" opacity="0.1" class="twinkle"/>
+  <circle cx="60" cy="55" r="1" fill="#eef2f6" opacity="0.09"/>
+  <use href="#plus" x="300" y="28" width="7" height="7" opacity="0.09"/>
+  <use href="#plus" x="558" y="48" width="7" height="7" opacity="0.08"/>
+
+  <g fill="none" stroke="#eef2f6" stroke-width="1">
+    <path d="M-20 195 C 160 182 360 206 560 192 S 760 176 820 186" opacity="0.04"/>
+    <path d="M-20 235 C 180 222 380 246 580 232 S 770 216 820 226" opacity="0.04"/>
+    <path d="M-20 275 C 170 262 370 286 570 272 S 770 256 820 266" opacity="0.04"/>
+    <path d="M-20 315 C 190 302 380 326 590 311 S 775 296 820 306" opacity="0.04"/>
+    <path d="M-20 355 C 175 342 385 366 585 351 S 770 336 820 346" opacity="0.035"/>
+    <path d="M-20 400 C 190 388 390 410 600 397 S 775 384 820 392" opacity="0.03"/>
+    <path d="M110 150 C 96 250 116 360 92 470" opacity="0.03"/>
+    <path d="M260 150 C 246 260 268 360 246 470" opacity="0.035"/>
+    <path d="M410 150 C 396 250 418 370 398 470" opacity="0.035"/>
+    <path d="M560 150 C 548 260 568 360 550 470" opacity="0.03"/>
+    <path d="M710 150 C 698 250 718 370 702 470" opacity="0.03"/>
+    <path d="M-20 218 C 120 210 180 230 300 222 C 380 217 420 230 540 224" opacity="0.04"/>
+    <path d="M180 340 C 280 330 340 348 460 338 C 560 330 640 346 760 336" opacity="0.04"/>
+    <path d="M-20 385 C 100 376 220 392 340 382 C 460 373 560 390 680 380" opacity="0.04"/>
+  </g>
+  <ellipse cx="240" cy="280" rx="170" ry="50" fill="#eef2f6" opacity="0.022"/>
+  <ellipse cx="560" cy="360" rx="150" ry="46" fill="#eef2f6" opacity="0.02"/>
+  <ellipse cx="420" cy="220" rx="130" ry="40" fill="#eef2f6" opacity="0.018"/>
+
+  <use href="#plus" x="120" y="210" width="8" height="8" opacity="0.11"/>
+  <use href="#plus" x="340" y="252" width="8" height="8" opacity="0.1"/>
+  <use href="#plus" x="560" y="390" width="8" height="8" opacity="0.11"/>
+  <use href="#plus" x="240" y="360" width="7" height="7" opacity="0.09"/>
+  <use href="#plus" x="700" y="262" width="7" height="7" opacity="0.1"/>
+  <use href="#plus" x="60" y="300" width="7" height="7" opacity="0.09"/>
+  <circle cx="180" cy="240" r="1" fill="#eef2f6" opacity="0.1"/>
+  <circle cx="360" cy="300" r="1" fill="#eef2f6" opacity="0.09" class="twinkle"/>
+  <circle cx="300" cy="392" r="1.2" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="700" cy="340" r="1" fill="#eef2f6" opacity="0.1"/>
+  <circle cx="450" cy="200" r="1" fill="#eef2f6" opacity="0.09"/>
+  <circle cx="90" cy="350" r="1" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="670" cy="412" r="1" fill="#eef2f6" opacity="0.08" class="twinkle"/>
+  <circle cx="760" cy="300" r="1" fill="#eef2f6" opacity="0.09"/>
+
+  <circle cx="250" cy="220" r="1.3" fill="#d7dee6" class="snw"/>
+  <circle cx="420" cy="262" r="1.1" fill="#d7dee6" class="snw s2"/>
+  <circle cx="330" cy="332" r="1.2" fill="#d7dee6" class="snw s3"/>
+  <circle cx="480" cy="382" r="1" fill="#d7dee6" class="snw s4"/>
+  <circle cx="210" cy="302" r="1" fill="#d7dee6" class="snw s3"/>
+  <circle cx="628" cy="252" r="1.1" fill="#d7dee6" class="snw s2"/>
+
+  <path d="M-10 432 C 120 424 260 438 400 430 C 540 424 680 436 810 428 L 810 460 L -10 460 Z" fill="#101a26"/>
+  <path d="M-10 432 C 120 424 260 438 400 430 C 540 424 680 436 810 428" fill="none" stroke="#eef2f6" stroke-width="1" opacity="0.05"/>
+  <use href="#rockch" x="120" y="421" width="32" height="13" opacity="0.9"/>
+  <use href="#rockch" x="520" y="430" width="20" height="8" opacity="0.9"/>
+  <use href="#rockch" x="660" y="419" width="32" height="13" opacity="0.9"/>
+  <use href="#rockch" x="230" y="436" width="16" height="7" opacity="0.8"/>
+  <polygon points="300,442 316,428 336,442" fill="#1a2733"/>
+  <polygon points="316,428 336,442 322,442" fill="#232f3d"/>
+  <polygon points="70,444 80,436 92,444" fill="#1a2733"/>
+  <polygon points="742,440 752,433 764,440" fill="#1a2733"/>
+  <path d="M420 440 C 418 432 422 428 420 423 M424 440 C 426 434 423 430 425 425" fill="none" stroke="#37453e" stroke-width="1"/>
+  <path d="M560 436 C 558 430 561 427 559 423" fill="none" stroke="#37453e" stroke-width="1"/>
+
+  <ellipse cx="400" cy="160" rx="390" ry="15" fill="#2ec4b6" opacity="0.04"/>
+
+  <path d="M-10 96 L810 96 L810 150 L778 156 L746 150 L714 157 L682 149 L650 156 L618 150 L585 157 L552 150 L522 156 L492 149 L460 157 L428 151 L395 159 L362 149 L330 157 L298 151 L268 158 L238 149 L205 157 L172 151 L148 161 L125 150 L95 156 L62 149 L30 157 L-10 152 Z" fill="#232f3d"/>
+  <rect x="-10" y="96" width="820" height="4.5" fill="#d7dee6"/>
+  <rect x="-10" y="100.5" width="820" height="3" fill="#aab6b0" opacity="0.55"/>
+  <path d="M-10 152 L30 157 L62 149 L95 156 L125 150 L148 161 L172 151 L205 157 L238 149 L268 158 L298 151 L330 157 L362 149 L395 159 L428 151 L460 157 L492 149 L522 156 L552 150 L585 157 L618 150 L650 156 L682 149 L714 157 L746 150 L778 156 L810 150" fill="none" stroke="#9fd4e8" stroke-width="1" opacity="0.12"/>
+  <polygon points="42,152 60,182 78,150" fill="#232f3d"/>
+  <polygon points="60,182 78,150 66,152" fill="#1a2733"/>
+  <polygon points="612,152 630,178 648,150" fill="#232f3d"/>
+  <polygon points="630,178 648,150 636,151" fill="#1a2733"/>
+  <path d="M210 101 L216 118 L211 140" fill="none" stroke="#0a121d" stroke-width="1" opacity="0.5"/>
+  <path d="M388 102 L382 122 L389 148" fill="none" stroke="#0a121d" stroke-width="1" opacity="0.5"/>
+  <path d="M470 101 L476 120 L470 143" fill="none" stroke="#0a121d" stroke-width="1" opacity="0.45"/>
+  <path d="M590 102 L585 124 L591 147" fill="none" stroke="#0a121d" stroke-width="1" opacity="0.5"/>
+  <path d="M700 101 L706 121 L699 145" fill="none" stroke="#0a121d" stroke-width="1" opacity="0.45"/>
+  <path d="M60 102 L66 124 L61 146" fill="none" stroke="#0a121d" stroke-width="1" opacity="0.4"/>
+  <path d="M240 103 L236 146" fill="none" stroke="#eef2f6" stroke-width="1" opacity="0.05"/>
+  <path d="M520 104 L524 146" fill="none" stroke="#eef2f6" stroke-width="1" opacity="0.05"/>
+  <path d="M760 103 L756 144" fill="none" stroke="#eef2f6" stroke-width="1" opacity="0.05"/>
+  <rect x="144.5" y="96" width="7" height="64" fill="#9fd4e8" opacity="0.07"/>
+
+  <use href="#ridge" x="40" y="83" width="30" height="13" opacity="0.95"/>
+  <use href="#ridge" x="236" y="82" width="34" height="14" opacity="0.95"/>
+  <use href="#ridge" x="334" y="88" width="24" height="8" opacity="0.9"/>
+  <use href="#ridge" x="456" y="84" width="34" height="12" opacity="0.95"/>
+  <use href="#ridge" x="556" y="89" width="20" height="7" opacity="0.85"/>
+  <use href="#ridge" x="664" y="82" width="36" height="14" opacity="0.95"/>
+  <use href="#ridge" x="748" y="87" width="24" height="9" opacity="0.9"/>
+  <ellipse cx="290" cy="95.5" rx="16" ry="1.6" fill="#d7dee6" opacity="0.45"/>
+  <ellipse cx="530" cy="95.5" rx="13" ry="1.4" fill="#d7dee6" opacity="0.4"/>
+
+  <g>
+    <ellipse cx="146" cy="96.5" rx="52" ry="3" fill="#1a2733" opacity="0.35"/>
+    <rect x="103" y="85" width="9" height="11" rx="1" fill="#7c8a84"/>
+    <line x1="103" y1="88.5" x2="112" y2="88.5" stroke="#4a5560" stroke-width="1"/>
+    <line x1="103" y1="92" x2="112" y2="92" stroke="#4a5560" stroke-width="1"/>
+    <rect x="118" y="68" width="52" height="28" fill="#4a5560"/>
+    <line x1="132" y1="70" x2="132" y2="96" stroke="#1a2733" stroke-width="1" opacity="0.5"/>
+    <line x1="146" y1="70" x2="146" y2="96" stroke="#1a2733" stroke-width="1" opacity="0.5"/>
+    <polygon points="114,68 144,53 174,68" fill="#6b7885"/>
+    <path d="M116 67 L144 53.5 L172 67" fill="none" stroke="#d7dee6" stroke-width="2" opacity="0.85"/>
+    <rect x="158" y="57" width="4" height="9" fill="#4a5560"/>
+    <rect x="124" y="76" width="9" height="7" rx="1" fill="#9fd4e8" opacity="0.55"/>
+    <rect x="154" y="78" width="10" height="18" fill="#232f3d"/>
+    <line x1="96" y1="96" x2="96" y2="33" stroke="#97a5ad" stroke-width="1.4"/>
+    <line x1="92" y1="44" x2="100" y2="44" stroke="#97a5ad" stroke-width="1"/>
+    <line x1="91" y1="58" x2="101" y2="58" stroke="#97a5ad" stroke-width="1"/>
+    <line x1="90" y1="72" x2="102" y2="72" stroke="#97a5ad" stroke-width="1"/>
+    <line x1="96" y1="46" x2="76" y2="96" stroke="#eef2f6" stroke-width="1" opacity="0.12"/>
+    <line x1="96" y1="46" x2="116" y2="96" stroke="#eef2f6" stroke-width="1" opacity="0.12"/>
+    <circle cx="96" cy="30" r="2.4" fill="#6aa9e9" class="dot-b"/>
+    <line x1="188" y1="95" x2="220" y2="95" stroke="#7c8a84" stroke-width="1.4"/>
+    <path d="M188 95 Q 183 93 184 88" fill="none" stroke="#7c8a84" stroke-width="1.4"/>
+    <rect x="192" y="84" width="20" height="10" fill="#6b7885"/>
+    <line x1="197" y1="84" x2="197" y2="94" stroke="#1a2733" stroke-width="1" opacity="0.6"/>
+    <line x1="206" y1="84" x2="206" y2="94" stroke="#1a2733" stroke-width="1" opacity="0.6"/>
+    <rect x="196" y="78" width="12" height="6" fill="#4a5560"/>
+    <line x1="226" y1="96" x2="226" y2="78" stroke="#97a5ad" stroke-width="1"/>
+    <polygon points="226,78 238,81 226,85" fill="#6aa9e9" opacity="0.9"/>
+  </g>
+  <line x1="206" y1="40" x2="172" y2="52" stroke="#5b6b7a" stroke-width="1" opacity="0.8"/>
+  <text x="212" y="44" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" letter-spacing="2" fill="#5b6b7a" opacity="0.85">SURFACE STATION</text>
+  <line x1="660" y1="124" x2="682" y2="124" stroke="#5b6b7a" stroke-width="1" opacity="0.8"/>
+  <text x="690" y="128" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" letter-spacing="2.5" fill="#8fa3b8" opacity="0.85">ICE SHEET</text>
+
+  <g class="ring"><circle cx="96" cy="30" r="18" fill="none" stroke="#9fd4e8" stroke-width="1"/></g>
+  <g class="ring r2"><circle cx="96" cy="30" r="18" fill="none" stroke="#6aa9e9" stroke-width="1"/></g>
+  <g class="iring"><ellipse cx="520" cy="160" rx="28" ry="10" fill="none" stroke="#9fd4e8" stroke-width="1"/></g>
+  <g class="iring r2"><ellipse cx="520" cy="160" rx="28" ry="10" fill="none" stroke="#6aa9e9" stroke-width="1"/></g>
+
+  <path class="l-flow" d="M148 95 L148 161 C 200 170 280 160 350 164 C 400 167 480 156 520 160 C 545 210 566 268 574 324" fill="none" stroke="#6aa9e9" stroke-width="1.5" opacity="0.65"/>
+  <path class="l-flow2" d="M148 99 L148 165 C 205 175 285 165 355 169 C 405 172 482 161 522 165 C 547 214 568 270 576 326" fill="none" stroke="#9fd4e8" stroke-width="1.2" opacity="0.28"/>
+  <text x="252" y="190" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="2" fill="#6aa9e9" opacity="0.9">UNDER-ICE LINK</text>
+
+  <g class="uuv-g">
+    <ellipse cx="582" cy="354" rx="34" ry="6.5" fill="#1a2733" opacity="0.5"/>
+    <ellipse cx="580" cy="332" rx="32" ry="9.5" fill="#aab6b0"/>
+    <path d="M548 332 a 10 9 0 0 1 8 -8.6 L 556 340.6 a 10 9 0 0 1 -8 -8.6 Z" fill="#8b978f"/>
+    <path d="M612 332 a 10 9 0 0 0 -8 -8.6 L 604 340.6 a 10 9 0 0 0 8 -8.6 Z" fill="#7c8a84"/>
+    <polygon points="600,324 612,313 614,324" fill="#6b7885"/>
+    <rect x="566" y="326.5" width="22" height="3" fill="#6b7885"/>
+    <rect x="570" y="336" width="16" height="2.4" fill="#7c8a84"/>
+    <line x1="588" y1="322" x2="588" y2="317" stroke="#97a5ad" stroke-width="1"/>
+    <circle cx="588" cy="316" r="1.2" fill="#9fd4e8"/>
+    <line x1="616" y1="326" x2="622" y2="322" stroke="#7c8a84" stroke-width="1"/>
+    <line x1="617" y1="332" x2="624" y2="332" stroke="#7c8a84" stroke-width="1"/>
+    <line x1="616" y1="338" x2="622" y2="342" stroke="#7c8a84" stroke-width="1"/>
+    <circle cx="549" cy="328" r="2.2" fill="#6aa9e9" class="dot-b2"/>
+    <line x1="628" y1="329" x2="648" y2="328" stroke="#eef2f6" stroke-width="1" opacity="0.15"/>
+    <line x1="626" y1="335" x2="644" y2="336" stroke="#eef2f6" stroke-width="1" opacity="0.1"/>
+    <circle cx="574" cy="318" r="1.4" fill="#9fd4e8" class="bub"/>
+    <circle cx="584" cy="316" r="1.1" fill="#9fd4e8" class="bub b2"/>
+    <circle cx="566" cy="319" r="1" fill="#9fd4e8" class="bub b3"/>
+  </g>
+  <rect x="516" y="298" width="140" height="66" rx="6" fill="none" stroke="#6aa9e9" stroke-width="1.3" opacity="0.75"/>
+  <circle cx="656" cy="298" r="7" fill="#6aa9e9"/>
+  <path d="M652.5 298 L655 300.5 L659.5 295.5" stroke="#0e1621" stroke-width="1.6" fill="none"/>
+
+  <line x1="650" y1="216" x2="656" y2="296" stroke="#6aa9e9" stroke-width="1" opacity="0.4"/>
+  <g>
+    <rect x="566" y="158" width="196" height="58" rx="4" fill="#0e1621" opacity="0.92"/>
+    <rect x="566" y="158" width="196" height="58" rx="4" fill="none" stroke="#6aa9e9" stroke-width="1" opacity="0.55"/>
+    <circle cx="578" cy="170" r="2.4" fill="#58c184" class="dot-b"/>
+    <text x="586" y="174" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="1.5" fill="#d7dee6">UUV DATA LINK</text>
+    <text x="726" y="174" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#6aa9e9">LIVE</text>
+    <clipPath id="wvclip"><rect x="576" y="180" width="176" height="14"/></clipPath>
+    <g clip-path="url(#wvclip)">
+      <polyline class="wave-poly" fill="none" stroke="#6aa9e9" stroke-width="1.1" opacity="0.85" points="552,187 557,187 560,182 563,192 566,184 569,191 572,186 574,187 576,187 581,187 584,182 587,192 590,184 593,191 596,186 598,187 600,187 605,187 608,182 611,192 614,184 617,191 620,186 622,187 624,187 629,187 632,182 635,192 638,184 641,191 644,186 646,187 648,187 653,187 656,182 659,192 662,184 665,191 668,186 670,187 672,187 677,187 680,182 683,192 686,184 689,191 692,186 694,187 696,187 701,187 704,182 707,192 710,184 713,191 716,186 718,187 720,187 725,187 728,182 731,192 734,184 737,191 740,186 742,187 744,187 749,187 752,182 755,192 758,184 761,191 764,186 766,187 768,187 773,187 776,182 779,192 782,184 785,191 788,186 790,187"/>
+    </g>
+    <text x="576" y="208" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#5b6b7a">SNR 31 DB · PKT 99%</text>
+  </g>
+
+  <rect width="800" height="450" fill="url(#vg)"/>
+</svg>

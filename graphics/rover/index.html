@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="ROVER 1 — Saltenna armoured tracked ground platform. Interactive 3D model.">
+<link rel="preload" href="rover.json" as="fetch" crossorigin="anonymous">
+<title>ROVER 1</title>
+<style>
+/* ---------------------------------------------------------------- tokens
+   Light is the base palette. Dark is redefined at token level only, twice:
+   once for the un-stamped prefers-color-scheme case, once for the explicit
+   [data-theme="dark"] stamp. No component styles live inside those blocks. */
+:root{
+  --bg:#ffffff;
+  --bg-2:#f4f6f8;
+  --void-1:#ffffff;      /* studio backdrop, centre */
+  --void-2:#e9edf1;      /* studio backdrop, edge   */
+  --panel:rgba(255,255,255,.86);
+  --line:#dfe3e8;
+  --line-soft:#eef1f4;
+  --line-strong:#b9c0c8;
+  --text:#22262b;
+  --muted:#6e747c;
+  --accent:#2b8fd1;
+  --accent-text:#2179b8;
+  --shadow:0 1px 2px rgba(16,22,30,.05),0 8px 28px rgba(16,22,30,.07);
+  --grid:rgba(34,38,43,.055);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1013;
+    --bg-2:#15181d;
+    --void-1:#191d23;
+    --void-2:#0b0d10;
+    --panel:rgba(21,24,29,.84);
+    --line:#2a2f36;
+    --line-soft:#20242a;
+    --line-strong:#3c434c;
+    --text:#e6e9ec;
+    --muted:#98a0aa;
+    --accent:#4aa8e4;
+    --accent-text:#69bcf0;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 30px rgba(0,0,0,.45);
+    --grid:rgba(230,233,236,.07);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1013;
+  --bg-2:#15181d;
+  --void-1:#191d23;
+  --void-2:#0b0d10;
+  --panel:rgba(21,24,29,.84);
+  --line:#2a2f36;
+  --line-soft:#20242a;
+  --line-strong:#3c434c;
+  --text:#e6e9ec;
+  --muted:#98a0aa;
+  --accent:#4aa8e4;
+  --accent-text:#69bcf0;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 30px rgba(0,0,0,.45);
+  --grid:rgba(230,233,236,.07);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  overflow:hidden;
+}
+.mono{font-family:ui-monospace,SFMono-Regular,"SF Mono","Cascadia Mono",Consolas,"Liberation Mono",monospace}
+
+#stage{position:fixed;inset:0}
+#stage canvas{display:block}
+
+/* every chrome panel: white-on-white, one hairline, soft shadow. never filled. */
+.hud{
+  position:fixed;z-index:5;background:var(--panel);
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow);
+}
+.lbl{
+  font-family:ui-monospace,SFMono-Regular,"SF Mono","Cascadia Mono",Consolas,monospace;
+  font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+}
+
+#title{top:20px;left:20px;padding:13px 17px 12px}
+#title .name{
+  font-size:19px;font-weight:640;letter-spacing:.055em;line-height:1;
+  display:flex;align-items:baseline;gap:9px;
+}
+#title .name b{font-weight:640}
+#title .name i{
+  font-style:normal;font-size:10px;letter-spacing:.16em;color:var(--accent-text);
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+#title .sub{margin-top:7px}
+
+#readout{top:20px;right:20px;padding:12px 15px;min-width:212px}
+#readout table{border-collapse:collapse;width:100%;
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+#readout td{padding:3px 0;font-size:10.5px;vertical-align:baseline}
+#readout td:first-child{color:var(--muted);letter-spacing:.11em;text-transform:uppercase;font-size:8.5px}
+#readout td:last-child{text-align:right;font-weight:560}
+#readout tr+tr td{border-top:1px solid var(--line-soft)}
+#readout .src{color:var(--accent-text);font-size:8px;padding-left:5px}
+
+#systems{bottom:20px;left:20px;padding:11px 12px 10px;max-width:246px}
+#systems .head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:9px}
+#systems .rows{display:grid;gap:1px}
+.sys{
+  display:flex;align-items:center;gap:9px;width:100%;
+  padding:5px 6px;border:0;border-radius:2px;background:none;
+  color:var(--text);cursor:pointer;text-align:left;font:inherit;
+  transition:background .13s;
+}
+.sys:hover{background:var(--bg-2)}
+.sys:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.sys[aria-pressed="true"]{background:var(--bg-2)}
+.sys .sw{width:11px;height:11px;border-radius:2px;flex:none;border:1px solid rgba(0,0,0,.22)}
+.sys .nm{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;flex:1;
+}
+.sys .ct{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  font-size:9px;color:var(--muted);font-variant-numeric:tabular-nums;
+}
+.sys.off .nm,.sys.off .ct{color:var(--muted);opacity:.5}
+.sys.off .sw{opacity:.28}
+
+#controls{bottom:20px;right:20px;display:flex;gap:7px;z-index:5}
+.btn{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  font-size:9px;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--text);background:var(--panel);
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  border:1px solid var(--line);border-radius:3px;
+  padding:9px 13px;cursor:pointer;box-shadow:var(--shadow);
+  transition:border-color .14s,color .14s;
+}
+.btn:hover{border-color:var(--line-strong)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn[aria-pressed="true"]{color:var(--accent-text);border-color:var(--accent)}
+
+#hint{
+  position:fixed;left:50%;transform:translateX(-50%);bottom:22px;z-index:4;
+  pointer-events:none;text-align:center;
+}
+#hint b{color:var(--text);font-weight:600}
+
+#loading{
+  position:fixed;inset:0;z-index:20;display:grid;place-content:center;gap:13px;
+  justify-items:center;background:var(--bg);transition:opacity .5s ease;
+}
+#loading.done{opacity:0;pointer-events:none}
+#loading .bar{width:132px;height:1px;background:var(--line);overflow:hidden;position:relative}
+#loading .bar::after{
+  content:"";position:absolute;inset:0;background:var(--accent);
+  transform:translateX(-100%);animation:sweep 1.05s ease-in-out infinite;
+}
+@keyframes sweep{50%{transform:translateX(0)}100%{transform:translateX(100%)}}
+@media (prefers-reduced-motion:reduce){
+  #loading .bar::after{animation:none;transform:translateX(0);opacity:.45}
+  .sys,.btn{transition:none}
+}
+
+@media (max-width:900px){
+  #readout{display:none}
+  #systems{max-width:none;left:12px;right:12px;bottom:64px}
+  #systems .rows{grid-template-columns:1fr 1fr;gap:0 10px}
+  #title{top:12px;left:12px;padding:10px 13px 9px}
+  #title .name{font-size:16px}
+  #controls{bottom:12px;right:12px;left:12px;justify-content:stretch}
+  .btn{flex:1;text-align:center;padding:11px 6px}
+  #hint{display:none}
+}
+</style><script>window.__roverData=fetch('rover.json').then(function(r){
+if(!r.ok)throw new Error('rover.json '+r.status);return r.text();});</script>
+</head>
+<body>
+
+
+<div id="stage"></div>
+
+<div class="hud" id="title">
+  <div class="name"><b>ROVER 1</b><i>Armoured Tracked Crawler</i></div>
+  <div class="sub lbl">Saltenna · tracked ground platform</div>
+</div>
+
+<div class="hud" id="readout">
+  <table>
+    <tr><td>Length</td><td>763 <span class="src">mm</span></td></tr>
+    <tr><td>Width</td><td>430 <span class="src">mm</span></td></tr>
+    <tr><td>Height</td><td>525 <span class="src">mm</span></td></tr>
+    <tr><td>Wheelbase</td><td>440 <span class="src">mm</span></td></tr>
+    <tr><td>Track</td><td>352 <span class="src">mm</span></td></tr>
+    <tr><td>Clearance</td><td>140 <span class="src">mm</span></td></tr>
+    <tr><td>Unit, front</td><td>290 <span class="src">mm</span></td></tr>
+    <tr><td>Unit, rear</td><td>310 <span class="src">mm</span></td></tr>
+    <tr><td>Triangles</td><td id="tris">—</td></tr>
+  </table>
+</div>
+
+<div class="hud" id="systems">
+  <div class="head">
+    <span class="lbl">Systems</span>
+    <span class="lbl" id="isohint">click to isolate</span>
+  </div>
+  <div class="rows" id="rows"></div>
+</div>
+
+<div id="controls">
+  <button class="btn" id="b-gear" aria-pressed="false">Strip net</button>
+  <button class="btn" id="b-spin" aria-pressed="true">Auto-rotate</button>
+  <button class="btn" id="b-reset">Reset</button>
+</div>
+
+<div id="hint" class="lbl"><b>Drag</b> rotate &nbsp;·&nbsp; <b>Scroll</b> zoom &nbsp;·&nbsp; <b>Click a system</b> to isolate</div>
+
+<div id="loading"><div class="bar"></div><div class="lbl">Loading ROVER 1</div></div>
+
+<script src="three.global.js" defer></script>
+<script id="rover-data" type="application/json"></script>
+<script defer src="rover.boot.js"></script>
+</body>
+</html>

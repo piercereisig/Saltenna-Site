@@ -1,0 +1,157 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Global supply chain sensing: a dockside scanner sweeps a stacked shipping container and verifies the cargo inside through the metal wall</title>
+  <style>
+    .dot-b { animation: blink 3.2s ease-in-out infinite; }
+    .dot-b2 { animation: blink 2.6s ease-in-out infinite 0.9s; }
+    @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+    .scanline { animation: scan 9s ease-in-out infinite; }
+    @keyframes scan { 0% { transform: translateX(0); } 50% { transform: translateX(168px); } 100% { transform: translateX(0); } }
+    .rev { animation: reveal 9s ease-in-out infinite; opacity: 0.08; }
+    .rev.r2 { animation-delay: 0.7s; }
+    @keyframes reveal { 0%, 8% { opacity: 0.08; } 32%, 62% { opacity: 0.6; } 88%, 100% { opacity: 0.08; } }
+    .stat { animation: stat 9s ease-in-out infinite; opacity: 0; }
+    @keyframes stat { 0%, 40% { opacity: 0; } 52%, 86% { opacity: 1; } 96%, 100% { opacity: 0; } }
+    .bar { animation: bars 9s ease-in-out infinite; }
+    @keyframes bars { 0%, 35% { opacity: 0.25; } 55%, 85% { opacity: 0.85; } 100% { opacity: 0.25; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c141f"/><stop offset="0.5" stop-color="#0e1621"/><stop offset="1" stop-color="#121c28"/>
+    </linearGradient>
+    <radialGradient id="vg" cx="0.5" cy="0.42" r="0.8">
+      <stop offset="0.55" stop-color="#0a121d" stop-opacity="0"/><stop offset="1" stop-color="#0a121d" stop-opacity="0.5"/>
+    </radialGradient>
+    <symbol id="plus" viewBox="0 0 8 8"><path d="M4 0v8M0 4h8" stroke="#eef2f6" stroke-width="1" fill="none"/></symbol>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <g fill="none" stroke="#eef2f6" stroke-width="1">
+    <path d="M-20 80 C 180 66 380 92 580 78 S 770 62 820 72" opacity="0.03"/>
+    <path d="M-20 156 C 190 144 390 166 590 154 S 775 140 820 148" opacity="0.04"/>
+    <path d="M-20 232 C 180 220 380 242 580 230 S 770 216 820 224" opacity="0.035"/>
+    <path d="M140 -20 C 124 140 144 300 120 470" opacity="0.03"/>
+    <path d="M420 -20 C 405 150 426 310 406 470" opacity="0.03"/>
+    <path d="M640 -20 C 626 140 646 300 628 470" opacity="0.03"/>
+    <path d="M-20 118 C 190 108 400 122 610 112 S 790 102 820 108" opacity="0.03"/>
+    <path d="M-20 196 C 200 186 410 200 620 190 S 792 180 820 186" opacity="0.028"/>
+    <path d="M280 -20 C 268 150 282 310 268 470" opacity="0.02"/>
+  </g>
+  <ellipse cx="330" cy="330" rx="220" ry="60" fill="#eef2f6" opacity="0.02"/>
+  <ellipse cx="620" cy="260" rx="140" ry="46" fill="#eef2f6" opacity="0.02"/>
+  <use href="#plus" x="90" y="110" width="8" height="8" opacity="0.11"/>
+  <use href="#plus" x="680" y="90" width="7" height="7" opacity="0.1"/>
+  <use href="#plus" x="420" y="60" width="7" height="7" opacity="0.09"/>
+  <use href="#plus" x="70" y="280" width="7" height="7" opacity="0.09"/>
+  <circle cx="250" cy="100" r="1" fill="#eef2f6" opacity="0.1"/>
+  <circle cx="540" cy="130" r="1" fill="#eef2f6" opacity="0.09"/>
+  <circle cx="720" cy="200" r="1.2" fill="#eef2f6" opacity="0.1"/>
+  <use href="#plus" x="540" y="180" width="7" height="7" opacity="0.08"/>
+  <circle cx="180" cy="180" r="1" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="360" cy="120" r="1" fill="#eef2f6" opacity="0.08"/>
+  <circle cx="620" cy="60" r="1" fill="#eef2f6" opacity="0.07"/>
+
+  <g stroke="#4a5560" stroke-width="2" fill="none" opacity="0.7">
+    <line x1="700" y1="60" x2="700" y2="392"/>
+    <line x1="668" y1="60" x2="800" y2="60"/>
+    <line x1="700" y1="88" x2="748" y2="60"/>
+  </g>
+  <line x1="736" y1="60" x2="736" y2="118" stroke="#4a5560" stroke-width="1" opacity="0.7"/>
+  <path d="M728 118 L744 118 L740 130 L732 130 Z" fill="#4a5560" opacity="0.8"/>
+
+  <line x1="-20" y1="392" x2="820" y2="392" stroke="#6b7885" stroke-width="1" opacity="0.4"/>
+  <path d="M-20 392 L820 392 L820 400 L-20 400 Z" fill="#1a2733" opacity="0.5"/>
+  <ellipse cx="120" cy="404" rx="10" ry="3" fill="#1a2733"/>
+  <rect x="114" y="392" width="12" height="10" rx="3" fill="#4a5560"/>
+
+  <g>
+    <ellipse cx="400" cy="396" rx="200" ry="8" fill="#1a2733" opacity="0.55"/>
+    <rect x="220" y="322" width="180" height="70" fill="#232f3d" stroke="#6b7885" stroke-width="1"/>
+    <g stroke="#1a2733" stroke-width="1.4" opacity="0.9">
+      <line x1="238" y1="322" x2="238" y2="392"/><line x1="258" y1="322" x2="258" y2="392"/>
+      <line x1="278" y1="322" x2="278" y2="392"/><line x1="298" y1="322" x2="298" y2="392"/>
+      <line x1="318" y1="322" x2="318" y2="392"/><line x1="338" y1="322" x2="338" y2="392"/>
+      <line x1="358" y1="322" x2="358" y2="392"/><line x1="378" y1="322" x2="378" y2="392"/>
+    </g>
+    <rect x="220" y="322" width="6" height="70" fill="#4a5560"/><rect x="394" y="322" width="6" height="70" fill="#4a5560"/>
+    <rect x="404" y="322" width="176" height="70" fill="#101a26" stroke="#6b7885" stroke-width="1"/>
+    <g stroke="#0a121d" stroke-width="1.4" opacity="0.9">
+      <line x1="422" y1="322" x2="422" y2="392"/><line x1="442" y1="322" x2="442" y2="392"/>
+      <line x1="462" y1="322" x2="462" y2="392"/><line x1="482" y1="322" x2="482" y2="392"/>
+      <line x1="502" y1="322" x2="502" y2="392"/><line x1="522" y1="322" x2="522" y2="392"/>
+      <line x1="542" y1="322" x2="542" y2="392"/><line x1="562" y1="322" x2="562" y2="392"/>
+    </g>
+    <rect x="404" y="322" width="6" height="70" fill="#3a4a44"/><rect x="574" y="322" width="6" height="70" fill="#3a4a44"/>
+    <rect x="238" y="250" width="180" height="70" fill="#1a2733" stroke="#6b7885" stroke-width="1"/>
+    <line x1="242" y1="250" x2="242" y2="320" stroke="#4a5560" stroke-width="2"/>
+    <line x1="414" y1="250" x2="414" y2="320" stroke="#4a5560" stroke-width="2"/>
+    <line x1="326" y1="250" x2="326" y2="320" stroke="#0a121d" stroke-width="1.4"/>
+    <line x1="282" y1="250" x2="282" y2="320" stroke="#0a121d" stroke-width="1.4"/>
+    <line x1="370" y1="250" x2="370" y2="320" stroke="#0a121d" stroke-width="1.4"/>
+    <rect x="430" y="250" width="150" height="70" fill="#232f3d" stroke="#6b7885" stroke-width="1"/>
+    <g stroke="#1a2733" stroke-width="1.4" opacity="0.9">
+      <line x1="448" y1="250" x2="448" y2="320"/><line x1="468" y1="250" x2="468" y2="320"/>
+      <line x1="488" y1="250" x2="488" y2="320"/><line x1="508" y1="250" x2="508" y2="320"/>
+      <line x1="528" y1="250" x2="528" y2="320"/><line x1="548" y1="250" x2="548" y2="320"/>
+    </g>
+    <rect x="560" y="250" width="8" height="14" fill="#4a5560"/>
+  </g>
+
+  <g class="rev" stroke="#9fd4e8" fill="none" stroke-width="1">
+    <rect x="262" y="278" width="30" height="24"/>
+    <rect x="300" y="286" width="24" height="16"/>
+  </g>
+  <g class="rev r2" stroke="#9fd4e8" fill="none" stroke-width="1">
+    <rect x="336" y="272" width="26" height="30"/>
+    <path d="M262 302 L392 302"/>
+  </g>
+
+  <g class="scanline">
+    <line x1="248" y1="256" x2="248" y2="316" stroke="#6aa9e9" stroke-width="1.4" opacity="0.75"/>
+    <line x1="244" y1="256" x2="244" y2="316" stroke="#6aa9e9" stroke-width="5" opacity="0.08"/>
+  </g>
+
+  <g class="stat">
+    <rect x="238" y="216" width="132" height="24" fill="#58c184" fill-opacity="0.05" stroke="#58c184" stroke-width="1"/>
+    <text x="252" y="232" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="2" fill="#58c184">CARGO VERIFIED</text>
+    <circle cx="418" cy="250" r="6.6" fill="#58c184"/>
+    <path d="M415 250 L417.4 252.4 L421.5 247.5" stroke="#0e1621" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <g>
+    <ellipse cx="150" cy="396" rx="18" ry="4" fill="#1a2733" opacity="0.6"/>
+    <rect x="136" y="362" width="28" height="28" rx="2" fill="#3a4a44"/>
+    <rect x="142" y="368" width="9" height="6" fill="#8fa3b8" opacity="0.5"/>
+    <line x1="150" y1="348" x2="150" y2="362" stroke="#d7dee6" stroke-width="1.2"/>
+    <circle cx="150" cy="345" r="2.4" fill="#6aa9e9" class="dot-b"/>
+    <line x1="164" y1="372" x2="216" y2="342" stroke="#6aa9e9" stroke-width="1" opacity="0.4"/>
+  </g>
+
+  <text x="452" y="222" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="2" fill="#6aa9e9" opacity="0.9">THROUGH-METAL AUDIT</text>
+  <g>
+    <line x1="620" y1="420" x2="642" y2="420" stroke="#5b6b7a" stroke-width="1"/>
+    <text x="650" y="424" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" letter-spacing="2.5" fill="#8fa3b8">BAY 12</text>
+  </g>
+
+  <line x1="180" y1="196" x2="252" y2="252" stroke="#6aa9e9" stroke-width="1" opacity="0.4"/>
+  <g>
+    <rect x="70" y="128" width="180" height="66" rx="4" fill="#0e1621" opacity="0.92"/>
+    <rect x="70" y="128" width="180" height="66" rx="4" fill="none" stroke="#6aa9e9" stroke-width="1" opacity="0.55"/>
+    <circle cx="82" cy="140" r="2.4" fill="#58c184" class="dot-b2"/>
+    <text x="90" y="144" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" letter-spacing="1.5" fill="#d7dee6">MANIFEST 7F2</text>
+    <text x="212" y="144" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#6aa9e9">LIVE</text>
+    <g fill="#6aa9e9" class="bar">
+      <rect x="82" y="156" width="7" height="16"/>
+      <rect x="93" y="162" width="7" height="10"/>
+      <rect x="104" y="152" width="7" height="20"/>
+      <rect x="115" y="158" width="7" height="14"/>
+      <rect x="126" y="164" width="7" height="8"/>
+      <rect x="137" y="154" width="7" height="18"/>
+      <rect x="148" y="160" width="7" height="12"/>
+      <rect x="159" y="156" width="7" height="16"/>
+    </g>
+    <text x="82" y="186" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="8" letter-spacing="1.5" fill="#5b6b7a">UNITS 24 · SEAL OK</text>
+  </g>
+
+  <rect width="800" height="450" fill="url(#vg)"/>
+</svg>

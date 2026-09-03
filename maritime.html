@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maritime — Saltenna</title>
+  <meta name="description" content="Saltenna is developing Plasmonic communications for maritime environments — between divers, uncrewed underwater and surface vehicles, and along the seabed — where wireless has never worked before." />
+  <link rel="stylesheet" href="css/styles.css?v=72" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="logo" href="index.html" aria-label="Saltenna home">
+        <img src="images/logo-white.png" alt="Saltenna" />
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="maritime.html" class="active">Maritime</a>
+        <a href="communications.html">Communications</a>
+        <a href="sensing.html">Sensing</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="nav-cta">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero color-media sea-hero">
+    <video class="bg-video" autoplay muted loop playsinline preload="auto" poster="images/posters/maritime-hero.jpg" aria-hidden="true">
+      <source src="videos/maritime-hero.mp4" type="video/mp4" />
+    </video>
+    <div class="container hero-lead">
+      <h1>Maritime Communications and Sensing</h1>
+    </div>
+    <div class="container hero-info">
+      <div class="hero-info-tag">
+        <p>Where wireless can't reach.</p>
+        <a class="hero-scroll" href="#challenge" aria-label="Scroll to content">&#8595;</a>
+      </div>
+      <p class="hero-info-desc">Saltenna's Plasmonic technology extends underwater, on the surface, and along the seabed — connecting divers, uncrewed vehicles, and vessels without needing line of sight.</p>
+      <nav class="hero-info-links" aria-label="Maritime use cases">
+        <a href="#uc-uncrewed">UUV Swarming</a>
+        <a href="#uc-oilgas">Oil &amp; Gas</a>
+        <a href="#uc-divers">Divers</a>
+        <a href="#uc-surface">USV</a>
+        <a href="#uc-seabed">Seabed</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- The problem the use cases answer -->
+  <section class="block dark has-fx" id="challenge">
+    <canvas class="fx-canvas" data-fx="field" aria-hidden="true"></canvas>
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>The ocean is a wireless dead zone.</h2>
+        <p>Wireless systems that thrive on land stop at the waterline. Saltenna's Plasmonic surface waves are being developed to work where the maritime domain defeats them.</p>
+      </div>
+      <div class="card-grid">
+        <div class="card reveal">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M2 12 Q5 8 8 12 T14 12 T20 12"/><path d="M2 17 Q5 13 8 17 T14 17 T20 17"/><path d="M5 20 L19 4"/></svg></div>
+          <h3>Seawater Stops RF</h3>
+          <p>Conventional radio is absorbed just below the surface, cutting off divers, vehicles, and sensors from the assets above them.</p>
+        </div>
+        <div class="card reveal">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M3 12s3-6 9-6 9 6 9 6-3 6-9 6-9-6-9-6z"/><circle cx="12" cy="12" r="2.5"/><path d="M4 20 L20 4"/></svg></div>
+          <h3>No Line of Sight</h3>
+          <p>Hulls, seawalls, islands, and the air-water boundary itself break the direct paths that optical and acoustic links depend on.</p>
+        </div>
+        <div class="card reveal">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M5 9a9 9 0 0 1 14 0"/><path d="M7.5 12a5.5 5.5 0 0 1 9 0"/><path d="M13 14l-2.5 4h3.5l-2.5 4"/></svg></div>
+          <h3>Contested Spectrum</h3>
+          <p>Above the surface, jamming and interference can deny conventional RF exactly when the link matters most.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block deep has-fx" id="use-cases">
+    <canvas class="fx-canvas" data-fx="field" aria-hidden="true"></canvas>
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Communications across the maritime domain.</h2>
+      </div>
+
+      <div class="split use-case-panel reveal" id="uc-uncrewed">
+        <div>
+          <h3>UUV Communications and Swarming</h3>
+          <p>Saltenna is developing communications between uncrewed underwater vehicles (UUVs) at range, enabling swarming behavior underwater. This extends to communications between UUVs and UAVs, bridging the air-water barrier.</p>
+          <!-- placeholder route until a detail page exists -->
+          <p><a class="post-more" href="#">Learn More</a></p>
+        </div>
+        <div class="split-media video-media" data-parallax="0.22">
+          <video class="lazy-video" muted loop playsinline preload="none" poster="images/posters/maritime-uuv-swarming.jpg" aria-hidden="true">
+            <source src="videos/maritime-uuv-swarming.mp4" type="video/mp4" />
+          </video>
+          <span class="video-replay-hint" aria-hidden="true">&#8634; replay</span>
+        </div>
+      </div>
+
+      <div class="split reverse use-case-panel reveal" id="uc-oilgas">
+        <div>
+          <h3>Oil &amp; Gas Communications</h3>
+          <p>Saltenna is working on wireless communications along and through subsea energy infrastructure — risers, pipelines, and platforms, including those filled with hazardous liquids — supporting offshore inspection and monitoring.</p>
+          <!-- placeholder route until a detail page exists -->
+          <p><a class="post-more" href="#">Learn More</a></p>
+        </div>
+        <div class="split-media video-media" data-parallax="0.22">
+          <video class="lazy-video" muted loop playsinline preload="none" poster="images/posters/maritime-oil-gas.jpg" aria-hidden="true">
+            <source src="videos/maritime-oil-gas.mp4" type="video/mp4" />
+          </video>
+          <span class="video-replay-hint" aria-hidden="true">&#8634; replay</span>
+        </div>
+      </div>
+
+      <div class="split use-case-panel reveal" id="uc-divers">
+        <div>
+          <h3>Diver-to-Diver Communications</h3>
+          <p>Saltenna is developing underwater communications between dive teams at significant range, including through solid obstacles such as seawalls or the hull of a passing vessel.</p>
+          <!-- placeholder route until a detail page exists -->
+          <p><a class="post-more" href="#">Learn More</a></p>
+        </div>
+        <div class="split-media video-media" data-parallax="0.22">
+          <video class="lazy-video" muted loop playsinline preload="none" poster="images/posters/maritime-diver-to-diver.jpg" aria-hidden="true">
+            <source src="videos/maritime-diver-to-diver.mp4" type="video/mp4" />
+          </video>
+          <span class="video-replay-hint" aria-hidden="true">&#8634; replay</span>
+        </div>
+      </div>
+
+      <div class="split reverse use-case-panel reveal" id="uc-surface">
+        <div>
+          <h3>USV / Surface Vessel Communications</h3>
+          <p>Saltenna is developing communications between uncrewed surface vessels (USVs) at range, engineered to withstand jamming.</p>
+          <p><a class="post-more" href="https://claude.ai/artifacts/latest/67483ee6-5bfa-4253-a1cc-fe47173d1eb8" target="_blank" rel="noopener">Learn More</a></p>
+        </div>
+        <div class="split-media video-media" data-parallax="0.22">
+          <video class="lazy-video" muted loop playsinline preload="none" poster="images/posters/maritime-usv-comms.jpg" aria-hidden="true">
+            <source src="videos/maritime-usv-comms.mp4" type="video/mp4" />
+          </video>
+          <span class="video-replay-hint" aria-hidden="true">&#8634; replay</span>
+        </div>
+      </div>
+
+      <div class="split use-case-panel reveal" id="uc-seabed">
+        <div>
+          <h3>Seabed Communications</h3>
+          <p>Saltenna is developing communications along the seabed between UUVs, including through obstacles such as vertical pipes near the seabed — supporting infrastructure inspection and monitoring applications.</p>
+          <!-- placeholder route until a detail page exists -->
+          <p><a class="post-more" href="#">Learn More</a></p>
+        </div>
+        <div class="split-media video-media" data-parallax="0.22">
+          <video class="lazy-video" muted loop playsinline preload="none" poster="images/posters/maritime-seabed.jpg" aria-hidden="true">
+            <source src="videos/maritime-seabed.mp4" type="video/mp4" />
+          </video>
+          <span class="video-replay-hint" aria-hidden="true">&#8634; replay</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="image-band">
+    <video class="lazy-video" muted loop playsinline preload="none" poster="images/posters/band-seabed-divers.jpg" aria-hidden="true">
+      <source src="videos/band-seabed-divers.mp4" type="video/mp4" />
+    </video>
+    <div class="container reveal">
+      <h2>Along the seabed.</h2>
+    </div>
+  </section>
+
+  <section class="cta-band has-fx">
+    <canvas class="fx-canvas" data-fx="field" aria-hidden="true"></canvas>
+    <div class="container reveal">
+      <h2>Saltenna is evolving fast.</h2>
+      <p>We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.</p>
+      <a class="btn btn-primary" href="contact.html">Contact Us</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="logo" href="index.html">
+            <img src="images/logo-white.png" alt="Saltenna" />
+          </a>
+          <p>Wireless communications and sensing in the most difficult environments on Earth.</p>
+        </div>
+        <div>
+          <h4>Technology</h4>
+          <ul>
+            <li><a href="maritime.html">Maritime</a></li>
+            <li><a href="communications.html">Communications</a></li>
+            <li><a href="sensing.html">Sensing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="about.html#team">Leadership</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Headquarters</h4>
+          <p>1751 Pinnacle Dr, Suite 600<br />McLean, VA 22102-4007<br />United States</p>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <div class="codes">
+          <span>CAGE: 7VPY9</span>
+          <span>DUNS: 08-0672349</span>
+          <span>UEI: MHBLZ1BWMNQ3</span>
+        </div>
+        <div>© 2026 Saltenna Inc. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=49"></script>
+</body>
+</html>

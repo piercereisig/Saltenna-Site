@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stingray System Interface Module — 3D Viewer</title>
+<meta name="description" content="Interactive 3D viewer for the Saltenna Stingray System Interface Module.">
+<style>
+  /* --- page shell (standalone / iframe only; not part of the embed) --- */
+  html, body { height:100%; margin:0; background:#0d1424; }
+  #sr-root { position:absolute; inset:0; }
+</style>
+</head>
+<body>
+
+<!-- ==================== BEGIN EMBED BLOCK ====================
+     Everything between these two markers is self-contained and
+     scoped to #sr-root. Copy it into any page body to embed inline.
+     ============================================================ -->
+<style>
+  /* All styles scoped to #sr-root so they cannot leak into the host page. */
+  #sr-root {
+    --sr-bg:#0d1424; --sr-panel:#131c2e; --sr-line:rgba(157,189,209,0.16);
+    --sr-text:#ebf2f8; --sr-muted:#9bb0c2; --sr-accent:#2ec4b6;
+    position:relative; width:100%; height:100%; min-height:340px;
+    overflow:hidden; background:var(--sr-bg); color:var(--sr-text);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #sr-root *, #sr-root *::before, #sr-root *::after { box-sizing:border-box; margin:0; padding:0; }
+  /* !important + an id in the selector so a host theme's global
+     `canvas { width: … !important }` cannot squash the viewport.
+     The backing buffer is sized in JS; these own the display size. */
+  #sr-root canvas {
+    display:block !important; touch-action:none;
+    width:100% !important; height:100% !important;
+    max-width:none !important; max-height:none !important;
+    min-width:0 !important; min-height:0 !important;
+  }
+  /* letter-spacing carries !important: the tracking is part of the mark, and
+     host themes not uncommonly ship `* { letter-spacing: normal !important }` */
+  #sr-root .sr-hud {
+    position:absolute; z-index:10; pointer-events:none;
+    text-transform:uppercase; letter-spacing:0.18em !important; font-size:11px; line-height:1.35;
+  }
+  #sr-title { top:22px; left:26px; }
+  #sr-title .sr-name { color:var(--sr-text); font-weight:600; }
+  #sr-title .sr-sub { color:var(--sr-muted); margin-top:5px; font-size:10px; letter-spacing:0.22em !important; }
+  #sr-hint { bottom:22px; left:26px; color:var(--sr-muted); font-size:10px; letter-spacing:0.22em !important; }
+  #sr-hint b { color:var(--sr-accent); font-weight:500; }
+  #sr-controls { position:absolute; top:20px; right:22px; z-index:10; display:flex; gap:8px; }
+  #sr-root .sr-btn {
+    pointer-events:auto; cursor:pointer; font:inherit;
+    background:rgba(19,28,46,0.82);
+    border:1px solid var(--sr-line); color:var(--sr-muted);
+    text-transform:uppercase; letter-spacing:0.16em !important; font-size:10px;
+    padding:9px 14px; border-radius:3px;
+    transition:color .15s, border-color .15s;
+    -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  }
+  #sr-root .sr-btn:hover { color:var(--sr-text); border-color:rgba(157,189,209,0.4); }
+  #sr-root .sr-btn:focus-visible { outline:2px solid var(--sr-accent); outline-offset:2px; }
+  #sr-root .sr-btn.sr-active { color:var(--sr-accent); border-color:rgba(46,196,182,0.45); }
+  #sr-tooltip {
+    position:absolute; z-index:30; pointer-events:none; min-width:230px; max-width:290px;
+    background:rgba(19,28,46,0.96); border:1px solid var(--sr-line); border-radius:4px;
+    box-shadow:0 10px 34px rgba(0,0,0,0.5); padding:13px 15px 12px;
+    opacity:0; transform:translateY(4px); transition:opacity .14s ease, transform .14s ease;
+  }
+  #sr-tooltip.sr-show { opacity:1; transform:translateY(0); }
+  #sr-tooltip .sr-t-eyebrow { color:var(--sr-accent); font-size:9px; text-transform:uppercase; letter-spacing:0.24em !important; margin-bottom:4px; }
+  #sr-tooltip .sr-t-name { color:var(--sr-text); font-size:14px; font-weight:650; margin-bottom:8px; }
+  #sr-tooltip .sr-t-row { display:flex; justify-content:space-between; gap:14px; padding:3.5px 0; border-top:1px solid rgba(157,189,209,0.12); }
+  #sr-tooltip .sr-t-row .sr-k { color:var(--sr-muted); font-size:10.5px; text-transform:uppercase; letter-spacing:0.1em !important; }
+  #sr-tooltip .sr-t-row .sr-v { color:var(--sr-text); font-size:11.5px; text-align:right; }
+  #sr-fallback {
+    position:absolute; inset:0; display:none; z-index:40;
+    align-items:center; justify-content:center; text-align:center;
+    padding:32px; background:var(--sr-bg); color:var(--sr-muted);
+    font-size:13px; line-height:1.7; letter-spacing:0.04em;
+  }
+  #sr-root.sr-failed #sr-fallback { display:flex; }
+  #sr-root.sr-failed .sr-hud, #sr-root.sr-failed #sr-controls { display:none; }
+  /* embedded in a card: the page supplies the caption + interaction hint, and
+     full-window HUD text collides at this size — keep just the controls */
+  html.embedded #sr-title, html.embedded #sr-hint { display:none; }
+  html.embedded #sr-controls { top:10px; right:10px; gap:6px; }
+  html.embedded #sr-root .sr-btn { font-size:9.5px; padding:6px 10px; letter-spacing:0.12em !important; white-space:nowrap; }
+  /* phone-width embed: drag still works and auto-rotate is on by default,
+     so the buttons are dropped rather than wrapped */
+  @media (max-width: 340px) { html.embedded #sr-controls { display:none; } }
+  html.embedded #sr-tooltip { min-width:190px; max-width:230px; padding:10px 12px 9px; }
+  html.embedded #sr-tooltip .sr-t-name { font-size:12.5px; }
+  html.embedded #sr-tooltip .sr-t-row .sr-k { font-size:9.5px; }
+  html.embedded #sr-tooltip .sr-t-row .sr-v { font-size:10.5px; }
+  @media (max-width: 640px) {
+    #sr-title { top:14px; left:16px; }
+    #sr-hint  { bottom:14px; left:16px; right:16px; font-size:9px; letter-spacing:0.16em; }
+    #sr-controls { top:12px; right:14px; gap:6px; }
+    #sr-root .sr-btn { padding:8px 10px; font-size:9px; letter-spacing:0.12em; }
+    #sr-tooltip { min-width:190px; max-width:230px; padding:11px 12px 10px; }
+  }
+</style>
+
+<!--
+  data-scroll-guard="off"  wheel zoom always live (use for a dedicated page / iframe)
+  data-scroll-guard="on"   wheel zoom only after a click inside (use for inline embeds,
+                           so the mouse wheel keeps scrolling the host page)
+-->
+<script>try { if (window.frameElement) document.documentElement.classList.add('embedded'); } catch (e) {}</script>
+<div id="sr-root" data-scroll-guard="off">
+  <div class="sr-hud" id="sr-title">
+    <div class="sr-name">Stingray</div>
+    <div class="sr-sub">System Interface Module · Saltenna</div>
+  </div>
+  <div class="sr-hud" id="sr-hint"></div>
+  <div id="sr-controls">
+    <button type="button" class="sr-btn sr-active" id="sr-btn-spin">Auto-Rotate</button>
+    <button type="button" class="sr-btn" id="sr-btn-reset">Reset View</button>
+  </div>
+  <div id="sr-tooltip" role="tooltip"></div>
+  <div id="sr-fallback">This 3D viewer needs a WebGL-capable browser.</div>
+</div>
+
+<script type="importmap">
+{ "imports": {
+    "three": "../js/vendor/three-0.160/three.module.min.js",
+    "three/addons/": "../js/vendor/three-0.160/addons/" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+// ---------- editable spec text (numbers from the Stingray infographic) ----------
+const SPECS = {
+  core: {
+    eyebrow: 'Saltenna · Subsea Comms',
+    name: 'Stingray Core Unit',
+    rows: [ ['Data rate','Up to 1 Mbps (bidirectional)'], ['Link','Through pipe / riser wall'],
+            ['Riser OD fit','18″–21″ (adjustable)'], ['Mounting','Magnetic, tool-less'],
+            ['Depth rating','3000 m'], ['Size / weight','L 310 × W 125 mm · ~15 kg'] ],
+  },
+  capConn: {
+    eyebrow: 'Saltenna · Interface',
+    name: 'Connector End-Cap',
+    rows: [ ['Connector','MacArtney waterproof'], ['Compatibility','Subconn-compatible'],
+            ['Power input','USB-C PD'], ['Internal','Antenna A/B pin connections'],
+            ['Dust cap','Tethered'] ],
+  },
+  capSeal: {
+    eyebrow: 'Saltenna · Interface',
+    name: 'Sealed End-Cap',
+    rows: [ ['Function','Pressure boundary'], ['Internal','Monopole antenna B + shielding'],
+            ['Environmental','Rated to 3000 m'], ['Finish','Stingray badge'] ],
+  },
+};
+
+// If the etched "RATED 3000 M · IP68" body text renders mirrored on your GPU, flip this:
+const TEXT_FLIP = false;
+
+const root = document.getElementById('sr-root');
+const SCROLL_GUARD = root.dataset.scrollGuard !== 'off';
+
+// ---------- renderer (fails soft if WebGL is unavailable) ----------
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+} catch (err) {
+  root.classList.add('sr-failed');
+  throw err;
+}
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+root.appendChild(renderer.domElement);
+renderer.domElement.addEventListener('webglcontextlost', (e) => {
+  e.preventDefault(); root.classList.add('sr-failed');
+});
+
+const scene = new THREE.Scene();
+{
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environmentIntensity = 0.55;
+}
+{
+  const c = document.createElement('canvas'); c.width = c.height = 1024;
+  const g = c.getContext('2d');
+  const grad = g.createRadialGradient(512, 430, 60, 512, 512, 760);
+  grad.addColorStop(0, '#16233a'); grad.addColorStop(0.55, '#101a2c'); grad.addColorStop(1, '#0b1220');
+  g.fillStyle = grad; g.fillRect(0, 0, 1024, 1024);
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+  scene.background = tex;
+}
+
+const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 50);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.dampingFactor = 0.06;
+controls.autoRotate = true; controls.autoRotateSpeed = 0.9;
+controls.minDistance = 0.05; controls.maxDistance = 5.0;
+controls.zoomSpeed = 4.0;
+controls.maxPolarAngle = Math.PI * 0.62;
+controls.enableZoom = !SCROLL_GUARD;   // inline embeds: wheel stays with the page until clicked
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0x2a3a52, 0.9));
+const key = new THREE.DirectionalLight(0xffffff, 2.1);
+key.position.set(1.1, 1.3, 0.55);
+key.castShadow = true;
+key.shadow.mapSize.set(1024, 1024);
+key.shadow.camera.left=-0.5; key.shadow.camera.right=0.5; key.shadow.camera.top=0.8; key.shadow.camera.bottom=-0.1;
+key.shadow.bias=-0.00004; key.shadow.normalBias=0.002; key.shadow.radius=3;
+scene.add(key);
+const rim = new THREE.DirectionalLight(0xbfe2f5, 0.8); rim.position.set(-1.0, 0.8, -0.9); scene.add(rim);
+const bounce = new THREE.DirectionalLight(0xffffff, 0.06); bounce.position.set(-0.6, 0.2, 1.0); scene.add(bounce);
+{
+  const ground = new THREE.Mesh(new THREE.CircleGeometry(1.5, 64), new THREE.ShadowMaterial({ opacity: 0.34 }));
+  ground.rotation.x = -Math.PI/2; ground.receiveShadow = true; scene.add(ground);
+  const ring = new THREE.Mesh(new THREE.RingGeometry(0.22, 0.2215, 128),
+    new THREE.MeshBasicMaterial({ color: 0x2ec4b6, transparent: true, opacity: 0.28, side: THREE.DoubleSide }));
+  ring.rotation.x = -Math.PI/2; ring.position.y = 0.0005; scene.add(ring);
+}
+
+// ============================================================
+//  STINGRAY SYSTEM INTERFACE MODULE — L 310 mm, W 125 mm (meters)
+//  Lies horizontally along X, resting on the two end caps.
+// ============================================================
+function mottleTexture(base, spot, n=90){
+  const c=document.createElement('canvas'); c.width=c.height=256;
+  const g=c.getContext('2d');
+  g.fillStyle=base; g.fillRect(0,0,256,256);
+  let seed=11; const rnd=()=> (seed=(seed*16807)%2147483647)/2147483647;
+  g.fillStyle=spot; g.globalAlpha=0.10;
+  for(let i=0;i<n;i++){ g.beginPath(); g.ellipse(rnd()*256,rnd()*256,2+rnd()*7,2+rnd()*7,rnd()*3,0,7); g.fill(); }
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace;
+  t.wrapS=t.wrapT=THREE.RepeatWrapping; return t;
+}
+// 4-point Stingray star badge, optional caption below
+function starBadgeTexture(caption){
+  const c=document.createElement('canvas'); c.width=256; c.height=256;
+  const g=c.getContext('2d');
+  g.clearRect(0,0,256,256);
+  const cx=128, cy=caption?100:128, s=caption?58:72;
+  g.fillStyle='#63686e';
+  g.beginPath();
+  g.moveTo(cx, cy-s);
+  g.quadraticCurveTo(cx+s*0.10, cy-s*0.10, cx+s, cy);
+  g.quadraticCurveTo(cx+s*0.10, cy+s*0.10, cx, cy+s);
+  g.quadraticCurveTo(cx-s*0.10, cy+s*0.10, cx-s, cy);
+  g.quadraticCurveTo(cx-s*0.10, cy-s*0.10, cx, cy-s);
+  g.fill();
+  if (caption){
+    g.fillStyle='#75797e'; g.textAlign='center'; g.font='600 30px "Segoe UI", sans-serif';
+    g.fillText(caption, 128, 208);
+  }
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t;
+}
+// etched label text (transparent)
+function labelTexture(text){
+  const c=document.createElement('canvas'); c.width=512; c.height=96;
+  const g=c.getContext('2d');
+  g.clearRect(0,0,512,96);
+  g.fillStyle='#6d7278'; g.textAlign='center'; g.textBaseline='middle';
+  g.font='600 40px "Segoe UI", Helvetica, sans-serif';
+  g.fillText(text, 256, 50);
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t;
+}
+const M = {
+  graphite: null, // canvas-textured lathe material, set below
+  graphiteDark: new THREE.MeshStandardMaterial({ color: 0x1d2023, roughness: 0.55, metalness: 0.25, envMapIntensity: 0.4 }),
+  cap:     new THREE.MeshStandardMaterial({ map: mottleTexture('#d5d7d9','#cbcdcf', 50), roughness: 0.38, metalness: 0.35 }),
+  capDark: new THREE.MeshStandardMaterial({ color: 0x9fa3a7, roughness: 0.48, metalness: 0.4 }),
+  alu:     new THREE.MeshStandardMaterial({ color: 0xcfd2d5, roughness: 0.33, metalness: 0.6 }),
+  black:   new THREE.MeshStandardMaterial({ color: 0x17191b, roughness: 0.5, envMapIntensity: 0.35 }),
+  rubber:  new THREE.MeshStandardMaterial({ color: 0x121315, roughness: 0.82, envMapIntensity: 0.35 }),
+  silver:  new THREE.MeshStandardMaterial({ color: 0xb4b8bc, roughness: 0.3, metalness: 0.85 }),
+  steel:   new THREE.MeshStandardMaterial({ color: 0x8e9296, roughness: 0.45, metalness: 0.8 }),
+  gold:    new THREE.MeshStandardMaterial({ color: 0xc9a24b, roughness: 0.25, metalness: 0.9 }),
+};
+const rbox = (w,h,d,r,mat)=>new THREE.Mesh(new RoundedBoxGeometry(w,h,d,3,r), mat);
+
+const module3d = new THREE.Group();
+scene.add(module3d);
+
+// ---- master dimensions
+const CAP_W  = 0.125;             // cap cross-section (device W: 125 mm)
+const CAP_CH = 0.024;             // corner chamfer on the cap profile
+const CAP_D  = 0.057;             // cap depth along X
+const X_END  = 0.098;             // half-length of the waisted core body
+const X_COL  = 0.082;             // where the flare levels into a straight collar
+const H = CAP_W/2;                // rest height: caps sit on the ground
+const R_WAIST = 0.0405, R_END = 0.057;
+const CAP_CX = X_END + CAP_D/2 - 0.002;
+const FACE_L = -(CAP_CX + CAP_D/2);
+const FACE_R =  (CAP_CX + CAP_D/2);
+
+// hourglass profile: smooth waist flare, straight machined collar at each end
+function rAt(x){
+  const t = Math.min(1, Math.abs(x)/X_COL);
+  const s = t*t*(3-2*t);
+  return R_WAIST + (R_END-R_WAIST)*s;
+}
+
+// hex-socket screw head, aligned along +Y; caller orients via quaternion
+function makeScrew(r=0.0030){
+  const g = new THREE.Group();
+  const head = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 0.0022, 18), M.steel);
+  g.add(head);
+  const hex = new THREE.Mesh(new THREE.CylinderGeometry(r*0.52, r*0.52, 0.0012, 6), M.black);
+  hex.position.y = 0.0010; g.add(hex);
+  return g;
+}
+const Y_UP = new THREE.Vector3(0,1,0);
+function placeScrew(parent, pos, normal, r){
+  const s = makeScrew(r);
+  s.position.copy(pos);
+  s.quaternion.setFromUnitVectors(Y_UP, normal.clone().normalize());
+  parent.add(s);
+  return s;
+}
+
+// ============================================================
+//  CORE UNIT (hoverable: 'core') — dark waisted body, machined fin stack
+// ============================================================
+const core = new THREE.Group(); module3d.add(core);
+
+function coreBodyTexture(){
+  const c=document.createElement('canvas'); c.width=1024; c.height=1024;
+  const g=c.getContext('2d');
+  g.fillStyle='#2b2e31'; g.fillRect(0,0,1024,1024);
+  let seed=29; const rnd=()=> (seed=(seed*16807)%2147483647)/2147483647;
+  g.fillStyle='#212427'; g.globalAlpha=0.12;
+  for(let i=0;i<260;i++){ g.beginPath(); g.ellipse(rnd()*1024,rnd()*1024,3+rnd()*12,3+rnd()*12,rnd()*3,0,7); g.fill(); }
+  // darker band behind the ridge + fin cluster (canvas y = along the axis, centre = waist)
+  g.globalAlpha=0.22; g.fillStyle='#17191c';
+  g.fillRect(0, 512-261, 1024, 522);
+  g.globalAlpha=1;
+  // mold parting lines along the top and bottom of the elastomer
+  g.globalAlpha=0.14; g.fillStyle='#585d62';
+  g.fillRect(255, 40, 2, 944); g.fillRect(767, 40, 2, 944);
+  g.globalAlpha=1;
+  // etched rating text on the flare toward the sealed end, back side
+  const rate=(cx)=>{ g.save(); g.translate(cx,146); g.rotate(Math.PI/2);
+    if (TEXT_FLIP) g.scale(-1,1);
+    g.fillStyle='#7c8288'; g.textAlign='center'; g.textBaseline='middle';
+    g.font='600 24px "Segoe UI", Helvetica, sans-serif';
+    g.fillText('RATED 3000 M · IP68', 0, 0); g.restore(); };
+  rate(0); rate(1024);
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace;
+  t.wrapS=THREE.RepeatWrapping; return t;
+}
+M.graphite = new THREE.MeshStandardMaterial({ map: coreBodyTexture(), roughness: 0.5, metalness: 0.2, envMapIntensity: 0.45 });
+
+// axial cooling ridges: 32 lengthwise flutes through the waist band, so the
+// cross-section there is ridged rather than circular; fades out on the flares
+const NR_FLUTES = 32, FLUTE_A = 0.0012;
+function fluteAmp(x){
+  let e = Math.min(1, Math.max(0, (0.052 - Math.abs(x))/0.010));
+  e = e*e*(3-2*e);
+  return FLUTE_A * e;
+}
+{
+  const ROWS = 120, SEG = 224;
+  const pos=[], uv=[], idx=[];
+  for(let i=0;i<=ROWS;i++){
+    const x = -X_END + (2*X_END)*i/ROWS;
+    const rb = rAt(x), A = fluteAmp(x);
+    for(let j=0;j<=SEG;j++){
+      const u = j/SEG, phi = Math.PI + u*Math.PI*2;   // u=0.5 lands on +Z (front)
+      const s = Math.cos(NR_FLUTES*phi);
+      const r = rb + A * Math.tanh(2.5*s)/Math.tanh(2.5);
+      pos.push(x, H - r*Math.sin(phi), r*Math.cos(phi));
+      uv.push(u, i/ROWS);
+    }
+  }
+  const C = SEG+1;
+  for(let i=0;i<ROWS;i++) for(let j=0;j<SEG;j++){
+    const a0=i*C+j, b0=i*C+j+1, a1=(i+1)*C+j, b1=(i+1)*C+j+1;
+    idx.push(a0,b0,a1, b0,b1,a1);
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos,3));
+  geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv,2));
+  geo.setIndex(idx); geo.computeVertexNormals();
+  const body = new THREE.Mesh(geo, M.graphite);
+  core.add(body);
+}
+
+// machined cooling-fin stack: crisp flat discs, tight pitch, square edges
+for (let i=-5;i<=5;i++){
+  const fx = i*0.0085;
+  const rf = rAt(fx)+0.0026;
+  const fin = new THREE.Mesh(new THREE.CylinderGeometry(rf, rf, 0.0018, 96), M.graphiteDark);
+  fin.rotation.z = Math.PI/2;
+  fin.position.set(fx, H, 0);
+  core.add(fin);
+}
+// thin seam ring where the body meets each cap collar
+for (const sx of [1,-1]){
+  const seam = new THREE.Mesh(new THREE.CylinderGeometry(R_END+0.0006, R_END+0.0006, 0.0022, 64), M.black);
+  seam.rotation.z = Math.PI/2;
+  seam.position.set(sx*(X_END-0.0035), H, 0);
+  core.add(seam);
+}
+// accent grooves flanking the ridge band
+for (const sx of [1,-1]){
+  const acc = new THREE.Mesh(new THREE.CylinderGeometry(rAt(sx*0.056)+0.0006, rAt(sx*0.056)+0.0006, 0.0014, 96), M.black);
+  acc.rotation.z = Math.PI/2;
+  acc.position.set(sx*0.056, H, 0);
+  core.add(acc);
+}
+// magnetic mounting pads (tool-less magnetic mount), underside of each flare
+for (const sx of [1,-1]){
+  const pad = rbox(0.018, 0.0036, 0.022, 0.0012, M.graphiteDark);
+  pad.position.set(sx*0.062, H - rAt(sx*0.062) - 0.0002, 0);
+  core.add(pad);
+}
+
+// ============================================================
+//  END CAPS — chamfered octagonal blocks (sharp machined edges)
+// ============================================================
+function octShape(half, ch){
+  const s = new THREE.Shape();
+  s.moveTo(-half+ch, -half);
+  s.lineTo( half-ch, -half);
+  s.lineTo( half,    -half+ch);
+  s.lineTo( half,     half-ch);
+  s.lineTo( half-ch,  half);
+  s.lineTo(-half+ch,  half);
+  s.lineTo(-half,     half-ch);
+  s.lineTo(-half,    -half+ch);
+  s.closePath();
+  return s;
+}
+function capBlockMesh(){
+  const bevel = 0.0022;
+  const depth = CAP_D - 2*bevel;
+  let geo = new THREE.ExtrudeGeometry(octShape(CAP_W/2 - bevel, CAP_CH), {
+    depth, steps: 1, bevelEnabled: true,
+    bevelThickness: bevel, bevelSize: bevel, bevelSegments: 1,
+  });
+  if (geo.index) geo = geo.toNonIndexed();
+  geo.computeVertexNormals();              // flat facets: crisp chamfer edges
+  geo.translate(0, 0, -depth/2);
+  const m = new THREE.Mesh(geo, M.cap);
+  m.rotation.y = Math.PI/2;                // extrusion axis → world X
+  return m;
+}
+// dark gasket seam band ringing the cap near its outer face
+function capSeamBand(){
+  let geo = new THREE.ExtrudeGeometry(octShape(CAP_W/2 + 0.0004, CAP_CH), {
+    depth: 0.0018, steps: 1, bevelEnabled: false,
+  });
+  if (geo.index) geo = geo.toNonIndexed();
+  geo.computeVertexNormals();
+  geo.translate(0, 0, -0.0009);
+  const m = new THREE.Mesh(geo, M.capDark);
+  m.rotation.y = Math.PI/2;
+  return m;
+}
+// clamp ring joining cap to the dark body
+function clampRing(){
+  return new THREE.Mesh(new THREE.CylinderGeometry(R_END+0.0018, R_END+0.0018, 0.0050, 64), M.alu);
+}
+// screws on the 4 chamfer faces of a cap, near the outer end
+function chamferScrews(grp, capCx, outerSign){
+  const sx = capCx + outerSign*0.017;
+  for (const sy of [1,-1]) for (const sz of [1,-1]) {
+    const n = new THREE.Vector3(0, sy, sz).normalize();
+    const p = new THREE.Vector3(sx, H + sy*0.0505, sz*0.0505).addScaledVector(n, 0.0002);
+    placeScrew(grp, p, n, 0.0028);
+  }
+}
+
+// ---------------- connector end cap (hoverable: 'capConn'), left / -X ----------------
+const capConn = new THREE.Group(); module3d.add(capConn);
+{
+  const block = capBlockMesh();
+  block.position.set(-CAP_CX, H, 0); capConn.add(block);
+  const band = capSeamBand();
+  band.position.set(FACE_L+0.0100, H, 0); capConn.add(band);
+  const clamp = clampRing();
+  clamp.rotation.z = Math.PI/2;
+  const clampXL = -CAP_CX + CAP_D/2 - 0.0018;
+  clamp.position.set(clampXL, H, 0); capConn.add(clamp);
+  for (let i=0;i<4;i++){                     // radial clamp bolts, near-flush
+    const a = i/4*Math.PI*2 + Math.PI/4;
+    const n = new THREE.Vector3(0, Math.cos(a), Math.sin(a));
+    placeScrew(capConn, new THREE.Vector3(clampXL, H, 0).addScaledVector(n, R_END+0.0008), n, 0.0016);
+  }
+  chamferScrews(capConn, -CAP_CX, -1);
+}
+// corner screws on the outer face
+for (const sy of [1,-1]) for (const sz of [1,-1]) {
+  placeScrew(capConn, new THREE.Vector3(FACE_L+0.0002, H+sy*0.0430, sz*0.0430), new THREE.Vector3(-1,0,0), 0.0030);
+}
+// ---- MacArtney waterproof connector (Subconn-compatible), machined stack on the face
+{
+  // mounting flange with a 6-bolt circle
+  const flange = new THREE.Mesh(new THREE.CylinderGeometry(0.0360, 0.0360, 0.0060, 48), M.alu);
+  flange.rotation.z = Math.PI/2; flange.position.set(FACE_L-0.0028, H, 0); capConn.add(flange);
+  for (let i=0;i<6;i++){
+    const a=i/6*Math.PI*2 + Math.PI/12;
+    placeScrew(capConn, new THREE.Vector3(FACE_L-0.0056, H+Math.cos(a)*0.0312, Math.sin(a)*0.0312),
+      new THREE.Vector3(-1,0,0), 0.0022);
+  }
+  // knurled locking ring — fine straight knurl
+  const ring = new THREE.Mesh(new THREE.CylinderGeometry(0.0285, 0.0285, 0.0200, 48), M.rubber);
+  ring.rotation.z = Math.PI/2; ring.position.set(FACE_L-0.0160, H, 0); capConn.add(ring);
+  for (let i=0;i<40;i++){
+    const a=i/40*Math.PI*2;
+    const kn = rbox(0.0185, 0.0013, 0.0013, 0.0005, M.black);
+    kn.position.set(FACE_L-0.0160, H+Math.cos(a)*0.0286, Math.sin(a)*0.0286);
+    kn.rotation.x = a; capConn.add(kn);
+  }
+  // front lip of the ring
+  const lip = new THREE.Mesh(new THREE.CylinderGeometry(0.0295, 0.0295, 0.0032, 48), M.black);
+  lip.rotation.z = Math.PI/2; lip.position.set(FACE_L-0.0276, H, 0); capConn.add(lip);
+  // steel face ring + recessed socket face
+  const facer = new THREE.Mesh(new THREE.CylinderGeometry(0.0245, 0.0245, 0.0040, 40), M.steel);
+  facer.rotation.z = Math.PI/2; facer.position.set(FACE_L-0.0300, H, 0); capConn.add(facer);
+  const recess = new THREE.Mesh(new THREE.CylinderGeometry(0.0222, 0.0222, 0.0034, 40), M.rubber);
+  recess.rotation.z = Math.PI/2; recess.position.set(FACE_L-0.0312, H, 0); capConn.add(recess);
+  // alignment keyway at 12 o'clock
+  const key = rbox(0.0030, 0.0042, 0.0034, 0.0008, M.black);
+  key.position.set(FACE_L-0.0312, H+0.0198, 0); capConn.add(key);
+  // 7 sockets (1 centre + 6 ring): steel rim, black bore, gold contact at depth
+  const sock=(y,z)=>{
+    const rimS = new THREE.Mesh(new THREE.CylinderGeometry(0.0040, 0.0040, 0.0016, 16), M.steel);
+    rimS.rotation.z = Math.PI/2; rimS.position.set(FACE_L-0.0328, y, z); capConn.add(rimS);
+    const bore = new THREE.Mesh(new THREE.CylinderGeometry(0.0025, 0.0025, 0.0020, 12), M.black);
+    bore.rotation.z = Math.PI/2; bore.position.set(FACE_L-0.0330, y, z); capConn.add(bore);
+    const pin = new THREE.Mesh(new THREE.CylinderGeometry(0.0009, 0.0009, 0.0024, 8), M.gold);
+    pin.rotation.z = Math.PI/2; pin.position.set(FACE_L-0.0330, y, z); capConn.add(pin);
+  };
+  sock(H, 0);
+  for (let i=0;i<6;i++){ const a=i/6*Math.PI*2 + Math.PI/6; sock(H+Math.cos(a)*0.0132, Math.sin(a)*0.0132); }
+}
+// ---- USB-C PD power input, low on the face, with etched label
+{
+  const rimU = rbox(0.0034, 0.0066, 0.0148, 0.0018, M.capDark);
+  rimU.position.set(FACE_L-0.0006, H-0.0400, 0); capConn.add(rimU);
+  const port = rbox(0.0030, 0.0036, 0.0110, 0.0014, M.black);
+  port.position.set(FACE_L-0.0020, H-0.0400, 0); capConn.add(port);
+  const tongue = rbox(0.0016, 0.0010, 0.0080, 0.0004, M.gold);
+  tongue.position.set(FACE_L-0.0022, H-0.0400, 0); capConn.add(tongue);
+  const lbl = new THREE.Mesh(new THREE.PlaneGeometry(0.0300, 0.0056),
+    new THREE.MeshBasicMaterial({ map: labelTexture('PWR · USB-C PD'), transparent: true }));
+  lbl.rotation.y = -Math.PI/2;
+  lbl.position.set(FACE_L-0.0002, H-0.0322, 0); capConn.add(lbl);
+}
+// etched model designation, top of the face
+{
+  const lbl = new THREE.Mesh(new THREE.PlaneGeometry(0.0340, 0.0062),
+    new THREE.MeshBasicMaterial({ map: labelTexture('STINGRAY · SIM-1'), transparent: true }));
+  lbl.rotation.y = -Math.PI/2;
+  lbl.position.set(FACE_L-0.0002, H+0.0430, 0); capConn.add(lbl);
+}
+// ---- tethered dust cap, hanging from the locking ring
+{
+  const curve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(FACE_L-0.0140, H-0.0272, 0.0080),
+    new THREE.Vector3(FACE_L-0.0232, H-0.0510, 0.0230),
+    new THREE.Vector3(FACE_L-0.0182, H-0.0700, 0.0330),
+  ]);
+  const tether = new THREE.Mesh(new THREE.TubeGeometry(curve, 24, 0.0013, 8, false), M.rubber);
+  capConn.add(tether);
+  const dg = new THREE.Group();
+  const dbody = new THREE.Mesh(new THREE.CylinderGeometry(0.0098, 0.0104, 0.0130, 24), M.rubber);
+  dg.add(dbody);
+  const dtop = new THREE.Mesh(new THREE.CylinderGeometry(0.0104, 0.0104, 0.0018, 24), M.black);
+  dtop.position.y = 0.0074; dg.add(dtop);
+  for (let i=0;i<10;i++){                    // vertical grip ribs
+    const a=i/10*Math.PI*2;
+    const rib = rbox(0.0012, 0.0110, 0.0012, 0.0004, M.black);
+    rib.position.set(Math.cos(a)*0.0102, 0, Math.sin(a)*0.0102);
+    rib.rotation.y = -a; dg.add(rib);
+  }
+  dg.position.set(FACE_L-0.0182, H-0.0768, 0.0345);
+  dg.rotation.z = 0.25;
+  capConn.add(dg);
+}
+// small Stingray badge on the front (+Z) side of the cap
+{
+  const badge = new THREE.Mesh(new THREE.PlaneGeometry(0.028, 0.028),
+    new THREE.MeshBasicMaterial({ map: starBadgeTexture('Stingray'), transparent: true }));
+  badge.position.set(-CAP_CX, H-0.008, CAP_W/2+0.0008);
+  capConn.add(badge);
+}
+
+// ---------------- sealed end cap (hoverable: 'capSeal'), right / +X ----------------
+const capSeal = new THREE.Group(); module3d.add(capSeal);
+{
+  const block = capBlockMesh();
+  block.position.set(CAP_CX, H, 0); capSeal.add(block);
+  const band = capSeamBand();
+  band.position.set(FACE_R-0.0100, H, 0); capSeal.add(band);
+  const clamp = clampRing();
+  clamp.rotation.z = Math.PI/2;
+  const clampXR = CAP_CX - CAP_D/2 + 0.0018;
+  clamp.position.set(clampXR, H, 0); capSeal.add(clamp);
+  for (let i=0;i<4;i++){                     // radial clamp bolts, near-flush
+    const a = i/4*Math.PI*2 + Math.PI/4;
+    const n = new THREE.Vector3(0, Math.cos(a), Math.sin(a));
+    placeScrew(capSeal, new THREE.Vector3(clampXR, H, 0).addScaledVector(n, R_END+0.0008), n, 0.0016);
+  }
+  chamferScrews(capSeal, CAP_CX, 1);
+}
+// shallow machined dome on the outer face: crisp base step + low spherical cap
+{
+  const step = new THREE.Mesh(new THREE.CylinderGeometry(0.0495, 0.0495, 0.0044, 64), M.cap);
+  step.rotation.z = Math.PI/2; step.position.set(FACE_R+0.0010, H, 0); capSeal.add(step);
+  // shallow spherical-cap dome, lathed surface only (base r 48 mm, ~15 mm rise)
+  const DOME_R = 0.0850, DOME_BASE = 0.0480;
+  const domeX0 = FACE_R + 0.0032;               // sits on the base step's outer face
+  const a0 = Math.asin(DOME_BASE/DOME_R), zc = Math.sqrt(DOME_R*DOME_R - DOME_BASE*DOME_BASE);
+  {
+    const pts=[]; const N=28;
+    for (let i=0;i<=N;i++){
+      const a = a0*(1 - i/N);
+      pts.push(new THREE.Vector2(DOME_R*Math.sin(a), DOME_R*Math.cos(a) - zc));
+    }
+    const dome = new THREE.Mesh(new THREE.LatheGeometry(pts, 96), M.cap);
+    dome.rotation.z = -Math.PI/2;               // profile axis → +X
+    dome.position.set(domeX0, H, 0);
+    capSeal.add(dome);
+  }
+  const domeApex = domeX0 + (DOME_R - zc);
+  // Stingray badge on the dome
+  const badge = new THREE.Mesh(new THREE.PlaneGeometry(0.046, 0.046),
+    new THREE.MeshBasicMaterial({ map: starBadgeTexture('Stingray'), transparent: true }));
+  badge.rotation.y = Math.PI/2;
+  badge.position.set(domeApex + 0.0006, H+0.0030, 0);
+  capSeal.add(badge);
+  // status LED, recessed low on the dome
+  const ledX = domeX0 + Math.sqrt(DOME_R*DOME_R - 0.0330*0.0330) - zc;
+  const ledRim = new THREE.Mesh(new THREE.CylinderGeometry(0.0026, 0.0026, 0.0014, 14), M.steel);
+  ledRim.rotation.z = Math.PI/2; ledRim.position.set(ledX-0.0004, H-0.0330, 0); capSeal.add(ledRim);
+  const led = new THREE.Mesh(new THREE.SphereGeometry(0.0015, 12, 10),
+    new THREE.MeshStandardMaterial({ color: 0xf2f5f7, emissive: 0xdfefff, emissiveIntensity: 0.7, roughness: 0.3 }));
+  led.position.set(ledX+0.0006, H-0.0330, 0);
+  capSeal.add(led);
+}
+// front badge to match the connector cap
+{
+  const badge = new THREE.Mesh(new THREE.PlaneGeometry(0.028, 0.028),
+    new THREE.MeshBasicMaterial({ map: starBadgeTexture('Stingray'), transparent: true }));
+  badge.position.set(CAP_CX, H-0.008, CAP_W/2+0.0008);
+  capSeal.add(badge);
+}
+
+// tag hover groups + isolate materials so highlights don't bleed across parts
+for (const [grp, id] of [[core,'core'],[capConn,'capConn'],[capSeal,'capSeal']]){
+  grp.traverse(o=>{ if(o.isMesh){ o.userData.productId=id; o.material=o.material.clone(); }});
+  grp.userData.productId=id;
+}
+module3d.traverse(o => { if (o.isMesh) o.castShadow = true; });
+
+// ============================================================
+//  HOVER / TOOLTIP  (all coordinates local to #sr-root)
+// ============================================================
+const HOVER_GROUPS = { core, capConn, capSeal };
+const hoverTargets = Object.values(HOVER_GROUPS);
+const tooltipEl = document.getElementById('sr-tooltip');
+const raycaster = new THREE.Raycaster();
+const pointerNDC = new THREE.Vector2();
+let hovered = null;
+const savedEmissive = new Map();
+function setHighlight(group, on){
+  group.traverse(o=>{
+    if(!o.isMesh || !o.material.emissive) return;
+    if(on){
+      if(!savedEmissive.has(o)) savedEmissive.set(o, o.material.emissive.getHex());
+      o.material.emissive.setHex(0x2ec4b6); o.material.emissiveIntensity = 0.22;
+    } else {
+      o.material.emissive.setHex(savedEmissive.get(o) ?? 0); o.material.emissiveIntensity = 1;
+    }
+  });
+}
+function showTooltip(id,x,y){
+  const s=SPECS[id]; if(!s) return;
+  tooltipEl.innerHTML = `<div class="sr-t-eyebrow">${s.eyebrow}</div><div class="sr-t-name">${s.name}</div>` +
+    s.rows.map(r=>`<div class="sr-t-row"><span class="sr-k">${r[0]}</span><span class="sr-v">${r[1]}</span></div>`).join('');
+  moveTooltip(x,y); tooltipEl.classList.add('sr-show');
+}
+function moveTooltip(x,y){
+  const pad=16;
+  const w = tooltipEl.offsetWidth, h = tooltipEl.offsetHeight;
+  const bw = root.clientWidth, bh = root.clientHeight;
+  let tx=x+pad, ty=y+pad;
+  if(tx+w > bw-8) tx = x-w-pad;
+  if(ty+h > bh-8) ty = y-h-pad;
+  tooltipEl.style.left = Math.max(8, tx)+'px';
+  tooltipEl.style.top  = Math.max(8, ty)+'px';
+}
+function hideTooltip(){
+  if (hovered) setHighlight(hovered,false);
+  hovered = null; tooltipEl.classList.remove('sr-show');
+  renderer.domElement.style.cursor = '';
+}
+function localXY(ev){
+  const r = root.getBoundingClientRect();
+  return { x: ev.clientX - r.left, y: ev.clientY - r.top, w: r.width, h: r.height };
+}
+renderer.domElement.addEventListener('pointermove',(ev)=>{
+  const p = localXY(ev);
+  if (!p.w || !p.h) return;
+  pointerNDC.set((p.x/p.w)*2-1, -(p.y/p.h)*2+1);
+  raycaster.setFromCamera(pointerNDC, camera);
+  const hits = raycaster.intersectObjects(hoverTargets, true);
+  const hit = hits.length ? HOVER_GROUPS[hits[0].object.userData.productId] : null;
+  if (hit !== hovered){
+    if (hovered) setHighlight(hovered,false);
+    hovered = hit;
+    if (hovered){ setHighlight(hovered,true); showTooltip(hovered.userData.productId, p.x, p.y); }
+    else tooltipEl.classList.remove('sr-show');
+    renderer.domElement.style.cursor = hovered ? 'pointer' : '';
+  } else if (hovered) moveTooltip(p.x, p.y);
+});
+renderer.domElement.addEventListener('pointerleave', hideTooltip);
+// touch: clear the card when the finger lifts (no hover state to fall back on)
+renderer.domElement.addEventListener('pointerup',(ev)=>{ if (ev.pointerType !== 'mouse') hideTooltip(); });
+renderer.domElement.addEventListener('pointercancel', hideTooltip);
+
+// ============================================================
+//  UI / FRAME / SIZING
+// ============================================================
+const EMBEDDED = document.documentElement.classList.contains('embedded');
+let userMoved = false;
+controls.addEventListener('start', ()=>{ userMoved = true; });
+function frame(){
+  controls.target.set(0, H, 0);              // pivot on the module centre
+  // the module lies along X; a portrait card crops it at the standalone
+  // distance, so dolly back with the aspect when embedded
+  const w = Math.max(1, root.clientWidth), h = Math.max(1, root.clientHeight);
+  const dolly = (EMBEDDED && w < h) ? Math.min(1.8, 0.92 * h / w) : 1;
+  camera.position.set(0.30 * dolly, 0.26 * dolly, 0.62 * dolly);
+  controls.update();
+}
+function resize(){
+  const w = Math.max(1, root.clientWidth), h = Math.max(1, root.clientHeight);
+  camera.aspect = w/h; camera.updateProjectionMatrix();
+  renderer.setSize(w, h, false);   // false: don't write inline canvas styles, CSS owns those
+  if (!userMoved) frame();
+}
+if (typeof ResizeObserver !== 'undefined') new ResizeObserver(resize).observe(root);
+else addEventListener('resize', resize);
+
+const btnSpin = document.getElementById('sr-btn-spin');
+btnSpin.addEventListener('click',()=>{
+  controls.autoRotate = !controls.autoRotate;
+  btnSpin.classList.toggle('sr-active', controls.autoRotate);
+});
+document.getElementById('sr-btn-reset').addEventListener('click', frame);
+let idleTimer=null;
+controls.addEventListener('start',()=>{ if(btnSpin.classList.contains('sr-active')){ controls.autoRotate=false; clearTimeout(idleTimer);} });
+controls.addEventListener('end',()=>{ if(btnSpin.classList.contains('sr-active')){ idleTimer=setTimeout(()=>{controls.autoRotate=true;},2500);} });
+if (matchMedia('(prefers-reduced-motion: reduce)').matches){ controls.autoRotate=false; btnSpin.classList.remove('sr-active'); }
+
+// hint line, and the click-to-zoom handshake for inline embeds
+const hintEl = document.getElementById('sr-hint');
+function setHint(){
+  hintEl.innerHTML = controls.enableZoom
+    ? '<b>Drag</b> rotate&nbsp;&nbsp;·&nbsp;&nbsp;<b>Scroll</b> zoom&nbsp;&nbsp;·&nbsp;&nbsp;<b>Hover parts</b> for specs'
+    : '<b>Drag</b> rotate&nbsp;&nbsp;·&nbsp;&nbsp;<b>Click</b> then scroll to zoom&nbsp;&nbsp;·&nbsp;&nbsp;<b>Hover parts</b> for specs';
+}
+setHint();
+if (SCROLL_GUARD){
+  renderer.domElement.addEventListener('pointerdown', ()=>{ controls.enableZoom = true; setHint(); });
+  root.addEventListener('pointerleave', ()=>{ controls.enableZoom = false; setHint(); });
+}
+
+// don't burn GPU while the viewer is scrolled off-screen
+let onScreen = true;
+if (typeof IntersectionObserver !== 'undefined'){
+  new IntersectionObserver((es)=>{ onScreen = es[0].isIntersecting; }, { threshold: 0 }).observe(root);
+}
+renderer.setAnimationLoop(()=>{
+  if (!onScreen) return;
+  controls.update();
+  renderer.render(scene, camera);
+});
+
+resize();
+frame();
+</script>
+<!-- ===================== END EMBED BLOCK ===================== -->
+
+</body>
+</html>
