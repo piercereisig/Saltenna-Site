@@ -11,9 +11,23 @@ interface Props {
   title: string;
   description: string;
   active?: "home" | "products" | "maritime" | "communications" | "sensing" | "about";
+  // Optional per-page share image (relative path under public/); defaults to
+  // the homepage hero montage.
+  image?: string;
 }
 
-const { title, description, active } = Astro.props;
+const { title, description, active, image } = Astro.props;
+
+// Production origin, used to build ABSOLUTE canonical + Open Graph URLs (social
+// scrapers and canonicals require absolute URLs). Same for every environment on
+// purpose: the preview (new.saltenna.com) is gated by Cloudflare Access, and its
+// canonical correctly points at the production URL.
+const SITE = "https://saltenna.com";
+// build.format "file" makes pathname end in .html, which correctly matches the
+// served subpage URLs (/about.html); only the homepage needs the clean root.
+const pagePath = Astro.url.pathname === "/index.html" ? "/" : Astro.url.pathname;
+const canonical = new URL(pagePath, SITE).href;
+const ogImage = new URL(image ?? "images/posters/hero-montage.jpg", SITE).href;
 
 // Bump these together with the source files to bust caches on redeploy.
 const CSS_VERSION = "92";
@@ -27,6 +41,29 @@ const JS_VERSION = "63";
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+
+  <!-- Icons. TODO: replace with a purpose-built favicon (square SVG + 32/180px
+       PNGs); logo-color.png is the color wordmark used as a stopgap. -->
+  <link rel="icon" type="image/png" href="images/logo-color.png" />
+  <link rel="apple-touch-icon" href="images/logo-color.png" />
+  <meta name="theme-color" content="#0d1424" />
+
+  <!-- Open Graph (LinkedIn, Slack, Facebook) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Saltenna" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
   <link rel="stylesheet" href={`css/styles.css?v=${CSS_VERSION}`} />
 </head>
 <body>
