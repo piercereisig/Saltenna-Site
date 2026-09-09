@@ -1,11 +1,9 @@
 # Security response headers for the Saltenna site.
 #
-# Cloudflare applies this file to the static assets and prerendered pages
-# served from the assets store (Astro copies public/_headers -> dist/client/
-# verbatim). VERIFY ON THE LIVE DEPLOY that Webflow Cloud passes these through:
+# Cloudflare Pages honors this _headers file natively — Astro copies
+# public/_headers -> dist/ at build, and Pages applies it to every page and
+# asset. No extra configuration. After a deploy, sanity-check with:
 #   curl -sI https://<host>/ | grep -iE 'content-security|x-content-type|referrer|permissions|strict-transport|x-frame'
-# If they are absent, set them instead via a Cloudflare Transform Rule (Response
-# Header Modification) or in the Worker response.
 #
 # --- Content Security Policy ------------------------------------------------
 # The CSP is shipped REPORT-ONLY on purpose: it BLOCKS NOTHING yet and only
