@@ -26,6 +26,7 @@
 #                                   (PUBLIC_VIDEO_BASE) — change if that host does
 #   img-src https:              -> LinkedIn post thumbnails via the widget
 #   connect-src *.sociablekit.com + 'self' -> widget backend + posts.json fallback
+#   *.cloudflareinsights.com    -> Cloudflare Web Analytics beacon (script + report)
 
 /*
   X-Content-Type-Options: nosniff
@@ -33,4 +34,4 @@
   X-Frame-Options: SAMEORIGIN
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
   Strict-Transport-Security: max-age=31536000
-  Content-Security-Policy-Report-Only: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; frame-src 'self'; font-src 'self'; img-src 'self' data: https:; media-src 'self' https://media.saltenna.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://widgets.sociablekit.com; connect-src 'self' https://widgets.sociablekit.com https://*.sociablekit.com
+  Content-Security-Policy-Report-Only: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; frame-src 'self'; font-src 'self'; img-src 'self' data: https:; media-src 'self' https://media.saltenna.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://widgets.sociablekit.com https://static.cloudflareinsights.com; connect-src 'self' https://widgets.sociablekit.com https://*.sociablekit.com https://cloudflareinsights.com
