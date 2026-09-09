@@ -1,12 +1,5 @@
 ---
 import Base from "../layouts/Base.astro";
-
-// Static page — generated at build time, not per request. Webflow Cloud
-// requires output: "server". These pages were prerendered (`= true`); the
-// Basic-auth gate in src/middleware.ts only runs for on-demand routes, so they
-// are server-rendered instead. Flip back to `true` and delete the middleware to
-// restore static generation.
-export const prerender = false;
 ---
 
 <Base title="Contact — Saltenna" description="Contact Saltenna in McLean, VA to discuss plasmonic communications and sensing for your government or commercial mission.">
