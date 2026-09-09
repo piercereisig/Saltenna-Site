@@ -23,6 +23,13 @@ const { title, description, active, image } = Astro.props;
 // purpose: the preview (new.saltenna.com) is gated by Cloudflare Access, and its
 // canonical correctly points at the production URL.
 const SITE = "https://saltenna.com";
+
+// Cloudflare Web Analytics (privacy-friendly, no cookies). Set
+// PUBLIC_CF_BEACON_TOKEN as a build-time env var in the Cloudflare Pages project
+// (Web Analytics gives you the token). When unset — local dev, preview, or if
+// you instead enable Pages' dashboard Web Analytics toggle — the beacon is not
+// emitted, so it never double-counts. Use ONE method, not both.
+const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 // build.format "file" makes pathname end in .html, which correctly matches the
 // served subpage URLs (/about.html); only the homepage needs the clean root.
 const pagePath = Astro.url.pathname === "/index.html" ? "/" : Astro.url.pathname;
@@ -131,5 +138,8 @@ const JS_VERSION = "63";
   </footer>
 
   <script is:inline src={`js/main.js?v=${JS_VERSION}`}></script>
+  {cfBeaconToken && (
+    <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "${cfBeaconToken}"}`}></script>
+  )}
 </body>
 </html>
