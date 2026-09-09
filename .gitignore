@@ -36,3 +36,6 @@ underwater_drone_swarm.mp4
 .Trashes
 Thumbs.db
 *.swp
+
+# stray root astro cache (the real one is webflow-app/.astro/)
+/.astro/
