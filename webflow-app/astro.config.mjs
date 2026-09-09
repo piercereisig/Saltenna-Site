@@ -1,15 +1,14 @@
 import { defineConfig } from "astro/config";
-import cloudflare from "@astrojs/cloudflare";
 import { createReadStream, existsSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 // Dev-only: serve the MP4s from ../videos at /videos. They are deliberately
-// NOT in public/ — a single Workers asset caps at 25 MiB, so in production
-// they come from R2 via PUBLIC_VIDEO_BASE — but `astro dev` should still play
-// the hero videos with no env setup. `apply: "serve"` keeps this out of
-// builds entirely; nothing can leak into dist/. Range requests are handled
-// because Safari refuses to play video from a server that ignores them.
+// NOT in public/ — production serves them from Cloudflare R2 via
+// PUBLIC_VIDEO_BASE — but `astro dev` should still play the hero videos with no
+// env setup. `apply: "serve"` keeps this out of builds entirely; nothing can
+// leak into dist/. Range requests are handled because Safari refuses to play
+// video from a server that ignores them.
 function devVideos() {
   const videosDir = fileURLToPath(new URL("../videos", import.meta.url));
   return {
@@ -47,27 +46,19 @@ function devVideos() {
   };
 }
 
-// Webflow Cloud serves the app under a mount path (e.g. "/app", or "/" for a
-// standalone app at the domain root). `base` must match it exactly or routes
-// and assets 404. Override with MOUNT_PATH at build time rather than editing
-// this file, so changing the mount in the Webflow dashboard is a rebuild, not
-// a code change.
-const mountPath = process.env.MOUNT_PATH || "/";
-
+// Static site, deployed to Cloudflare Pages.
+//
+// Every page is prerendered to plain HTML at build time — `output: "static"`
+// is the Astro default, so there is no server runtime and no adapter. Build
+// output lands in dist/ (set that as the Pages "output directory").
+//
+// The private preview is gated by Cloudflare Access at the network layer, so
+// no in-app auth middleware is needed. Links between pages stay relative
+// ("about.html", "contact.html") and resolve from the domain root.
 export default defineConfig({
-  base: mountPath,
-  // Webflow Cloud runs on an Edge runtime and requires the Cloudflare adapter
-  // with server output. Every page sets `prerender = true`, so the six pages
-  // are still generated as static HTML at build time — nothing renders per
-  // request. This is the supported way to ship a static site here; Astro's
-  // `output: "static"` is not supported on Webflow Cloud.
-  output: "server",
-  adapter: cloudflare({
-    platformProxy: { enabled: true },
-  }),
+  output: "static",
   // Emit /about.html rather than /about/index.html, so the existing relative
-  // links between pages ("about.html", "contact.html") keep resolving exactly
-  // as they did on the hand-built site.
+  // links between pages keep resolving exactly as authored.
   build: { format: "file" },
   compressHTML: true,
   vite: { plugins: [devVideos()] },
