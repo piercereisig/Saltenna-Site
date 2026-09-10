@@ -72,7 +72,54 @@ models: [{ src: "graphics/thing/index.html", hint: "Caption · drag to rotate" }
 `products.astro` carries `const MODEL_VERSION` and appends `?v=` to every model
 iframe. Without it a browser can pair a **cached old viewer with a new mesh**,
 which hangs on "Loading model…" forever. This was almost certainly the cause of
-one reported "the model not loading". Currently `"5"`.
+one reported "the model not loading". Currently `"6"`.
+
+## Orbit yes, zoom no (2026-09-10)
+
+Wheel-zoom is disabled on all five product viewers at the user's request; drag
+to orbit still works. Two mechanisms, because two of the five must not be edited:
+
+1. **`main.js`, for all five** — a capture-phase `wheel` listener on each model
+   iframe's own window calls `stopPropagation` + `preventDefault`, then does
+   `window.scrollBy(0, e.deltaY)` on the PARENT. So the wheel scrolls the page
+   instead of zooming, which is what a visitor expects over a small embed.
+   Capture on the window always beats OrbitControls' own canvas listener,
+   regardless of attach order, so this need not race the viewer's init.
+2. **`controls.enableZoom = false` when embedded**, in the three viewers we own
+   (`stingray.html`, `ibex-radio.html`, `d2d-diver.html`). This is the robust
+   half and, unlike an event block, it also kills **touch pinch**. Standalone
+   (opened outside an iframe) keeps zoom for the author.
+
+**The trap that cost a debugging round:** a lazy iframe starts on `about:blank`
+and is then REPLACED by the real document. The first version attached to
+whichever window the rAF poll happened to find, which was often the blank one —
+the listener died with it, and the wheel still zoomed. Fixed by tracking the
+document the listener belongs to and re-attaching when it changes, plus hooking
+`load`. `apply()` alone still decides when the poll stops, because the skin's
+timing is load-bearing for the rover.
+
+**Known limitation:** touch **pinch** may still zoom `graphics/rover/` and
+`graphics/remora/`. Blocking multi-touch there would risk breaking rotation, and
+their `enableZoom` is inside build output we must not edit. Mouse wheel is
+blocked on both. A build from their authors with zoom disabled is the durable fix.
+
+Verified on the real products page, all five viewers active:
+`wheelBlocked: true` and `orbitPointerAllowed: true` on every one.
+
+## Remora hotspots are back (2026-09-10)
+
+The `.hotspot { display: none !important }` rule added to Remora's runtime skin
+in main.js v63 was **removed** at the user's request. The teal CSS2D dots on the
+pod and pipe are visible again, and with them the viewer's click-to-open
+annotation cards — Limpet housing, Bolted baseplate, Wet-mate connector, Access
+cover and ribs, Status indicator, the 12-inch flanged spool and the pipe entry.
+
+Verified on the products page with the skin applied: **7 hotspots, 7 visible**,
+measured 11×11 px on a standalone check page (the products page reports 0×0 in
+the embedded preview pane, which collapses it to zero width — measure elsewhere).
+
+Remora is now the only viewer painting persistent markers on its model; that
+inconsistency with the radio and diver is accepted, deliberately.
 
 ## The runtime skin
 

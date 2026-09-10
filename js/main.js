@@ -257,12 +257,21 @@ document.querySelectorAll(".uc-explorer[data-explorer]").forEach((ex) => {
                  background: radial-gradient(62% 52% at 50% 42%,
                    #16233a, #101a2c 45%, #0b1220) !important; }
         .readout { display: none !important; }
-        /* Its CSS2D hotspot dots are the only always-visible markers across the
-           four viewers — the radio and diver reveal specs on hover with nothing
-           painted on the model — so they go for consistency. Note this also
-           removes their click-to-open annotation cards (part names/descriptions);
-           they are DOM overlays, so this is CSS-only, no rebuild. */
-        .hotspot { display: none !important; }
+        /* Its CSS2D hotspot dots are KEPT (restored 2026-09-10 at the user's
+           request, having been hidden in v63 for consistency with the radio and
+           diver, which reveal specs on hover with nothing painted on the model).
+           They are the pipe/pod markers, and they carry the viewer's
+           click-to-open annotation cards — Limpet housing, Bolted baseplate,
+           Wet-mate connector, Access cover and ribs, Status indicator, the
+           12-inch flanged spool and the pipe entry. Hiding them removed that
+           whole labelled walk-through, which is why they are back.
+           To hide them again, re-add a display:none rule for .hotspot here
+           (kept out of this comment verbatim so a grep for the rule does not
+           match the comment describing it).
+           Diagnostic note: querySelectorAll('.hotspot') returns 0 while such a
+           rule is live — three's CSS2DRenderer does not insert elements whose
+           computed display is none, so absence from the DOM is the symptom of
+           the rule working, not of a failure. */
         /* keep Reset, drop the page titling, and match the radio's button */
         .titleblock .eyebrow, .titleblock h1, .titleblock .sub { display: none !important; }
         .titleblock { position: absolute !important; top: 10px !important;
@@ -291,8 +300,48 @@ document.querySelectorAll(".uc-explorer[data-explorer]").forEach((ex) => {
         return true;
       } catch (e) { return false; } // cross-origin: leave it alone
     };
+    // Orbit yes, zoom no. These are small cards, and wheel-zoom inside one
+    // hijacks the page scroll. The wheel is swallowed in the CAPTURE phase on
+    // the iframe's own window, so OrbitControls' canvas listener never sees it,
+    // and the delta is handed to the PARENT page instead — so the wheel scrolls
+    // the site, which is what a visitor expects over a small embed.
+    // graphics/rover/ and graphics/remora/ are build output we must not edit,
+    // so this is the only lever for those two. The three viewers we own also
+    // set controls.enableZoom = false, which additionally kills touch pinch.
+    // A lazy iframe starts on about:blank and is REPLACED by the real document.
+    // Attaching to whichever window happens to be there loses the listener on
+    // that swap — which is exactly what happened first time round. So track the
+    // document the listener belongs to and re-attach whenever it changes, and
+    // hook `load` as well as the poll. Capture-phase on the window always runs
+    // before OrbitControls' own canvas listener regardless of attach order, so
+    // this does not need to beat the viewer's init.
+    let zoomDoc = null;
+    const blockZoom = () => {
+      try {
+        const w = f.contentWindow, d = f.contentDocument;
+        if (!w || !d) return false;
+        if (zoomDoc === d) return true;          // already wired for THIS doc
+        w.addEventListener("wheel", (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          window.scrollBy(0, e.deltaY);          // hand the scroll to the page
+        }, { capture: true, passive: false });
+        zoomDoc = d;
+        return true;
+      } catch (e) { return false; } // cross-origin: leave it alone
+    };
+    f.addEventListener("load", blockZoom);
+
     let tries = 0;
-    const poll = () => { if (apply() || tries++ > 600) return; requestAnimationFrame(poll); };
+    // apply() alone decides when to stop: it must land the skin BEFORE the
+    // rover's module reads its tokens, and that timing is load-bearing.
+    // blockZoom rides along and is re-checked on every frame it gets.
+    const poll = () => {
+      const skinned = apply();
+      blockZoom();
+      if (skinned || tries++ > 600) return;
+      requestAnimationFrame(poll);
+    };
     poll();
 
     // These viewers size their renderer from the stage element and re-measure on
