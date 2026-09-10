@@ -80,7 +80,7 @@ the ported waveform canvas animation.
 | 2 | Local verification against real Workers runtime | done |
 | 3 | Video srcs onto configurable R2 base + upload script | done (dry-run verified) |
 | 4 | Upload video to R2 | **DONE Sep 10** — 12/12 serving, `pub-555801c7c2ae4ca7a0c96f1fac3f953d.r2.dev` |
-| 5 | **Deploy to Webflow Cloud** | **blocked — needs Webflow site id / auth** |
+| 5 | **Deploy** | target changed to **Cloudflare Workers** 2026-09-10; `wrangler deploy` validated in dry-run, not yet run for real. See `docs/CLOUDFLARE_DEPLOY.md` |
 | 6 | Products page built, 4 products from spec sheets | done |
 | 7 | Body copy enlarged site-wide → 17.9 px | done, verified |
 | 8 | Maritime clips at 1.3× playback | done, verified |
