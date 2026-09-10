@@ -32,7 +32,7 @@ export const products: Product[] = [
     status: "Prototype",
     domain: { label: "Maritime", href: "maritime.html" },
     claim: "Underwater voice for dive teams — no line of sight, no buoy relay",
-    body: "D2D lets divers talk in non-line-of-sight, silt-out, and blackout conditions — and through the air/water barrier to surface teams over a compatible two-way radio, with no transducer or buoy relay. A bone-conduction earpiece and push-to-talk configure rapidly for full-face and half-mask systems, integrating with a wide range of currently fielded dive equipment",
+    body: "D2D lets divers talk in non-line-of-sight, silt-out, and blackout conditions — and through the air/water barrier to surface teams over a compatible two-way radio, with no transducer or buoy relay. A bone-conduction earpiece and push-to-talk configure rapidly for full-face and half-mask systems, integrating with a wide range of currently fielded dive equipment.",
     specs: ["Depth rating 20 m", "Range up to 300 m", "2.12 kg total", "2 °C to 35 °C"],
     poster: "images/products/d2d-dive-team.jpg",
     models: [
@@ -46,7 +46,7 @@ export const products: Product[] = [
     status: "Customer engagement ready",
     domain: { label: "Communications", href: "communications.html" },
     claim: "Wireless data links along subsea pipelines, cables, and umbilicals",
-    body: "Remora replaces conductive cable links with a wireless hop that uses the pipe or cable itself as the transmission medium. Built for subsea pipelines, flexibles, and umbilicals, it removes the cost and complexity of cable installation — no cable pull, no ROV connector alignment on either end, and no galvanic earth-loop issues on aging infrastructure",
+    body: "Remora replaces conductive cable links with a wireless hop that uses the pipe or cable itself as the transmission medium. Built for subsea pipelines, flexibles, and umbilicals, it removes the cost and complexity of cable installation — no cable pull, no ROV connector alignment on either end, and no galvanic earth-loop issues on aging infrastructure.",
     specs: [
       "Up to 200 m per hop",
       "Retrofit — no cable pull",
@@ -68,7 +68,7 @@ export const products: Product[] = [
     status: "Customer engagement ready",
     domain: { label: "Communications", href: "communications.html" },
     claim: "Contactless data through sealed metal walls, flanges, and pressure barriers.",
-    body: "Stingray uses Plasmonix™ to penetrate a metal wall, flange, or pressure boundary — replacing wired penetrators and bulkhead connectors with a fully contactless wireless feedthrough. Internal and external units mount magnetically on opposite faces of the boundary, giving 360° coverage around a flange with no drilling, no leak path, and no alignment constraints",
+    body: "Stingray uses Plasmonix™ to penetrate a metal wall, flange, or pressure boundary — replacing wired penetrators and bulkhead connectors with a fully contactless wireless feedthrough. Internal and external units mount magnetically on opposite faces of the boundary, giving 360° coverage around a flange with no drilling, no leak path, and no alignment constraints.",
     specs: [
       "Up to 1 Mbps bidirectional",
       "3,000 m design depth",
@@ -94,7 +94,7 @@ export const products: Product[] = [
     status: "Prototype", // TODO(user): confirm — not stated anywhere
     domain: { label: "Communications", href: "communications.html" },
     claim: "A Plasmonix™ antenna that fits fielded handheld radios", // TODO(user)
-    body: "Ibex replaces the standard whip on a handheld radio with a Plasmonix™ antenna, quick-mounting to the existing RF port with no change to the radio itself. The sealed housing is built for marine use, and the gooseneck bends to stow against a pack or vest", // TODO(user): confirm — written from the model, not a spec sheet
+    body: "Ibex replaces the standard whip on a handheld radio with a Plasmonix™ antenna, quick-mounting to the existing RF port with no change to the radio itself. The sealed housing is built for marine use, and the gooseneck bends to stow against a pack or vest.", // TODO(user): confirm — written from the model, not a spec sheet
     specs: [
       "AN/PRC-163 fit", // from the viewer's placeholder SPECS
       "Plasmonix™ surface-wave launch",
@@ -124,7 +124,7 @@ export const tools: Tool[] = [
   {
     // TODO(user): confirm the tool's real name — placeholder.
     name: "The Saltenna Waveform",
-    claim: "A software-defined waveform for links with extreme path loss.",
-    body: "Our waveform is designed for links with extreme path loss, where conventional radios lose synchronization or drop out entirely. Paired with our antenna technology, it forms a complete communications system: the antenna establishes a usable RF path through difficult media, and the waveform sustains a reliable data link over it. The entire receiver and transmitter run as software on compact, low-power embedded hardware",
+    claim: "A software-defined waveform for links with extreme path loss",
+    body: "Our waveform is designed for links with extreme path loss, where conventional radios lose synchronization or drop out entirely. Paired with our antenna technology, it forms a complete communications system: the antenna establishes a usable RF path through difficult media, and the waveform sustains a reliable data link over it. The entire receiver and transmitter run as software on compact, low-power embedded hardware.",
   },
 ];

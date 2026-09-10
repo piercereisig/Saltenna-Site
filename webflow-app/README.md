@@ -25,7 +25,13 @@ from here on, or the two copies will drift.
 
 ## Local development
 
+**First: `cp .env.example .env`.** The Basic-auth gate in `src/middleware.ts`
+fails closed — with no `PREVIEW_PASSWORD` set, every page returns 503 and the
+dev server appears completely broken. `.env` is gitignored, so each clone needs
+this once.
+
 ```bash
+cp .env.example .env
 npm install
 npm run dev      # astro dev  — fast, no edge runtime
 npm run preview  # astro build && wrangler dev — real Workers runtime

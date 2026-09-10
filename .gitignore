@@ -26,6 +26,10 @@ underwater_drone_swarm.mp4
 .dev.vars.*
 .env
 .env.*
+# ...but the TEMPLATE must be committed: a fresh clone needs it to get past the
+# middleware's fail-closed 503. Trailing comments are NOT allowed on a pattern
+# line in .gitignore — they become part of the pattern.
+!.env.example
 *.pem
 *.key
 

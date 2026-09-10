@@ -106,8 +106,8 @@
     "source": "Base.astro",
     "location": "—",
     "kind": "p",
-    "text": "Wireless communications and sensing in the most difficult environments on Earth.",
-    "display": "Wireless communications and sensing in the most difficult environments on Earth.",
+    "text": "Wireless communications and sensing in the most difficult environments on Earth",
+    "display": "Wireless communications and sensing in the most difficult environments on Earth",
     "shared": false,
     "shared_with": []
   },
@@ -431,8 +431,8 @@
     "source": "index.astro",
     "location": "—",
     "kind": "p",
-    "text": "Rather than being blocked by metal bulkheads, Saltenna's Plasmonix™ leverage them. Saltenna has demonstrated wireless communications along and through pressurized tanks and pipes without drilling holes or running wires",
-    "display": "Rather than being blocked by metal bulkheads, Saltenna's Plasmonix™ leverage them. Saltenna has demonstrated wireless communications along and through pressurized tanks and pipes without drilling holes or running wires",
+    "text": "Rather than being blocked by metal bulkheads, Saltenna's Plasmonix™ leverage them. Saltenna has demonstrated wireless communications along and through pressurized tanks and pipes without drilling holes or running wires.",
+    "display": "Rather than being blocked by metal bulkheads, Saltenna's Plasmonix™ leverage them. Saltenna has demonstrated wireless communications along and through pressurized tanks and pipes without drilling holes or running wires.",
     "shared": false,
     "shared_with": []
   },
@@ -787,8 +787,8 @@
     "source": "index.astro",
     "location": "— · call to action",
     "kind": "p",
-    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions",
-    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions",
+    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
     "shared": true,
     "shared_with": [
       "maritime.p.12",
@@ -1167,8 +1167,8 @@
     "source": "maritime.astro",
     "location": "challenge · section intro",
     "kind": "h2",
-    "text": "The ocean is a wireless dead zone.",
-    "display": "The ocean is a wireless dead zone.",
+    "text": "The ocean is a wireless dead zone",
+    "display": "The ocean is a wireless dead zone",
     "shared": false,
     "shared_with": []
   },
@@ -1178,8 +1178,8 @@
     "source": "maritime.astro",
     "location": "challenge · section intro",
     "kind": "p",
-    "text": "Wireless systems that thrive on land stop at the waterline. Saltenna's Plasmonix™ surface waves are being developed to work where the maritime domain defeats them",
-    "display": "Wireless systems that thrive on land stop at the waterline. Saltenna's Plasmonix™ surface waves are being developed to work where the maritime domain defeats them",
+    "text": "Wireless systems that thrive on land stop at the waterline. Saltenna's Plasmonix™ surface waves are being developed to work where the maritime domain defeats them.",
+    "display": "Wireless systems that thrive on land stop at the waterline. Saltenna's Plasmonix™ surface waves are being developed to work where the maritime domain defeats them.",
     "shared": false,
     "shared_with": []
   },
@@ -1277,8 +1277,8 @@
     "source": "maritime.astro",
     "location": "uc-uncrewed",
     "kind": "p",
-    "text": "Saltenna is developing communications between uncrewed underwater vehicles (UUVs) at range, enabling swarming behavior underwater. This extends to communications between UUVs and UAVs, bridging the air-water barrier",
-    "display": "Saltenna is developing communications between uncrewed underwater vehicles (UUVs) at range, enabling swarming behavior underwater. This extends to communications between UUVs and UAVs, bridging the air-water barrier",
+    "text": "Saltenna is developing communications between uncrewed underwater vehicles (UUVs) at range, enabling swarming behavior underwater. This extends to communications between UUVs and UAVs, bridging the air-water barrier.",
+    "display": "Saltenna is developing communications between uncrewed underwater vehicles (UUVs) at range, enabling swarming behavior underwater. This extends to communications between UUVs and UAVs, bridging the air-water barrier.",
     "shared": false,
     "shared_with": []
   },
@@ -1563,8 +1563,8 @@
     "source": "maritime.astro",
     "location": "— · call to action",
     "kind": "p",
-    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions",
-    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions",
+    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
     "shared": true,
     "shared_with": [
       "index.p.15",
@@ -1610,8 +1610,8 @@
     "source": "communications.astro",
     "location": "SEO description (search results)",
     "kind": "meta",
-    "text": "Saltenna plasmonic communications: high-bandwidth, stealthy wireless links underwater, through ice, through metal, underground, and in dense vegetation",
-    "display": "Saltenna plasmonic communications: high-bandwidth, stealthy wireless links underwater, through ice, through metal, underground, and in dense vegetation",
+    "text": "Saltenna Plasmonix™ communications: high-bandwidth, stealthy wireless links underwater, through ice, through metal, underground, and in dense vegetation",
+    "display": "Saltenna Plasmonix™ communications: high-bandwidth, stealthy wireless links underwater, through ice, through metal, underground, and in dense vegetation",
     "shared": false,
     "shared_with": []
   },
@@ -1722,8 +1722,8 @@
     "source": "communications.astro",
     "location": "use-cases · section intro",
     "kind": "p",
-    "text": "Plasmonix™ waves travel along the boundaries other signals can't cross. If an environment defeats today's wireless, it's a candidate",
-    "display": "Plasmonix™ waves travel along the boundaries other signals can't cross. If an environment defeats today's wireless, it's a candidate",
+    "text": "Plasmonix™ waves travel along the boundaries other signals can't cross. If an environment defeats today's wireless, it's a candidate.",
+    "display": "Plasmonix™ waves travel along the boundaries other signals can't cross. If an environment defeats today's wireless, it's a candidate.",
     "shared": false,
     "shared_with": []
   },
@@ -1788,8 +1788,8 @@
     "source": "communications.astro",
     "location": "uc-surfaces",
     "kind": "p",
-    "text": "Any long conductive surface can become the network. Saltenna is developing stealthy, resilient communications along linear infrastructure — runways, flightlines, roads — and around metal airframes themselves, with signals riding the surface instead of broadcasting into contested spectrum",
-    "display": "Any long conductive surface can become the network. Saltenna is developing stealthy, resilient communications along linear infrastructure — runways, flightlines, roads — and around metal airframes themselves, with signals riding the surface instead of broadcasting into contested spectrum",
+    "text": "Any long conductive surface can become the network. Saltenna is developing stealthy, resilient communications along linear infrastructure — runways, flightlines, roads — and around metal airframes themselves, with signals riding the surface instead of broadcasting into contested spectrum.",
+    "display": "Any long conductive surface can become the network. Saltenna is developing stealthy, resilient communications along linear infrastructure — runways, flightlines, roads — and around metal airframes themselves, with signals riding the surface instead of broadcasting into contested spectrum.",
     "shared": false,
     "shared_with": []
   },
@@ -1832,8 +1832,8 @@
     "source": "communications.astro",
     "location": "uc-beyond",
     "kind": "p",
-    "text": "Where there are no towers and no ionosphere, the physics still holds. Saltenna is working on carrying communications within and through dense jungle canopy, and simulations show the technology could work on the lunar surface and other planets",
-    "display": "Where there are no towers and no ionosphere, the physics still holds. Saltenna is working on carrying communications within and through dense jungle canopy, and simulations show the technology could work on the lunar surface and other planets",
+    "text": "Where there are no towers and no ionosphere, the physics still holds. Saltenna is working on carrying communications within and through dense jungle canopy, and simulations show the technology could work on the lunar surface and other planets.",
+    "display": "Where there are no towers and no ionosphere, the physics still holds. Saltenna is working on carrying communications within and through dense jungle canopy, and simulations show the technology could work on the lunar surface and other planets.",
     "shared": false,
     "shared_with": []
   },
@@ -1865,8 +1865,8 @@
     "source": "communications.astro",
     "location": "—",
     "kind": "p",
-    "text": "Current radios, Wi‑Fi, Bluetooth, optical, audio, and other systems radiate through free space and fail at dense obstacles. Plasmonix™ waves instead travel along surfaces — the boundaries between water, metal, soil, and air — so no line of sight is needed, and the energy stays stealthy on the surface instead of broadcasting into contested spectrum",
-    "display": "Current radios, Wi‑Fi, Bluetooth, optical, audio, and other systems radiate through free space and fail at dense obstacles. Plasmonix™ waves instead travel along surfaces — the boundaries between water, metal, soil, and air — so no line of sight is needed, and the energy stays stealthy on the surface instead of broadcasting into contested spectrum",
+    "text": "Current radios, Wi‑Fi, Bluetooth, optical, audio, and other systems radiate through free space and fail at dense obstacles. Plasmonix™ waves instead travel along surfaces — the boundaries between water, metal, soil, and air — so no line of sight is needed, and the energy stays stealthy on the surface instead of broadcasting into contested spectrum.",
+    "display": "Current radios, Wi‑Fi, Bluetooth, optical, audio, and other systems radiate through free space and fail at dense obstacles. Plasmonix™ waves instead travel along surfaces — the boundaries between water, metal, soil, and air — so no line of sight is needed, and the energy stays stealthy on the surface instead of broadcasting into contested spectrum.",
     "shared": false,
     "shared_with": []
   },
@@ -1892,8 +1892,8 @@
     "source": "communications.astro",
     "location": "— · call to action",
     "kind": "p",
-    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions",
-    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions",
+    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
     "shared": true,
     "shared_with": [
       "index.p.15",
@@ -2038,8 +2038,8 @@
     "source": "sensing.astro",
     "location": "use-cases · section intro",
     "kind": "p",
-    "text": "Four barriers Plasmonix™ can read through.",
-    "display": "Four barriers Plasmonix™ can read through.",
+    "text": "Four barriers Plasmonix™ can read through",
+    "display": "Four barriers Plasmonix™ can read through",
     "shared": false,
     "shared_with": []
   },
@@ -2060,8 +2060,8 @@
     "source": "sensing.astro",
     "location": "uc-sealed",
     "kind": "p",
-    "text": "Saltenna is working on sensor reporting and object detection through solid metal — pressurized tanks, shipping containers, sealed vessels — without drilling holes or running wires. Contents, condition, and chain of custody, read through the wall",
-    "display": "Saltenna is working on sensor reporting and object detection through solid metal — pressurized tanks, shipping containers, sealed vessels — without drilling holes or running wires. Contents, condition, and chain of custody, read through the wall",
+    "text": "Saltenna is working on sensor reporting and object detection through solid metal — pressurized tanks, shipping containers, sealed vessels — without drilling holes or running wires. Contents, condition, and chain of custody, read through the wall.",
+    "display": "Saltenna is working on sensor reporting and object detection through solid metal — pressurized tanks, shipping containers, sealed vessels — without drilling holes or running wires. Contents, condition, and chain of custody, read through the wall.",
     "shared": false,
     "shared_with": []
   },
@@ -2159,8 +2159,8 @@
     "source": "sensing.astro",
     "location": "—",
     "kind": "p",
-    "text": "Saltenna's Plasmonix™ waves travel along and through solid metal rather than being blocked by it. Saltenna has demonstrated detection through metal — without drilling holes or running wires, and with vessels, containers, and hulls staying sealed and intact",
-    "display": "Saltenna's Plasmonix™ waves travel along and through solid metal rather than being blocked by it. Saltenna has demonstrated detection through metal — without drilling holes or running wires, and with vessels, containers, and hulls staying sealed and intact",
+    "text": "Saltenna's Plasmonix™ waves travel along and through solid metal rather than being blocked by it. Saltenna has demonstrated detection through metal — without drilling holes or running wires, and with vessels, containers, and hulls staying sealed and intact.",
+    "display": "Saltenna's Plasmonix™ waves travel along and through solid metal rather than being blocked by it. Saltenna has demonstrated detection through metal — without drilling holes or running wires, and with vessels, containers, and hulls staying sealed and intact.",
     "shared": false,
     "shared_with": []
   },
@@ -2186,8 +2186,8 @@
     "source": "sensing.astro",
     "location": "— · call to action",
     "kind": "p",
-    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions",
-    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions",
+    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
     "shared": true,
     "shared_with": [
       "index.p.15",
@@ -2543,8 +2543,8 @@
     "source": "about.astro",
     "location": "team",
     "kind": "p",
-    "text": "Dr. Quirino Balzano is a pioneer in RF dosimetry and antenna technology with 50+ papers and 31 patents. Former VP of Technical Staff at Motorola and researcher at Raytheon's Missile Systems, he led R&amp;D on Patriot phased arrays. Now Senior Staff Researcher at University of Maryland, Quirino advances Saltenna's electromagnetic and plasmonic innovations for defense and extreme environments. Ph.D. Electronics Engineering, University of Rome, La Sapienza, Rome, Italy.",
-    "display": "Dr. Quirino Balzano is a pioneer in RF dosimetry and antenna technology with 50+ papers and 31 patents. Former VP of Technical Staff at Motorola and researcher at Raytheon's Missile Systems, he led R&D on Patriot phased arrays. Now Senior Staff Researcher at University of Maryland, Quirino advances Saltenna's electromagnetic and plasmonic innovations for defense and extreme environments. Ph.D. Electronics Engineering, University of Rome, La Sapienza, Rome, Italy.",
+    "text": "Dr. Quirino Balzano is a pioneer in RF dosimetry and antenna technology with 50+ papers and 31 patents. Former VP of Technical Staff at Motorola and researcher at Raytheon's Missile Systems, he led R&amp;D on Patriot phased arrays. Now Senior Staff Researcher at University of Maryland, Quirino advances Saltenna's electromagnetic and Plasmonix™ innovations for defense and extreme environments. Ph.D. Electronics Engineering, University of Rome, La Sapienza, Rome, Italy.",
+    "display": "Dr. Quirino Balzano is a pioneer in RF dosimetry and antenna technology with 50+ papers and 31 patents. Former VP of Technical Staff at Motorola and researcher at Raytheon's Missile Systems, he led R&D on Patriot phased arrays. Now Senior Staff Researcher at University of Maryland, Quirino advances Saltenna's electromagnetic and Plasmonix™ innovations for defense and extreme environments. Ph.D. Electronics Engineering, University of Rome, La Sapienza, Rome, Italy.",
     "shared": false,
     "shared_with": []
   },
@@ -2603,8 +2603,8 @@
     "source": "about.astro",
     "location": "— · call to action",
     "kind": "p",
-    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions",
-    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions",
+    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
     "shared": true,
     "shared_with": [
       "index.p.15",
@@ -2680,8 +2680,8 @@
     "source": "contact.astro",
     "location": "—",
     "kind": "p",
-    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions",
-    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions",
+    "text": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
+    "display": "We are developing seemingly impossible communications and sensing at the edge in the most demanding environments. Contact us to explore and craft powerful unique solutions.",
     "shared": true,
     "shared_with": [
       "index.p.15",
@@ -2866,8 +2866,8 @@
     "source": "products.ts",
     "location": "D2D — body paragraph",
     "kind": "product-field",
-    "text": "D2D lets divers talk in non-line-of-sight, silt-out, and blackout conditions — and through the air/water barrier to surface teams over a compatible two-way radio, with no transducer or buoy relay. A bone-conduction earpiece and push-to-talk configure rapidly for full-face and half-mask systems, integrating with a wide range of currently fielded dive equipment",
-    "display": "D2D lets divers talk in non-line-of-sight, silt-out, and blackout conditions — and through the air/water barrier to surface teams over a compatible two-way radio, with no transducer or buoy relay. A bone-conduction earpiece and push-to-talk configure rapidly for full-face and half-mask systems, integrating with a wide range of currently fielded dive equipment",
+    "text": "D2D lets divers talk in non-line-of-sight, silt-out, and blackout conditions — and through the air/water barrier to surface teams over a compatible two-way radio, with no transducer or buoy relay. A bone-conduction earpiece and push-to-talk configure rapidly for full-face and half-mask systems, integrating with a wide range of currently fielded dive equipment.",
+    "display": "D2D lets divers talk in non-line-of-sight, silt-out, and blackout conditions — and through the air/water barrier to surface teams over a compatible two-way radio, with no transducer or buoy relay. A bone-conduction earpiece and push-to-talk configure rapidly for full-face and half-mask systems, integrating with a wide range of currently fielded dive equipment.",
     "shared": false,
     "shared_with": []
   },
@@ -2930,7 +2930,7 @@
     "shared_with": []
   },
   {
-    "id": "prod-d2d.hint888",
+    "id": "prod-d2d.hint889",
     "page": "Products",
     "source": "products.ts",
     "location": "D2D — 3D model caption",
@@ -2992,8 +2992,8 @@
     "source": "products.ts",
     "location": "REMORA — body paragraph",
     "kind": "product-field",
-    "text": "Remora replaces conductive cable links with a wireless hop that uses the pipe or cable itself as the transmission medium. Built for subsea pipelines, flexibles, and umbilicals, it removes the cost and complexity of cable installation — no cable pull, no ROV connector alignment on either end, and no galvanic earth-loop issues on aging infrastructure",
-    "display": "Remora replaces conductive cable links with a wireless hop that uses the pipe or cable itself as the transmission medium. Built for subsea pipelines, flexibles, and umbilicals, it removes the cost and complexity of cable installation — no cable pull, no ROV connector alignment on either end, and no galvanic earth-loop issues on aging infrastructure",
+    "text": "Remora replaces conductive cable links with a wireless hop that uses the pipe or cable itself as the transmission medium. Built for subsea pipelines, flexibles, and umbilicals, it removes the cost and complexity of cable installation — no cable pull, no ROV connector alignment on either end, and no galvanic earth-loop issues on aging infrastructure.",
+    "display": "Remora replaces conductive cable links with a wireless hop that uses the pipe or cable itself as the transmission medium. Built for subsea pipelines, flexibles, and umbilicals, it removes the cost and complexity of cable installation — no cable pull, no ROV connector alignment on either end, and no galvanic earth-loop issues on aging infrastructure.",
     "shared": false,
     "shared_with": []
   },
@@ -3058,7 +3058,7 @@
     "shared_with": []
   },
   {
-    "id": "prod-remora.hint1111",
+    "id": "prod-remora.hint1112",
     "page": "Products",
     "source": "products.ts",
     "location": "REMORA — 3D model caption",
@@ -3120,8 +3120,8 @@
     "source": "products.ts",
     "location": "STINGRAY — body paragraph",
     "kind": "product-field",
-    "text": "Stingray uses Plasmonix™ to penetrate a metal wall, flange, or pressure boundary — replacing wired penetrators and bulkhead connectors with a fully contactless wireless feedthrough. Internal and external units mount magnetically on opposite faces of the boundary, giving 360° coverage around a flange with no drilling, no leak path, and no alignment constraints",
-    "display": "Stingray uses Plasmonix™ to penetrate a metal wall, flange, or pressure boundary — replacing wired penetrators and bulkhead connectors with a fully contactless wireless feedthrough. Internal and external units mount magnetically on opposite faces of the boundary, giving 360° coverage around a flange with no drilling, no leak path, and no alignment constraints",
+    "text": "Stingray uses Plasmonix™ to penetrate a metal wall, flange, or pressure boundary — replacing wired penetrators and bulkhead connectors with a fully contactless wireless feedthrough. Internal and external units mount magnetically on opposite faces of the boundary, giving 360° coverage around a flange with no drilling, no leak path, and no alignment constraints.",
+    "display": "Stingray uses Plasmonix™ to penetrate a metal wall, flange, or pressure boundary — replacing wired penetrators and bulkhead connectors with a fully contactless wireless feedthrough. Internal and external units mount magnetically on opposite faces of the boundary, giving 360° coverage around a flange with no drilling, no leak path, and no alignment constraints.",
     "shared": false,
     "shared_with": []
   },
@@ -3186,7 +3186,7 @@
     "shared_with": []
   },
   {
-    "id": "prod-stingray.hint1124",
+    "id": "prod-stingray.hint1125",
     "page": "Products",
     "source": "products.ts",
     "location": "STINGRAY — 3D model caption",
@@ -3248,8 +3248,8 @@
     "source": "products.ts",
     "location": "IBEX — body paragraph",
     "kind": "product-field",
-    "text": "Ibex replaces the standard whip on a handheld radio with a Plasmonix™ antenna, quick-mounting to the existing RF port with no change to the radio itself. The sealed housing is built for marine use, and the gooseneck bends to stow against a pack or vest",
-    "display": "Ibex replaces the standard whip on a handheld radio with a Plasmonix™ antenna, quick-mounting to the existing RF port with no change to the radio itself. The sealed housing is built for marine use, and the gooseneck bends to stow against a pack or vest",
+    "text": "Ibex replaces the standard whip on a handheld radio with a Plasmonix™ antenna, quick-mounting to the existing RF port with no change to the radio itself. The sealed housing is built for marine use, and the gooseneck bends to stow against a pack or vest.",
+    "display": "Ibex replaces the standard whip on a handheld radio with a Plasmonix™ antenna, quick-mounting to the existing RF port with no change to the radio itself. The sealed housing is built for marine use, and the gooseneck bends to stow against a pack or vest.",
     "shared": false,
     "shared_with": []
   },
@@ -3314,7 +3314,7 @@
     "shared_with": []
   },
   {
-    "id": "prod-ibex.hint1163",
+    "id": "prod-ibex.hint1164",
     "page": "Products",
     "source": "products.ts",
     "location": "IBEX — 3D model caption",
@@ -3325,7 +3325,7 @@
     "shared_with": []
   },
   {
-    "id": "prod-ibex.hint1403",
+    "id": "prod-ibex.hint1404",
     "page": "Products",
     "source": "products.ts",
     "location": "IBEX — 3D model caption",
@@ -3352,8 +3352,8 @@
     "source": "products.ts",
     "location": "Software tool — one-line claim",
     "kind": "product-field",
-    "text": "A software-defined waveform for links with extreme path loss.",
-    "display": "A software-defined waveform for links with extreme path loss.",
+    "text": "A software-defined waveform for links with extreme path loss",
+    "display": "A software-defined waveform for links with extreme path loss",
     "shared": false,
     "shared_with": []
   },
@@ -3363,8 +3363,8 @@
     "source": "products.ts",
     "location": "Software tool — body paragraph",
     "kind": "product-field",
-    "text": "Our waveform is designed for links with extreme path loss, where conventional radios lose synchronization or drop out entirely. Paired with our antenna technology, it forms a complete communications system: the antenna establishes a usable RF path through difficult media, and the waveform sustains a reliable data link over it. The entire receiver and transmitter run as software on compact, low-power embedded hardware",
-    "display": "Our waveform is designed for links with extreme path loss, where conventional radios lose synchronization or drop out entirely. Paired with our antenna technology, it forms a complete communications system: the antenna establishes a usable RF path through difficult media, and the waveform sustains a reliable data link over it. The entire receiver and transmitter run as software on compact, low-power embedded hardware",
+    "text": "Our waveform is designed for links with extreme path loss, where conventional radios lose synchronization or drop out entirely. Paired with our antenna technology, it forms a complete communications system: the antenna establishes a usable RF path through difficult media, and the waveform sustains a reliable data link over it. The entire receiver and transmitter run as software on compact, low-power embedded hardware.",
+    "display": "Our waveform is designed for links with extreme path loss, where conventional radios lose synchronization or drop out entirely. Paired with our antenna technology, it forms a complete communications system: the antenna establishes a usable RF path through difficult media, and the waveform sustains a reliable data link over it. The entire receiver and transmitter run as software on compact, low-power embedded hardware.",
     "shared": false,
     "shared_with": []
   }
