@@ -50,6 +50,57 @@ bindings `ASSETS`, `SESSION` (KV), `IMAGES`.
 | `MOUNT_PATH` | had to match the Webflow mount or everything 404s | `/` — the whole class of bug is gone |
 | Video base | `PUBLIC_VIDEO_BASE` env var, easy to forget | **defaults to R2 in `src/videoBase.ts`** |
 
+## ⚠️ Video is bundled again, and that dictates HOW you deploy (2026-09-10)
+
+**The r2.dev URL is blocked on company machines.** `pub-*.r2.dev` is
+Cloudflare's SHARED development domain; corporate security tools (Zscaler,
+Umbrella, Netskope, Defender SmartScreen) blocklist it wholesale because malware
+is commonly hosted there. The videos were reported as malicious on the user's
+boss's computer. **A second bucket does not help** — `saltenna-media2` would get
+another URL on the same domain and be flagged identically. That was tried.
+
+Fix in place: the 11 referenced videos are copied into
+`webflow-app/public/videos/` and `src/videoBase.ts` defaults to the relative
+path, so they are served from the SITE's own origin. No third-party host, no DNS
+change. `dist/client` is ~145 MB; every file is under the 25 MiB per-asset cap
+(largest 23.0 MB). These are the re-encoded copies — the full-quality originals
+stay in `videos/` and on R2.
+
+**CONSEQUENCE — deploys must be DIRECT UPLOADS, not git-connected.**
+`webflow-app/public/videos/` is gitignored (git stores every version of a binary
+forever). So a Pages build from GitHub would produce a site with no video. Deploy
+by uploading the built folder, which carries the files from local disk:
+
+```bash
+cd webflow-app && npx astro build
+npx wrangler pages deploy dist/client --project-name=<project>
+```
+
+If you ever want git-connected deploys instead, the videos have to be committed
+(~122 MB into history, permanently) or moved to `media.saltenna.com`.
+
+**The proper long-term fix** is `PUBLIC_VIDEO_BASE=https://media.saltenna.com/videos`
+with that subdomain pointed at R2 — your own domain carries your own reputation,
+video leaves the bundle, and full quality returns. It needs saltenna.com's
+nameservers moved from **GoDaddy** (`ns39/ns40.domaincontrol.com`) to Cloudflare
+first, which is a planned change with whoever owns the domain.
+
+## Account split — read before deploying
+
+Verified 2026-09-10: `wrangler pages project list` returns NOTHING and
+`saltenna-site` reports "Project not found" for the account wrangler is logged
+into (`Pierce.reisig@saltenna.com's Account`, `9566baba…`) — **yet the site is
+live at saltenna-site.pages.dev.** So the Pages project sits in a DIFFERENT
+Cloudflare account from the R2 bucket.
+
+Also confirmed: **pushing to GitHub does not deploy.** After a push containing
+~130 copy edits, the live site still served `styles.css?v=92` / `main.js?v=63`,
+i.e. the state from before any of that work. Pages is not connected to the repo.
+
+To deploy to the existing URL you must be authenticated as the account that owns
+that project (`npx wrangler logout && npx wrangler login`). Deploying from the
+current account would create a separate project on a different URL.
+
 ## Deploy
 
 ```bash
