@@ -22,7 +22,9 @@
     "shared_with": [
       "base.a.8",
       "products.h1.1",
-      "products.span.1"
+      "products.span.1",
+      "products.arialabel.2",
+      "products.arialabel.3"
     ]
   },
   {
@@ -92,7 +94,7 @@
     "shared": true,
     "shared_with": [
       "index.a.5",
-      "products.a.3",
+      "products.a.2",
       "maritime.a.11",
       "communications.a.6",
       "sensing.a.5",
@@ -134,7 +136,9 @@
     "shared_with": [
       "base.a.2",
       "products.h1.1",
-      "products.span.1"
+      "products.span.1",
+      "products.arialabel.2",
+      "products.arialabel.3"
     ]
   },
   {
@@ -273,6 +277,56 @@
     "shared_with": []
   },
   {
+    "id": "base.arialabel.1",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "— · <a> screen-reader label (never shown visually)",
+    "kind": "aria-label",
+    "text": "Saltenna home",
+    "display": "Saltenna home",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "base.alt.1",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "— · <img> image alt text (screen readers, and shown if the image fails)",
+    "kind": "alt",
+    "text": "Saltenna",
+    "display": "Saltenna",
+    "shared": true,
+    "shared_with": [
+      "base.alt.2",
+      "index.alt.1"
+    ]
+  },
+  {
+    "id": "base.arialabel.2",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "— · <button> screen-reader label (never shown visually)",
+    "kind": "aria-label",
+    "text": "Toggle navigation",
+    "display": "Toggle navigation",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "base.alt.2",
+    "page": "Every page (shared)",
+    "source": "Base.astro",
+    "location": "— · <img> image alt text (screen readers, and shown if the image fails)",
+    "kind": "alt",
+    "text": "Saltenna",
+    "display": "Saltenna",
+    "shared": true,
+    "shared_with": [
+      "base.alt.1",
+      "index.alt.1"
+    ]
+  },
+  {
     "id": "index.meta.title",
     "page": "Home",
     "source": "index.astro",
@@ -361,21 +415,6 @@
     "shared_with": []
   },
   {
-    "id": "index.span.1",
-    "page": "Home",
-    "source": "index.astro",
-    "location": "—",
-    "kind": "span",
-    "text": "&rarr;",
-    "display": "→",
-    "shared": true,
-    "shared_with": [
-      "index.span.2",
-      "index.span.3",
-      "index.span.4"
-    ]
-  },
-  {
     "id": "index.h3.1",
     "page": "Home",
     "source": "index.astro",
@@ -400,21 +439,6 @@
     "shared_with": []
   },
   {
-    "id": "index.span.2",
-    "page": "Home",
-    "source": "index.astro",
-    "location": "—",
-    "kind": "span",
-    "text": "&rarr;",
-    "display": "→",
-    "shared": true,
-    "shared_with": [
-      "index.span.1",
-      "index.span.3",
-      "index.span.4"
-    ]
-  },
-  {
     "id": "index.h3.2",
     "page": "Home",
     "source": "index.astro",
@@ -437,21 +461,6 @@
     "shared_with": []
   },
   {
-    "id": "index.span.3",
-    "page": "Home",
-    "source": "index.astro",
-    "location": "—",
-    "kind": "span",
-    "text": "&rarr;",
-    "display": "→",
-    "shared": true,
-    "shared_with": [
-      "index.span.1",
-      "index.span.2",
-      "index.span.4"
-    ]
-  },
-  {
     "id": "index.h3.3",
     "page": "Home",
     "source": "index.astro",
@@ -472,21 +481,6 @@
     "display": "Saltenna has demonstrated significantly enhanced range over current wireless technology in underground facilities, tunnels, and through mines",
     "shared": false,
     "shared_with": []
-  },
-  {
-    "id": "index.span.4",
-    "page": "Home",
-    "source": "index.astro",
-    "location": "—",
-    "kind": "span",
-    "text": "&rarr;",
-    "display": "→",
-    "shared": true,
-    "shared_with": [
-      "index.span.1",
-      "index.span.2",
-      "index.span.3"
-    ]
   },
   {
     "id": "index.h3.4",
@@ -809,13 +803,60 @@
     "shared": true,
     "shared_with": [
       "base.a.7",
-      "products.a.3",
+      "products.a.2",
       "maritime.a.11",
       "communications.a.6",
       "sensing.a.5",
       "about.a.1",
       "contact.h1.1"
     ]
+  },
+  {
+    "id": "index.arialabel.1",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "— · <div> screen-reader label (never shown visually)",
+    "kind": "aria-label",
+    "text": "Redefining the limits of wireless",
+    "display": "Redefining the limits of wireless",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.alt.1",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "— · <img> image alt text (screen readers, and shown if the image fails)",
+    "kind": "alt",
+    "text": "Saltenna",
+    "display": "Saltenna",
+    "shared": true,
+    "shared_with": [
+      "base.alt.1",
+      "base.alt.2"
+    ]
+  },
+  {
+    "id": "index.title.1",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "— · <iframe> tooltip on hover (also read by screen readers)",
+    "kind": "title",
+    "text": "Interactive 3D: a Plasmonix™ surface-wave link carrying data between two nodes along a conductor",
+    "display": "Interactive 3D: a Plasmonix™ surface-wave link carrying data between two nodes along a conductor",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "index.title.2",
+    "page": "Home",
+    "source": "index.astro",
+    "location": "— · <iframe> tooltip on hover (also read by screen readers)",
+    "kind": "title",
+    "text": "Interactive 3D: a data pulse carried through a solid metal bulkhead while conventional radio is blocked at the surface",
+    "display": "Interactive 3D: a data pulse carried through a solid metal bulkhead while conventional radio is blocked at the surface",
+    "shared": false,
+    "shared_with": []
   },
   {
     "id": "products.meta.title",
@@ -851,7 +892,9 @@
     "shared_with": [
       "base.a.2",
       "base.a.8",
-      "products.span.1"
+      "products.span.1",
+      "products.arialabel.2",
+      "products.arialabel.3"
     ]
   },
   {
@@ -902,7 +945,9 @@
     "shared_with": [
       "base.a.2",
       "base.a.8",
-      "products.h1.1"
+      "products.h1.1",
+      "products.arialabel.2",
+      "products.arialabel.3"
     ]
   },
   {
@@ -935,17 +980,6 @@
     "kind": "div",
     "text": "Hardware Maritime Communications",
     "display": "Hardware Maritime Communications",
-    "shared": false,
-    "shared_with": []
-  },
-  {
-    "id": "products.a.2",
-    "page": "Products",
-    "source": "products.astro",
-    "location": "{p.id} · domain link",
-    "kind": "a",
-    "text": "{p.domain.label} &rarr;",
-    "display": "{p.domain.label} →",
     "shared": false,
     "shared_with": []
   },
@@ -1033,7 +1067,7 @@
     "shared_with": []
   },
   {
-    "id": "products.a.3",
+    "id": "products.a.2",
     "page": "Products",
     "source": "products.astro",
     "location": "— · button, call to action",
@@ -1049,6 +1083,56 @@
       "sensing.a.5",
       "about.a.1",
       "contact.h1.1"
+    ]
+  },
+  {
+    "id": "products.arialabel.1",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "— · <a> screen-reader label (never shown visually)",
+    "kind": "aria-label",
+    "text": "Scroll to content",
+    "display": "Scroll to content",
+    "shared": true,
+    "shared_with": [
+      "maritime.arialabel.1",
+      "communications.arialabel.1",
+      "sensing.arialabel.1",
+      "about.arialabel.1"
+    ]
+  },
+  {
+    "id": "products.arialabel.2",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "— · <nav> screen-reader label (never shown visually)",
+    "kind": "aria-label",
+    "text": "Products",
+    "display": "Products",
+    "shared": true,
+    "shared_with": [
+      "base.a.2",
+      "base.a.8",
+      "products.h1.1",
+      "products.span.1",
+      "products.arialabel.3"
+    ]
+  },
+  {
+    "id": "products.arialabel.3",
+    "page": "Products",
+    "source": "products.astro",
+    "location": "products · <ul> screen-reader label (never shown visually)",
+    "kind": "aria-label",
+    "text": "Products",
+    "display": "Products",
+    "shared": true,
+    "shared_with": [
+      "base.a.2",
+      "base.a.8",
+      "products.h1.1",
+      "products.span.1",
+      "products.arialabel.2"
     ]
   },
   {
@@ -1586,12 +1670,39 @@
     "shared_with": [
       "base.a.7",
       "index.a.5",
-      "products.a.3",
+      "products.a.2",
       "communications.a.6",
       "sensing.a.5",
       "about.a.1",
       "contact.h1.1"
     ]
+  },
+  {
+    "id": "maritime.arialabel.1",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "— · <a> screen-reader label (never shown visually)",
+    "kind": "aria-label",
+    "text": "Scroll to content",
+    "display": "Scroll to content",
+    "shared": true,
+    "shared_with": [
+      "products.arialabel.1",
+      "communications.arialabel.1",
+      "sensing.arialabel.1",
+      "about.arialabel.1"
+    ]
+  },
+  {
+    "id": "maritime.arialabel.2",
+    "page": "Maritime",
+    "source": "maritime.astro",
+    "location": "— · <nav> screen-reader label (never shown visually)",
+    "kind": "aria-label",
+    "text": "Maritime use cases",
+    "display": "Maritime use cases",
+    "shared": false,
+    "shared_with": []
   },
   {
     "id": "communications.meta.title",
@@ -1915,12 +2026,50 @@
     "shared_with": [
       "base.a.7",
       "index.a.5",
-      "products.a.3",
+      "products.a.2",
       "maritime.a.11",
       "sensing.a.5",
       "about.a.1",
       "contact.h1.1"
     ]
+  },
+  {
+    "id": "communications.arialabel.1",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "— · <a> screen-reader label (never shown visually)",
+    "kind": "aria-label",
+    "text": "Scroll to content",
+    "display": "Scroll to content",
+    "shared": true,
+    "shared_with": [
+      "products.arialabel.1",
+      "maritime.arialabel.1",
+      "sensing.arialabel.1",
+      "about.arialabel.1"
+    ]
+  },
+  {
+    "id": "communications.arialabel.2",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "— · <nav> screen-reader label (never shown visually)",
+    "kind": "aria-label",
+    "text": "Communications use cases",
+    "display": "Communications use cases",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "communications.title.1",
+    "page": "Communications",
+    "source": "communications.astro",
+    "location": "— · <iframe> tooltip on hover (also read by screen readers)",
+    "kind": "title",
+    "text": "Interactive 3D: conventional RF radiating and blocked by a barrier, beside a Plasmonix™ packet that follows the metal surface to the far node",
+    "display": "Interactive 3D: conventional RF radiating and blocked by a barrier, beside a Plasmonix™ packet that follows the metal surface to the far node",
+    "shared": false,
+    "shared_with": []
   },
   {
     "id": "sensing.meta.title",
@@ -2209,12 +2358,50 @@
     "shared_with": [
       "base.a.7",
       "index.a.5",
-      "products.a.3",
+      "products.a.2",
       "maritime.a.11",
       "communications.a.6",
       "about.a.1",
       "contact.h1.1"
     ]
+  },
+  {
+    "id": "sensing.arialabel.1",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "— · <a> screen-reader label (never shown visually)",
+    "kind": "aria-label",
+    "text": "Scroll to content",
+    "display": "Scroll to content",
+    "shared": true,
+    "shared_with": [
+      "products.arialabel.1",
+      "maritime.arialabel.1",
+      "communications.arialabel.1",
+      "about.arialabel.1"
+    ]
+  },
+  {
+    "id": "sensing.arialabel.2",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "— · <nav> screen-reader label (never shown visually)",
+    "kind": "aria-label",
+    "text": "Sensing use cases",
+    "display": "Sensing use cases",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "sensing.title.1",
+    "page": "Sensing",
+    "source": "sensing.astro",
+    "location": "— · <iframe> tooltip on hover (also read by screen readers)",
+    "kind": "title",
+    "text": "Interactive 3D: an external coupler sensing a presence sealed inside a metal container by sending a pulse through the wall and reading the echo",
+    "display": "Interactive 3D: an external coupler sensing a presence sealed inside a metal container by sending a pulse through the wall and reading the echo",
+    "shared": false,
+    "shared_with": []
   },
   {
     "id": "about.meta.title",
@@ -2325,8 +2512,10 @@
     "kind": "h3",
     "text": "M. Dendy Young",
     "display": "M. Dendy Young",
-    "shared": false,
-    "shared_with": []
+    "shared": true,
+    "shared_with": [
+      "about.alt.1"
+    ]
   },
   {
     "id": "about.div.1",
@@ -2457,8 +2646,10 @@
     "kind": "h3",
     "text": "John Mulholland",
     "display": "John Mulholland",
-    "shared": false,
-    "shared_with": []
+    "shared": true,
+    "shared_with": [
+      "about.alt.5"
+    ]
   },
   {
     "id": "about.div.5",
@@ -2490,8 +2681,10 @@
     "kind": "h3",
     "text": "Sanjee Singla",
     "display": "Sanjee Singla",
-    "shared": false,
-    "shared_with": []
+    "shared": true,
+    "shared_with": [
+      "about.alt.6"
+    ]
   },
   {
     "id": "about.div.6",
@@ -2626,12 +2819,122 @@
     "shared_with": [
       "base.a.7",
       "index.a.5",
-      "products.a.3",
+      "products.a.2",
       "maritime.a.11",
       "communications.a.6",
       "sensing.a.5",
       "contact.h1.1"
     ]
+  },
+  {
+    "id": "about.arialabel.1",
+    "page": "About",
+    "source": "about.astro",
+    "location": "— · <a> screen-reader label (never shown visually)",
+    "kind": "aria-label",
+    "text": "Scroll to content",
+    "display": "Scroll to content",
+    "shared": true,
+    "shared_with": [
+      "products.arialabel.1",
+      "maritime.arialabel.1",
+      "communications.arialabel.1",
+      "sensing.arialabel.1"
+    ]
+  },
+  {
+    "id": "about.alt.1",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · <img> image alt text (screen readers, and shown if the image fails)",
+    "kind": "alt",
+    "text": "M. Dendy Young",
+    "display": "M. Dendy Young",
+    "shared": true,
+    "shared_with": [
+      "about.h3.2"
+    ]
+  },
+  {
+    "id": "about.alt.2",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · <img> image alt text (screen readers, and shown if the image fails)",
+    "kind": "alt",
+    "text": "Dr. Igor Smolyaninov",
+    "display": "Dr. Igor Smolyaninov",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.alt.3",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · <img> image alt text (screen readers, and shown if the image fails)",
+    "kind": "alt",
+    "text": "Robert Ashley Johnston",
+    "display": "Robert Ashley Johnston",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.alt.4",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · <img> image alt text (screen readers, and shown if the image fails)",
+    "kind": "alt",
+    "text": "Captain Denny Brisley",
+    "display": "Captain Denny Brisley",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.alt.5",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · <img> image alt text (screen readers, and shown if the image fails)",
+    "kind": "alt",
+    "text": "John Mulholland",
+    "display": "John Mulholland",
+    "shared": true,
+    "shared_with": [
+      "about.h3.6"
+    ]
+  },
+  {
+    "id": "about.alt.6",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · <img> image alt text (screen readers, and shown if the image fails)",
+    "kind": "alt",
+    "text": "Sanjee Singla",
+    "display": "Sanjee Singla",
+    "shared": true,
+    "shared_with": [
+      "about.h3.7"
+    ]
+  },
+  {
+    "id": "about.alt.7",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · <img> image alt text (screen readers, and shown if the image fails)",
+    "kind": "alt",
+    "text": "Dr. Quirino Balzano",
+    "display": "Dr. Quirino Balzano",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "about.alt.8",
+    "page": "About",
+    "source": "about.astro",
+    "location": "team · <img> image alt text (screen readers, and shown if the image fails)",
+    "kind": "alt",
+    "text": "Maj. Gen. Patrick Higby",
+    "display": "Maj. Gen. Patrick Higby",
+    "shared": false,
+    "shared_with": []
   },
   {
     "id": "contact.meta.title",
@@ -2667,7 +2970,7 @@
     "shared_with": [
       "base.a.7",
       "index.a.5",
-      "products.a.3",
+      "products.a.2",
       "maritime.a.11",
       "communications.a.6",
       "sensing.a.5",
@@ -2811,6 +3114,17 @@
     "kind": "div",
     "text": "Government Identifiers CAGE: 7VPY9DUNS: 08-0672349UEI: MHBLZ1BWMNQ3",
     "display": "Government Identifiers CAGE: 7VPY9DUNS: 08-0672349UEI: MHBLZ1BWMNQ3",
+    "shared": false,
+    "shared_with": []
+  },
+  {
+    "id": "contact.placeholder.1",
+    "page": "Contact",
+    "source": "contact.astro",
+    "location": "contact-form · <textarea> greyed-out hint inside a form field",
+    "kind": "placeholder",
+    "text": "Tell us about your mission or use case",
+    "display": "Tell us about your mission or use case",
     "shared": false,
     "shared_with": []
   },

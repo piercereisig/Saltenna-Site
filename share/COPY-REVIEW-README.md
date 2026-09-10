@@ -75,15 +75,54 @@ The cover page tells PR, in plain language, that:
 Items 1–4 are also `TODO(user)` comments in `products.ts`, and all of them are in
 `docs/HANDOFF.md`.
 
+## What round 1 taught us — the extractor had a blind spot
+
+The first review document captured **text nodes only**. It missed every
+`alt`, `title`, `aria-label` and `placeholder` — 29 strings PR never saw.
+That is how the homepage's through-metal diagram kept a tooltip describing
+Saltenna's own demo as *"an **ultrasonic** data pulse"* right through a full
+copy review, directly beside a Plasmonix™ claim.
+
+Fixed 2026-09-10. `extract-copy.py` now also captures:
+
+| Attribute | Why it is copy |
+| --- | --- |
+| `alt` | read aloud by screen readers; shown if the image fails |
+| `title` | hover tooltip; also announced by screen readers |
+| `aria-label` | never visible, but it IS what assistive tech says |
+| `placeholder` | the greyed-out hint inside a form field |
+
+Three details that made this non-trivial, all worth keeping:
+
+1. **`<img>` and `<input>` are void tags** the tree walker discards, so
+   attributes are captured during parsing rather than from the node tree.
+2. **`<iframe>` is in `DROP_TREES`** — its *contents* are not copy, but its
+   `title` is. The grab now runs *before* the drop counter increments.
+3. **Astro expressions must be skipped.** `title={`Interactive 3D: ${p.fullName}`}`
+   reaches the parser as the fragment `` {`Interactive ``, so the filter tests for
+   any brace or backtick, not just a fully-wrapped `{…}`. Same for text nodes
+   that are only an expression plus an entity (`{p.domain.label} &rarr;`) —
+   entities are stripped before testing for real words, or "rarr" counts as one.
+
+**Verified complete**: with the dev server running, all seven rendered pages were
+diffed against the extract. Zero visible strings missing, zero attribute strings
+missing. (The one apparent gap, `Maritime →`, is a template-composed arrow whose
+label is captured separately.) 281 blocks → **305**.
+
+The document marks these blocks **NOT SHOWN ON SCREEN** in italics, and the
+cover page explains to the editor why invisible text still matters.
+
 ## Regenerating the document
 
 If the copy changes before PR replies, rebuild both:
 
 ```bash
 python3 share/extract-copy.py share/copy-map.json
-node <scratch>/build-copy-doc.js share/copy-map.json share/Saltenna-Website-Copy-REVIEW.docx
+node share/build-copy-doc.js share/copy-map.json share/Saltenna-Website-Copy-REVIEW.docx
 ```
-The doc builder needs the npm `docx` package (`npm install docx`). The extractor
+The builder needs the npm `docx` package. Node resolves it from the SCRIPT's
+directory upward, so install it at the repo root (`cd ~/Saltenna && npm install
+--no-save docx`) — installing it inside `webflow-app/` will NOT be found. The extractor
 covers `src/layouts/Base.astro`, `src/pages/*.astro` and `src/data/products.ts`;
 coverage was checked by diffing against the built HTML — everything on the live
 pages is in the extract except the composed arrow in "Maritime →", whose label

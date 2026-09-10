@@ -21,6 +21,20 @@ DROP_TREES = {"style", "script", "svg", "canvas", "video", "iframe", "noscript"}
 # inline formatting: part of a copy string, not a container boundary
 INLINE = {"strong", "em", "b", "i", "span", "br", "sup", "sub", "small", "code", "u", "abbr"}
 
+# Attributes that carry human-readable copy. These are NOT visible as page text,
+# so a text-node walk misses them entirely — which is how an iframe title
+# describing Saltenna's own demo as "an ultrasonic data pulse" survived a full
+# copy review unseen. Screen readers announce them and search engines read them.
+COPY_ATTRS = {
+    "alt": "image alt text (screen readers, and shown if the image fails)",
+    "title": "tooltip on hover (also read by screen readers)",
+    "aria-label": "screen-reader label (never shown visually)",
+    "placeholder": "greyed-out hint inside a form field",
+}
+# <Base title=… description=…> is the layout component's props, already captured
+# as {page}.meta.title / .description — don't emit it twice.
+ATTR_SKIP_TAGS = {"base"}
+
 PAGE_ORDER = ["index", "products", "maritime", "communications", "sensing", "about", "contact"]
 PAGE_TITLES = {"index": "Home", "products": "Products", "maritime": "Maritime",
                "communications": "Communications", "sensing": "Sensing",
@@ -50,11 +64,38 @@ class TreeParser(HTMLParser):
         self.root = Node("#root")
         self.cur = self.root
         self.drop = 0
+        self.attr_hits = []
+
+    def _grab_attrs(self, tag, attrs):
+        """record copy-bearing attributes; runs for void tags as well, so an
+        <img alt> or <input placeholder> is not lost with the element"""
+        if self.drop or tag.lower() in ATTR_SKIP_TAGS:
+            return
+        for k, v in attrs:
+            if k not in COPY_ATTRS or not v:
+                continue
+            v = v.strip()
+            if not v or not re.search(r"[A-Za-z]{2}", v):
+                continue
+            # Astro expressions are not literal copy. An attribute written as
+            #   title={`Interactive 3D: ${p.fullName}`}
+            # reaches HTMLParser as the fragment `{`Interactive` — so test for
+            # any brace or backtick, not just a fully-wrapped {…}.
+            if any(c in v for c in "{}`"):
+                continue
+            self.attr_hits.append((tag, k, v, self.cur))
 
     def handle_starttag(self, tag, attrs):
         if tag in DROP_TREES:
+            # grab the element's OWN copy attributes before dropping its subtree:
+            # an <iframe title="…"> describes the embed and IS copy, even though
+            # its contents are not. Missing this is how "an ultrasonic data pulse"
+            # sat on the homepage through a full copy review. Called before the
+            # drop counter increments, so it is not filtered out by itself.
+            self._grab_attrs(tag, attrs)
             self.drop += 1
             return
+        self._grab_attrs(tag, attrs)
         if self.drop or tag in VOID:
             return
         n = Node(tag, dict(attrs), self.cur)
@@ -62,7 +103,9 @@ class TreeParser(HTMLParser):
         self.cur = n
 
     def handle_startendtag(self, tag, attrs):
-        pass
+        if tag in DROP_TREES:
+            return
+        self._grab_attrs(tag, attrs)
 
     def handle_endtag(self, tag):
         if tag in DROP_TREES:
@@ -149,7 +192,13 @@ def collect(path, page, source):
         txt = re.sub(r"\s+", " ", inner_text(n)).strip()
         if not txt or not re.search(r"[A-Za-z]{2}", txt):
             continue
-        if txt.startswith("{") and txt.endswith("}"):      # pure astro expression
+        # Skip text that is only an Astro expression plus decoration, e.g.
+        # "{p.domain.label} &rarr;" — there is nothing an editor can change
+        # there (the label itself is captured from products.ts). Text that
+        # merely CONTAINS an expression alongside real words is kept.
+        bare = re.sub(r"\{[^}]*\}", "", txt)           # drop expressions
+        bare = re.sub(r"&[A-Za-z]+;|&#\d+;", "", bare)   # ...and entities: "&rarr;" is not a word
+        if not re.search(r"[A-Za-z]{2}", bare):
             continue
         sect, hints = context(n)
         base = f"{source}.{n.tag}"
@@ -160,6 +209,19 @@ def collect(path, page, source):
         entries.append({
             "id": f"{base}.{seen_ids[base]}", "page": page, "source": str(path.name),
             "location": loc, "kind": n.tag, "text": txt,
+        })
+
+    # ---- attribute copy, appended after the visible text of the same page ----
+    attr_seen = {}
+    for tag, attr, val, parent in p.attr_hits:
+        txt = re.sub(r"\s+", " ", val).strip()
+        sect, _hints = context(parent) if parent is not None else ("", [])
+        base = f"{source}.{attr.replace('-', '')}"
+        attr_seen[base] = attr_seen.get(base, 0) + 1
+        entries.append({
+            "id": f"{base}.{attr_seen[base]}", "page": page, "source": str(path.name),
+            "location": f"{sect or '—'} · <{tag}> {COPY_ATTRS[attr]}",
+            "kind": attr, "text": txt,
         })
     return entries
 
