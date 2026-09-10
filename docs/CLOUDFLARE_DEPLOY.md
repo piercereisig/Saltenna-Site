@@ -1,4 +1,34 @@
-# Deploying to Cloudflare Workers
+# Deploying to Cloudflare
+
+> ## ⚠️ CORRECTION — 2026-09-10: it is **Pages**, not Workers
+>
+> The site is live at **https://saltenna-site.pages.dev** — Cloudflare **Pages**,
+> not Workers. This file was written assuming `wrangler deploy` (Workers) because
+> `wrangler.json` was already set up that way and nobody had confirmed the
+> target. `wrangler deploy` is the WRONG command here.
+>
+> If Pages is connected to the GitHub repo, **`git push` deploys**. Otherwise it
+> is `wrangler pages deploy` or a dashboard upload. Confirm which before relying
+> on either.
+>
+> **Two live problems found on that deployment, 2026-09-10:**
+>
+> 1. **It is fully public — no password at all.** `/`, `/maritime` and
+>    `/products` all return 200 with no credentials, and the invented Ibex copy
+>    (`AN/PRC-163`) is publicly visible. The Basic-auth middleware in
+>    `src/middleware.ts` is not gating it. Either the deployed build predates
+>    `prerender = false`, or middleware is not running on this Pages setup.
+> 2. **Every video is broken.** `/videos/maritime-hero.mp4` returns **200 with
+>    `Content-Type: text/html`** — Pages is serving the fallback page, not an
+>    MP4. The deployed HTML still uses relative `src="videos/…"` paths and the
+>    files are not there, so every hero silently shows its poster still. This is
+>    exactly the failure mode `src/videoBase.ts` was changed to prevent; a fresh
+>    build now hardcodes the R2 base, so the next deploy fixes it.
+>
+> The deployment also predates the copy review — it contains no "Plasmonix" and
+> still shows the removed "Along the seabed" band. It needs redeploying.
+
+## The original Workers write-up
 
 _2026-09-10. Replaces the Webflow Cloud path in `WEBFLOW_CLOUD.md`._
 

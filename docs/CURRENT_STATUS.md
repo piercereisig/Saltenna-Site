@@ -5,6 +5,40 @@ _Last updated: 2026-08-24. Versions: CSS `?v=92`, main.js `?v=63`, MODEL_VERSION
 For a session handoff start at `docs/HANDOFF.md`; for anything under `graphics/`
 read `docs/MODEL_VIEWERS.md` first.
 
+## Sep 10 — "Along the seabed" band removed from maritime
+
+Removed the `.image-band` section (video + the single `<h2>Along the seabed</h2>`)
+from `maritime.astro` at the user's request. **This reverses the Jul 21 decision
+recorded as "seabed band KEPT per user".**
+
+Rest of the page verified intact: 6 video elements (hero + 5 use-case panels),
+5 use-case panels, 3 remaining h2s. Note `maritime-seabed.mp4` is a DIFFERENT
+clip — a use-case panel video — and is untouched; only `band-seabed-divers.mp4`
+is affected.
+
+Now orphaned: `videos/band-seabed-divers.mp4` (2.8 MB) and
+`images/posters/band-seabed-divers.jpg` (124 KB). The upload script derives its
+list from the pages, so it now lists **11** videos instead of 12; the file stays
+on R2 harmlessly until someone prunes it. `.image-band` CSS is still used by
+index, communications and sensing — do not remove it.
+
+## Sep 10 — THE SITE IS DEPLOYED, and two things are wrong with it
+
+Live at **https://saltenna-site.pages.dev** — Cloudflare **Pages**, not Workers.
+(`docs/CLOUDFLARE_DEPLOY.md` had assumed Workers; corrected there.)
+
+1. **No password on it.** `/`, `/maritime`, `/products` all return 200 with no
+   credentials, and the invented Ibex copy is publicly readable
+   (`AN/PRC-163` present in the live HTML). The Basic-auth middleware is not
+   gating this deployment.
+2. **All video is broken.** `/videos/maritime-hero.mp4` returns 200 with
+   `Content-Type: text/html` — the fallback page, not an MP4. The deployed HTML
+   uses relative `src="videos/…"` and the files are absent, so every hero shows
+   its poster still. Fixed for future builds by the `videoBase.ts` R2 default.
+
+The deployment predates the copy review (no "Plasmonix", still has the seabed
+band), so it needs a redeploy regardless.
+
 ## Sep 10 — VIDEO IS LIVE ON CLOUDFLARE R2 (task 4 unblocked)
 
 The user created the bucket and ran `scripts/upload-videos.sh`. **All 12
