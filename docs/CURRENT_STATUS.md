@@ -5,6 +5,60 @@ _Last updated: 2026-08-24. Versions: CSS `?v=92`, main.js `?v=63`, MODEL_VERSION
 For a session handoff start at `docs/HANDOFF.md`; for anything under `graphics/`
 read `docs/MODEL_VIEWERS.md` first.
 
+## Sep 10 — VIDEO IS LIVE ON CLOUDFLARE R2 (task 4 unblocked)
+
+The user created the bucket and ran `scripts/upload-videos.sh`. **All 12
+referenced videos are serving from R2**, verified individually:
+
+    https://pub-555801c7c2ae4ca7a0c96f1fac3f953d.r2.dev/videos/<name>.mp4
+
+12/12 return HTTP 206 with `Content-Type: video/mp4` and correct byte lengths —
+so the bucket is public, the MIME type is right, and **Range requests work**
+(required for seeking, and by Safari). Bucket root 404s: no directory listing,
+which is fine. This is the `r2.dev` development subdomain — Cloudflare
+rate-limits it and advises against production use; a custom domain
+(`media.saltenna.com`) needs saltenna.com's DNS on Cloudflare, which it is not
+(the domain points at Webflow), so that is a planned change, not a click.
+
+**The originals were uploaded**, not either set of re-encodes — correct, since
+R2 has no per-file cap and zero egress cost, so quality should be maximal there.
+
+### public/videos removed — the bundle no longer carries video
+
+`webflow-app/public/videos/` (77 MB, 12 heavily-compressed copies, added Sep 2
+for the self-contained preview folder) was shipping *inside* the deployment,
+which is what R2 exists to avoid. Moved to
+`videos/bundled-copies-removed-2026-09-10/` (moved, not deleted).
+
+**dist/client: 105 MB → 20 MB, zero .mp4 in the build.**
+
+⚠️ **CONSEQUENCE — `PUBLIC_VIDEO_BASE` is now REQUIRED for video to appear.**
+There is no bundled fallback any more. A build without it emits relative
+`videos/...` srcs that resolve to nothing, and every hero silently degrades to
+its poster still. It must be set in the Webflow Cloud environment:
+
+    PUBLIC_VIDEO_BASE=https://pub-555801c7c2ae4ca7a0c96f1fac3f953d.r2.dev/videos
+
+`astro dev` is unaffected — the dev-only Vite middleware still serves `../videos`.
+
+### Three sets of encodes now exist — know which is which
+
+| Location | hero-montage | maritime-hero | What it is |
+| --- | --- | --- | --- |
+| `videos/` | 32.5 MB | 33.9 MB | originals — **these are what R2 serves** |
+| `videos/reencoded-2026-08-25/` | 21.4 MB | 20.8 MB | for the Netlify static draft (25 MiB cap) |
+| `videos/bundled-copies-removed-2026-09-10/` | 17.7 MB | 14.2 MB | the ex-`public/videos` set |
+
+### Video count, settled
+
+**12 referenced, 19 on disk.** Confirmed by grepping every `.mp4` mention across
+all of `src/` (not just the `VIDEO_BASE}/` pattern the upload script matches):
+exactly 12, all on R2, none missing. The other 7 (54 MB) belong to removed
+sections — `about-band-strait`, `band-diver-pair`, `band-jungle-fog`,
+`bg-1490262444`, `bg-1729633035`, `saltenna-main`, and `products-hero.mp4`
+(orphaned when the products hero became a `data-fx="terrain"` canvas). Not
+uploaded, deliberately.
+
 ## Aug 24 — Stingray card photo → subsea bubble column
 
 The Stingray spec card now shows the user's underwater bubble-curtain photograph
