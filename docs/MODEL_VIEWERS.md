@@ -106,7 +106,47 @@ blocked on both. A build from their authors with zoom disabled is the durable fi
 Verified on the real products page, all five viewers active:
 `wheelBlocked: true` and `orbitPointerAllowed: true` on every one.
 
-## Remora hotspots are back (2026-09-10)
+## Remora hotspots: device parts kept, pipe markers dropped (2026-09-10)
+
+Final state after two passes the same day. Remora's CSS2D hotspots were restored
+in full (they had been hidden wholesale in v63), then narrowed: the parts of the
+**Remora itself** stay highlightable, the markers sitting on the **pipe** are
+hidden.
+
+| Kept — on the device | Dropped — on the pipe |
+| --- | --- |
+| Limpet housing | 12-inch flanged spool |
+| Bolted baseplate | Marine growth |
+| Wet-mate connector | |
+| Access cover and ribs | |
+| Status indicator | |
+
+Selected by the dot's own `aria-label`, not by position:
+
+```css
+.hotspot:has(> .dot[aria-label="12-inch flanged spool"]),
+.hotspot:has(> .dot[aria-label="Marine growth"]) { display: none !important; }
+```
+
+The markup is `.hotspot > .dot[aria-label] + .card`, so `:has()` reaches the
+wrapper from the label. `nth-child` would work today but would silently retarget
+if the author reorders their HOTSPOTS array in a future build. Verified
+`CSS.supports('selector(:has(> .x))')` is true in the target browser.
+
+The whole `.hotspot` is hidden rather than just `.dot` — with no dot there is
+nothing to click, so the card would be unreachable regardless.
+
+**Verified by measurement:** 5 hotspots `display: block` with visible dots, the
+2 pipe ones `display: none`; clicking "Limpet housing" still flips
+`data-open` to `true` and opens its card, so the highlight behaviour is intact.
+
+**Correction to the v63 note:** it said a hidden hotspot vanishes from the DOM.
+That holds only when the rule is in place *before* CSS2DRenderer first inserts
+the node (it skips `display:none` elements). Here the skin lands after
+insertion, so all 7 remain in the DOM and two are simply hidden. Check computed
+display per element — never assert on `querySelectorAll('.hotspot').length`.
+
+## (superseded the same day) Remora hotspots are back (2026-09-10)
 
 The `.hotspot { display: none !important }` rule added to Remora's runtime skin
 in main.js v63 was **removed** at the user's request. The teal CSS2D dots on the

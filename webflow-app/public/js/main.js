@@ -257,21 +257,35 @@ document.querySelectorAll(".uc-explorer[data-explorer]").forEach((ex) => {
                  background: radial-gradient(62% 52% at 50% 42%,
                    #16233a, #101a2c 45%, #0b1220) !important; }
         .readout { display: none !important; }
-        /* Its CSS2D hotspot dots are KEPT (restored 2026-09-10 at the user's
-           request, having been hidden in v63 for consistency with the radio and
-           diver, which reveal specs on hover with nothing painted on the model).
-           They are the pipe/pod markers, and they carry the viewer's
-           click-to-open annotation cards — Limpet housing, Bolted baseplate,
-           Wet-mate connector, Access cover and ribs, Status indicator, the
-           12-inch flanged spool and the pipe entry. Hiding them removed that
-           whole labelled walk-through, which is why they are back.
-           To hide them again, re-add a display:none rule for .hotspot here
-           (kept out of this comment verbatim so a grep for the rule does not
-           match the comment describing it).
-           Diagnostic note: querySelectorAll('.hotspot') returns 0 while such a
-           rule is live — three's CSS2DRenderer does not insert elements whose
-           computed display is none, so absence from the DOM is the symptom of
-           the rule working, not of a failure. */
+        /* CSS2D hotspots: the DEVICE ones are kept, the PIPE ones are dropped.
+           Restored wholesale on 2026-09-10 (they had been hidden in v63), then
+           narrowed the same day — the user wants the parts of the Remora itself
+           to stay highlightable but the markers sitting on the pipe gone.
+
+           Kept (5, all on the device): Limpet housing, Bolted baseplate,
+           Wet-mate connector, Access cover and ribs, Status indicator.
+           Dropped (2, both on the pipe): 12-inch flanged spool, Marine growth.
+
+           Selected by the dot's own aria-label rather than by position. The
+           markup is
+             <div class="hotspot"><div class="dot" aria-label="NAME"></div>
+                                  <div class="card">…</div></div>
+           so :has() reaches the wrapper from the label. nth-child would work
+           today but would silently retarget if the author reorders their
+           HOTSPOTS array in a future build.
+
+           Hiding the whole .hotspot (not just .dot) is deliberate: with no dot
+           there is nothing to click, so the card would be unreachable anyway.
+
+           Diagnostic note, MEASURED rather than assumed: all 7 stay in the DOM
+           and the two pipe ones simply compute to display:none. The v63 note
+           claimed a hidden hotspot vanishes from the DOM — that happens when
+           the rule is in place before CSS2DRenderer first inserts the element
+           (it skips display:none nodes), but here the skin lands after
+           insertion, so they persist and are merely hidden. Either way, check
+           computed display per element; do NOT assert on the count. */
+        .hotspot:has(> .dot[aria-label="12-inch flanged spool"]),
+        .hotspot:has(> .dot[aria-label="Marine growth"]) { display: none !important; }
         /* keep Reset, drop the page titling, and match the radio's button */
         .titleblock .eyebrow, .titleblock h1, .titleblock .sub { display: none !important; }
         .titleblock { position: absolute !important; top: 10px !important;
