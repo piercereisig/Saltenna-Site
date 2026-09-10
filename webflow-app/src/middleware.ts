@@ -65,6 +65,19 @@ function readEnv(key: string): string | undefined {
 }
 
 export const onRequest = defineMiddleware(async (context, next) => {
+  // `astro dev` is not the thing this gate protects — the DEPLOYED staging
+  // environment is. Gating localhost only produced a 503 wall (the gate fails
+  // closed, so with no PREVIEW_PASSWORD every page returned "Preview is not
+  // configured") and a login prompt on every reload. import.meta.env.DEV is
+  // true only under `astro dev`; it is false for `astro build`, so every
+  // production build — and `npm run preview`, which builds first — keeps the
+  // gate. Deliberate trade-off: a dev server exposed on a LAN is ungated.
+  if (import.meta.env.DEV) {
+    const devResponse = await next();
+    devResponse.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return devResponse;
+  }
+
   const expectedPass = readEnv("PREVIEW_PASSWORD");
   if (!expectedPass) {
     return new Response(

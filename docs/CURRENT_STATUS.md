@@ -5,7 +5,32 @@ _Last updated: 2026-08-24. Versions: CSS `?v=92`, main.js `?v=63`, MODEL_VERSION
 For a session handoff start at `docs/HANDOFF.md`; for anything under `graphics/`
 read `docs/MODEL_VIEWERS.md` first.
 
-## Sep 10 — "Along the seabed" band removed from maritime
+## Sep 10 — image bands removed: "Along the seabed" and "Through and along the ice"
+
+Both `.image-band` sections (a full-bleed video with a single `<h2>` over it)
+removed at the user's request: `maritime.astro` ("Along the seabed") and
+`communications.astro` ("Through and along the ice"). **The seabed removal
+reverses the Jul 21 decision recorded as "seabed band KEPT per user".**
+
+Verified after each: maritime keeps 6 videos / 5 use-case panels / 3 h2s;
+communications keeps its hero video / 5 use-case panels / 2 h2s.
+
+**The two videos behave differently — worth knowing before pruning R2:**
+
+| Video | Used elsewhere? | Result |
+| --- | --- | --- |
+| `band-seabed-divers.mp4` (2.8 MB) | no | **orphaned** — dropped from the upload set |
+| `band-drift-ice.mp4` (3.9 MB) | **yes — the About page hero** | still referenced, stays on R2 |
+
+Also note `maritime-seabed.mp4` is a *use-case panel* clip, NOT the band video,
+and is untouched. Upload script now derives **11** videos (was 12).
+
+`.image-band` CSS is still in use — do not remove it. Two bands remain:
+
+- `index.astro` — "Built for the maritime edge"
+- `sensing.astro` — "Every container, accounted for"
+
+## (superseded heading) Sep 10 — "Along the seabed" band removed from maritime
 
 Removed the `.image-band` section (video + the single `<h2>Along the seabed</h2>`)
 from `maritime.astro` at the user's request. **This reverses the Jul 21 decision
