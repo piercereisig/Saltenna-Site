@@ -25,13 +25,10 @@ webflow-app/
 
 ## Local development
 
-**First: `cp .env.example .env`.** The Basic-auth gate in `src/middleware.ts`
-fails closed — with no `PREVIEW_PASSWORD` set, every page returns 503 and the
-dev server appears completely broken. `.env` is gitignored, so each clone needs
-this once.
+No `.env` is needed — the static build has no in-app auth gate (the preview is
+gated by Cloudflare Access).
 
 ```bash
-cp .env.example .env
 npm install
 npm run dev       # astro dev — fast
 npm run build     # astro build — static output to dist/
@@ -50,28 +47,24 @@ Two things to know when checking it locally:
   Safari requires), so hero videos play with no env setup. It is `apply: "serve"`
   only — nothing enters the build. Poster images always render regardless.
 
-## Video: Cloudflare R2
+## Video
 
-The referenced MP4s total ~146 MB and are **not** committed (see `.gitignore`)
-and do **not** ship in the deploy: Cloudflare caps a single static asset at
-**25 MiB**, and several clips exceed that. They live in **R2**:
+`VIDEO_BASE` (`src/videoBase.ts`) defaults to the relative path `videos`, so the
+MP4s are served from the site's **own origin** — deliberately NOT from Cloudflare's
+shared `*.r2.dev` domain, which corporate security tools blocklist wholesale
+(video from there is flagged as malicious on company machines).
 
-```bash
-# once, with wrangler authenticated for R2 write
-./scripts/upload-videos.sh <bucket-name> --dry-run   # check first
-./scripts/upload-videos.sh <bucket-name>
-```
+The clips are large (~122 MB) and are supplied out-of-band, not committed to this
+repo. Two supported ways to provide them:
 
-Then attach a public custom domain to the bucket (e.g. `media.saltenna.com`) and
-build with:
-
-```bash
-PUBLIC_VIDEO_BASE=https://media.saltenna.com/videos npm run build
-```
-
-Set `PUBLIC_VIDEO_BASE` as a **build-time environment variable in the Cloudflare
-Pages project** so deploys pick it up. The upload script derives its file list
-from `src/pages/*.astro`, so it stays in sync with the markup automatically.
+- **Now — git submodule** at `public/videos/` (a separate repo keeps this repo's
+  history lean). After cloning: `git submodule update --init`. The clips ship
+  inside the deploy and serve from `/videos/`.
+- **Later (preferred) — R2 via your own domain** (no repo/deploy bloat, no r2.dev
+  block). Once `saltenna.com`'s DNS is on Cloudflare, attach `media.saltenna.com`
+  to the R2 bucket and build with `PUBLIC_VIDEO_BASE=https://media.saltenna.com/videos`
+  as a **build** env var on the Pages project. `scripts/upload-videos.sh` uploads
+  the clips; switching is one env var and dropping the submodule.
 
 ## Deploying to Cloudflare Pages
 
