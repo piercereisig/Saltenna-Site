@@ -37,8 +37,8 @@ const canonical = new URL(pagePath, SITE).href;
 const ogImage = new URL(image ?? "images/posters/hero-montage.jpg", SITE).href;
 
 // Bump these together with the source files to bust caches on redeploy.
-const CSS_VERSION = "92";
-const JS_VERSION = "63";
+const CSS_VERSION = "93";
+const JS_VERSION = "65";
 ---
 
 <!DOCTYPE html>
@@ -50,8 +50,9 @@ const JS_VERSION = "63";
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
 
-  <!-- Icons. TODO: replace with a purpose-built favicon (square SVG + 32/180px
-       PNGs); logo-color.png is the color wordmark used as a stopgap. -->
+  <!-- Icons. favicon.svg is the brand mark on a navy tile (square, tab-safe).
+       apple-touch-icon stays a PNG (Safari ignores SVG here). -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="icon" type="image/png" href="images/logo-color.png" />
   <link rel="apple-touch-icon" href="images/logo-color.png" />
   <meta name="theme-color" content="#0d1424" />
@@ -102,7 +103,7 @@ const JS_VERSION = "63";
           <a class="logo" href="index.html">
             <img src="images/logo-white.png" alt="Saltenna" />
           </a>
-          <p>Wireless communications and sensing in the most difficult environments on Earth.</p>
+          <p>Wireless communications and sensing in the most difficult environments on Earth</p>
         </div>
         <div>
           <h4>Technology</h4>

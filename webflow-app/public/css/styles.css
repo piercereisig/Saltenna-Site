@@ -1854,15 +1854,28 @@ html.js .reveal.visible { opacity: 1; transform: none; }
 #software .container { position: relative; z-index: 1; }
 
 /* 4 — pill badges under section intros; mono status line under the waveform */
-.pp-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+/* These are decorative metadata labels (their container is aria-hidden), NOT
+   controls. They used to be 999px pills with a border, which reads as a button
+   — a copy reviewer flagged them as "not clickable, please make clickable or
+   remove". Four of the six have no page to link to (Software-defined, Extreme
+   path loss, Low-power embedded, Hardware), so linking some and not others
+   inside one row would be worse. The button affordance was removed instead:
+   they now use the site's mono metadata idiom, like .status-badge, separated
+   by middots rather than boxed. */
+.pp-pills { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0; margin-top: 20px; }
 .pp-pill {
-  font-size: 12px;
-  letter-spacing: 0.04em;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--text-dim);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 6px 14px;
   white-space: nowrap;
+}
+.pp-pill + .pp-pill::before {
+  content: "·";
+  margin: 0 12px;
+  color: var(--text-dim);
+  opacity: 0.55;
 }
 .tool-status {
   display: flex;

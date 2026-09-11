@@ -5,6 +5,119 @@ _Last updated: 2026-08-24. Versions: CSS `?v=92`, main.js `?v=63`, MODEL_VERSION
 For a session handoff start at `docs/HANDOFF.md`; for anything under `graphics/`
 read `docs/MODEL_VIEWERS.md` first.
 
+## Sep 10 — image bands removed: "Along the seabed" and "Through and along the ice"
+
+Both `.image-band` sections (a full-bleed video with a single `<h2>` over it)
+removed at the user's request: `maritime.astro` ("Along the seabed") and
+`communications.astro` ("Through and along the ice"). **The seabed removal
+reverses the Jul 21 decision recorded as "seabed band KEPT per user".**
+
+Verified after each: maritime keeps 6 videos / 5 use-case panels / 3 h2s;
+communications keeps its hero video / 5 use-case panels / 2 h2s.
+
+**The two videos behave differently — worth knowing before pruning R2:**
+
+| Video | Used elsewhere? | Result |
+| --- | --- | --- |
+| `band-seabed-divers.mp4` (2.8 MB) | no | **orphaned** — dropped from the upload set |
+| `band-drift-ice.mp4` (3.9 MB) | **yes — the About page hero** | still referenced, stays on R2 |
+
+Also note `maritime-seabed.mp4` is a *use-case panel* clip, NOT the band video,
+and is untouched. Upload script now derives **11** videos (was 12).
+
+`.image-band` CSS is still in use — do not remove it. Two bands remain:
+
+- `index.astro` — "Built for the maritime edge"
+- `sensing.astro` — "Every container, accounted for"
+
+## (superseded heading) Sep 10 — "Along the seabed" band removed from maritime
+
+Removed the `.image-band` section (video + the single `<h2>Along the seabed</h2>`)
+from `maritime.astro` at the user's request. **This reverses the Jul 21 decision
+recorded as "seabed band KEPT per user".**
+
+Rest of the page verified intact: 6 video elements (hero + 5 use-case panels),
+5 use-case panels, 3 remaining h2s. Note `maritime-seabed.mp4` is a DIFFERENT
+clip — a use-case panel video — and is untouched; only `band-seabed-divers.mp4`
+is affected.
+
+Now orphaned: `videos/band-seabed-divers.mp4` (2.8 MB) and
+`images/posters/band-seabed-divers.jpg` (124 KB). The upload script derives its
+list from the pages, so it now lists **11** videos instead of 12; the file stays
+on R2 harmlessly until someone prunes it. `.image-band` CSS is still used by
+index, communications and sensing — do not remove it.
+
+## Sep 10 — THE SITE IS DEPLOYED, and two things are wrong with it
+
+Live at **https://saltenna-site.pages.dev** — Cloudflare **Pages**, not Workers.
+(`docs/CLOUDFLARE_DEPLOY.md` had assumed Workers; corrected there.)
+
+1. **No password on it.** `/`, `/maritime`, `/products` all return 200 with no
+   credentials, and the invented Ibex copy is publicly readable
+   (`AN/PRC-163` present in the live HTML). The Basic-auth middleware is not
+   gating this deployment.
+2. **All video is broken.** `/videos/maritime-hero.mp4` returns 200 with
+   `Content-Type: text/html` — the fallback page, not an MP4. The deployed HTML
+   uses relative `src="videos/…"` and the files are absent, so every hero shows
+   its poster still. Fixed for future builds by the `videoBase.ts` R2 default.
+
+The deployment predates the copy review (no "Plasmonix", still has the seabed
+band), so it needs a redeploy regardless.
+
+## Sep 10 — VIDEO IS LIVE ON CLOUDFLARE R2 (task 4 unblocked)
+
+The user created the bucket and ran `scripts/upload-videos.sh`. **All 12
+referenced videos are serving from R2**, verified individually:
+
+    https://pub-555801c7c2ae4ca7a0c96f1fac3f953d.r2.dev/videos/<name>.mp4
+
+12/12 return HTTP 206 with `Content-Type: video/mp4` and correct byte lengths —
+so the bucket is public, the MIME type is right, and **Range requests work**
+(required for seeking, and by Safari). Bucket root 404s: no directory listing,
+which is fine. This is the `r2.dev` development subdomain — Cloudflare
+rate-limits it and advises against production use; a custom domain
+(`media.saltenna.com`) needs saltenna.com's DNS on Cloudflare, which it is not
+(the domain points at Webflow), so that is a planned change, not a click.
+
+**The originals were uploaded**, not either set of re-encodes — correct, since
+R2 has no per-file cap and zero egress cost, so quality should be maximal there.
+
+### public/videos removed — the bundle no longer carries video
+
+`webflow-app/public/videos/` (77 MB, 12 heavily-compressed copies, added Sep 2
+for the self-contained preview folder) was shipping *inside* the deployment,
+which is what R2 exists to avoid. Moved to
+`videos/bundled-copies-removed-2026-09-10/` (moved, not deleted).
+
+**dist/client: 105 MB → 20 MB, zero .mp4 in the build.**
+
+⚠️ **CONSEQUENCE — `PUBLIC_VIDEO_BASE` is now REQUIRED for video to appear.**
+There is no bundled fallback any more. A build without it emits relative
+`videos/...` srcs that resolve to nothing, and every hero silently degrades to
+its poster still. It must be set in the Webflow Cloud environment:
+
+    PUBLIC_VIDEO_BASE=https://pub-555801c7c2ae4ca7a0c96f1fac3f953d.r2.dev/videos
+
+`astro dev` is unaffected — the dev-only Vite middleware still serves `../videos`.
+
+### Three sets of encodes now exist — know which is which
+
+| Location | hero-montage | maritime-hero | What it is |
+| --- | --- | --- | --- |
+| `videos/` | 32.5 MB | 33.9 MB | originals — **these are what R2 serves** |
+| `videos/reencoded-2026-08-25/` | 21.4 MB | 20.8 MB | for the Netlify static draft (25 MiB cap) |
+| `videos/bundled-copies-removed-2026-09-10/` | 17.7 MB | 14.2 MB | the ex-`public/videos` set |
+
+### Video count, settled
+
+**12 referenced, 19 on disk.** Confirmed by grepping every `.mp4` mention across
+all of `src/` (not just the `VIDEO_BASE}/` pattern the upload script matches):
+exactly 12, all on R2, none missing. The other 7 (54 MB) belong to removed
+sections — `about-band-strait`, `band-diver-pair`, `band-jungle-fog`,
+`bg-1490262444`, `bg-1729633035`, `saltenna-main`, and `products-hero.mp4`
+(orphaned when the products hero became a `data-fx="terrain"` canvas). Not
+uploaded, deliberately.
+
 ## Aug 24 — Stingray card photo → subsea bubble column
 
 The Stingray spec card now shows the user's underwater bubble-curtain photograph

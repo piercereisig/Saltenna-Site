@@ -1,3 +1,13 @@
+> ## ⚠️ SUPERSEDED — 2026-09-10
+>
+> **Webflow Cloud is no longer the deploy target. The site deploys directly to
+> Cloudflare Workers.** See `docs/CLOUDFLARE_DEPLOY.md`.
+>
+> Keep this file for the platform limits it documents, which still apply — the
+> 25 MiB per-asset cap was always a *Workers* limit, not a Webflow one, and it
+> is still why video lives on R2. The Webflow-specific parts (mount paths,
+> `webflow cloud init`, the Assets-panel restrictions) no longer apply.
+
 # Deployment — Webflow Cloud (Astro)
 
 _Created 2026-07-31. Status: built and verified locally; **not yet deployed**._

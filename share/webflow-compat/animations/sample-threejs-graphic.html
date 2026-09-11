@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plasmonic Surface Wave Link</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#0a0a0b;overflow:hidden;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  .card{position:relative;width:100%;height:100%;overflow:hidden;cursor:grab;
+    background:linear-gradient(160deg,#161618,#0a0a0b 70%);}
+  .card.dragging{cursor:grabbing;}
+  canvas{display:block;width:100%;height:100%;}
+  .hud{position:absolute;left:16px;top:14px;font-size:10px;letter-spacing:0.14em;
+    color:#8a8a90;pointer-events:none;line-height:1.9;text-transform:uppercase;}
+  .hud .k{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:-1px;}
+  .hint{position:absolute;right:14px;bottom:11px;font-size:10px;letter-spacing:0.12em;
+    color:#55555a;pointer-events:none;text-transform:uppercase;}
+</style>
+</head>
+<body>
+<div class="card" id="card">
+    <canvas id="c3d"></canvas>
+    <div class="hud">
+      <div><span class="k" style="background:#8fd6ff"></span>electron pile-up (&minus;)</div>
+      <div><span class="k" style="background:#f1f1f2"></span>electron depletion (+)</div>
+      <div><span class="k" style="background:#7a7a80"></span>electric field, fading with height</div>
+    </div>
+    <div class="hint">drag to orbit</div>
+  </div>
+<script src="../js/vendor/three.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  if(!window.THREE){ document.getElementById("card").insertAdjacentHTML("beforeend",
+    "<div style='position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#77777c;font-size:12px'>three.js failed to load — check your connection and reload.</div>");
+    return; }
+
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var card   = document.getElementById("card");
+  var canvas = document.getElementById("c3d");
+  var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
+  renderer.setClearColor(0x000000, 0);
+
+  var scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0x0a0a0b, 110, 210);
+
+  var camera = new THREE.PerspectiveCamera(40, 1.5, 0.1, 500);
+
+  /* ---------- constants ---------- */
+  var XMIN=-50, XMAX=50, ZMIN=-14, ZMAX=14;
+  var LAMBDA=20, K=2*Math.PI/LAMBDA, OMEGA=2*Math.PI*0.45;
+  var D_AIR=8.0, D_METAL=2.2;               // decay lengths
+  var NODE_A=-35, NODE_B=35, SIG=8;         // packet
+  var DATA = new THREE.Color(0x8fd6ff);
+  var WHITE= new THREE.Color(0xf1f1f2);
+  var GREY = new THREE.Color(0x7a7a80);
+
+  var pos=NODE_A, dir=1, hold=0;            // packet state
+
+  function amp(x, xp){ var g=Math.exp(-(x-xp)*(x-xp)/(2*SIG*SIG)); return 0.22+0.78*g; }
+  function pk (x, xp){ return Math.exp(-(x-xp)*(x-xp)/(2*SIG*SIG)); }
+
+  /* ---------- metal slab ---------- */
+  var slab = new THREE.Mesh(
+    new THREE.BoxGeometry(XMAX-XMIN, 8, ZMAX-ZMIN),
+    new THREE.MeshBasicMaterial({color:0x141416, transparent:true, opacity:0.42, depthWrite:false})
+  );
+  slab.position.set(0,-4,0);
+  scene.add(slab);
+
+  /* bright interface outline */
+  var edge = new THREE.LineLoop(
+    new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(XMIN,0,ZMIN), new THREE.Vector3(XMAX,0,ZMIN),
+      new THREE.Vector3(XMAX,0,ZMAX), new THREE.Vector3(XMIN,0,ZMAX)
+    ]),
+    new THREE.LineBasicMaterial({color:0xf1f1f2, transparent:true, opacity:0.85})
+  );
+  scene.add(edge);
+
+  /* ---------- surface charge points ---------- */
+  var sc = {xs:[], zs:[]};
+  (function(){
+    for(var x=XMIN+1; x<=XMAX-1; x+=1.4)
+      for(var z=ZMIN+1; z<=ZMAX-1; z+=1.8){ sc.xs.push(x); sc.zs.push(z); }
+  })();
+  var scN = sc.xs.length;
+  var scPos = new Float32Array(scN*3), scCol = new Float32Array(scN*3);
+  for(var i=0;i<scN;i++){ scPos[i*3]=sc.xs[i]; scPos[i*3+1]=0.12; scPos[i*3+2]=sc.zs[i]; }
+  var scGeo = new THREE.BufferGeometry();
+  scGeo.setAttribute("position", new THREE.BufferAttribute(scPos,3));
+  scGeo.setAttribute("color",    new THREE.BufferAttribute(scCol,3));
+  var scPts = new THREE.Points(scGeo, new THREE.PointsMaterial({
+    size:0.9, vertexColors:true, transparent:true, opacity:0.95, depthWrite:false,
+    blending:THREE.AdditiveBlending
+  }));
+  scene.add(scPts);
+
+  /* ---------- electron sea ---------- */
+  var es = {xs:[], ys:[], zs:[]};
+  (function(){
+    var layers=[-0.9,-1.9,-3.2,-5.0,-7.0];
+    for(var li=0;li<layers.length;li++)
+      for(var x=XMIN+1.5; x<=XMAX-1.5; x+=2.4)
+        for(var z=ZMIN+1.5; z<=ZMAX-1.5; z+=2.8){ es.xs.push(x); es.ys.push(layers[li]); es.zs.push(z); }
+  })();
+  var esN = es.xs.length;
+  var esPos = new Float32Array(esN*3), esCol = new Float32Array(esN*3);
+  var esGeo = new THREE.BufferGeometry();
+  esGeo.setAttribute("position", new THREE.BufferAttribute(esPos,3));
+  esGeo.setAttribute("color",    new THREE.BufferAttribute(esCol,3));
+  var esPts = new THREE.Points(esGeo, new THREE.PointsMaterial({
+    size:0.55, vertexColors:true, transparent:true, opacity:0.9, depthWrite:false
+  }));
+  scene.add(esPts);
+
+  /* ---------- field vector segments ---------- */
+  var fv = {xs:[], ys:[], zs:[]};
+  (function(){
+    var hs=[1.2, 3.0, 5.4, 8.4, 12.0];
+    var zr=[-9, 0, 9];
+    for(var zi=0;zi<zr.length;zi++)
+      for(var hi=0;hi<hs.length;hi++)
+        for(var x=XMIN+2; x<=XMAX-2; x+=2.6){ fv.xs.push(x); fv.ys.push(hs[hi]); fv.zs.push(zr[zi]); }
+  })();
+  var fvN = fv.xs.length;
+  var fvPos = new Float32Array(fvN*6), fvCol = new Float32Array(fvN*6);
+  var fvGeo = new THREE.BufferGeometry();
+  fvGeo.setAttribute("position", new THREE.BufferAttribute(fvPos,3));
+  fvGeo.setAttribute("color",    new THREE.BufferAttribute(fvCol,3));
+  var fvLines = new THREE.LineSegments(fvGeo, new THREE.LineBasicMaterial({
+    vertexColors:true, transparent:true, opacity:0.9, depthWrite:false,
+    blending:THREE.AdditiveBlending
+  }));
+  scene.add(fvLines);
+
+  /* ---------- coupler nodes ---------- */
+  function makeLabel(text){
+    var c=document.createElement("canvas"); c.width=256; c.height=64;
+    var g=c.getContext("2d");
+    g.font="600 26px -apple-system, Segoe UI, sans-serif";
+    g.fillStyle="#8a8a90"; g.textAlign="center"; g.textBaseline="middle";
+    var sp=text.split("").join("\u200a\u200a");
+    g.fillText(sp,128,34);
+    var tex=new THREE.CanvasTexture(c);
+    var s=new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false}));
+    s.scale.set(12,3,1);
+    return s;
+  }
+  function makeNode(x,label){
+    var grp=new THREE.Group();
+
+    /* flush hairline inlays where the wave couples in and out */
+    var stripMat=new THREE.MeshBasicMaterial({color:0xf1f1f2, transparent:true, opacity:0.45});
+    for(var sI=-1;sI<=1;sI++){
+      var strip=new THREE.Mesh(new THREE.BoxGeometry(0.26,0.08,7.6), stripMat);
+      strip.position.set(sI*1.6, 0.10, 0);
+      grp.add(strip);
+    }
+
+    /* hairline energy beam from surface to the ring assembly */
+    var beamMat=new THREE.MeshBasicMaterial({color:0x8fd6ff, transparent:true, opacity:0.06,
+      blending:THREE.AdditiveBlending, depthWrite:false});
+    var beam=new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.05,9.0,8,1,true), beamMat);
+    beam.position.set(0,4.6,0); grp.add(beam);
+
+    /* floating split rings, counter-rotating */
+    var ringMatA=new THREE.MeshBasicMaterial({color:0xb9b9bd});
+    var ringMatB=new THREE.MeshBasicMaterial({color:0x8a8a90});
+    var arcA=new THREE.Mesh(new THREE.TorusGeometry(2.4,0.065,10,72,Math.PI*1.65), ringMatA);
+    var arcB=new THREE.Mesh(new THREE.TorusGeometry(1.55,0.05,10,72,Math.PI*1.30), ringMatB);
+    arcA.rotation.x=Math.PI/2; arcB.rotation.x=Math.PI/2;
+    var holderA=new THREE.Group(), holderB=new THREE.Group();
+    holderA.add(arcA); holderB.add(arcB);
+    holderA.position.set(0,9.2,0); holderB.position.set(0,9.2,0);
+    holderA.rotation.z=0.10; holderB.rotation.z=-0.14;   /* slight opposing tilts */
+    grp.add(holderA); grp.add(holderB);
+
+    /* small luminous core */
+    var coreMat=new THREE.MeshBasicMaterial({color:0xf1f1f2});
+    var core=new THREE.Mesh(new THREE.SphereGeometry(0.32,16,12), coreMat);
+    core.position.set(0,9.2,0); grp.add(core);
+
+    /* soft halo sprite */
+    var haloMat=new THREE.SpriteMaterial({color:0x8fd6ff, transparent:true, opacity:0,
+      blending:THREE.AdditiveBlending, depthWrite:false});
+    var hc=document.createElement("canvas"); hc.width=hc.height=128;
+    var hg=hc.getContext("2d");
+    var rg=hg.createRadialGradient(64,64,0,64,64,64);
+    rg.addColorStop(0,"rgba(255,255,255,1)"); rg.addColorStop(1,"rgba(255,255,255,0)");
+    hg.fillStyle=rg; hg.fillRect(0,0,128,128);
+    haloMat.map=new THREE.CanvasTexture(hc);
+    var halo=new THREE.Sprite(haloMat);
+    halo.scale.set(9,9,1); halo.position.copy(core.position); grp.add(halo);
+
+    /* expanding ripple on the surface when a packet lands or leaves */
+    var rippleMat=new THREE.MeshBasicMaterial({color:0x8fd6ff, transparent:true, opacity:0,
+      side:THREE.DoubleSide, blending:THREE.AdditiveBlending, depthWrite:false});
+    var ripple=new THREE.Mesh(new THREE.RingGeometry(1.9,2.05,72), rippleMat);
+    ripple.rotation.x=-Math.PI/2; ripple.position.set(0,0.14,0);
+    grp.add(ripple);
+
+    var lab=makeLabel(label); lab.position.set(0,13.6,0); grp.add(lab);
+    grp.position.set(x,0,0);
+    scene.add(grp);
+    return {grp:grp, holderA:holderA, holderB:holderB,
+            ringMatA:ringMatA, ringMatB:ringMatB,
+            core:core, coreMat:coreMat, haloMat:haloMat, beamMat:beamMat,
+            ripple:ripple, rippleMat:rippleMat, rippleAge:99};
+  }
+  var nodeA=makeNode(NODE_A,"NODE A");
+  var nodeB=makeNode(NODE_B,"NODE B");
+
+  /* ---------- per-frame update ---------- */
+  var tmpC=new THREE.Color();
+  function update(t, xp, dt){
+    var th0=-OMEGA*t;
+
+    /* surface charge */
+    for(var i=0;i<scN;i++){
+      var x=sc.xs[i];
+      var s=Math.sin(K*x+th0)*amp(x,xp);
+      var m=Math.abs(s);
+      if(s<0) tmpC.copy(DATA).multiplyScalar(m*0.95);
+      else    tmpC.copy(WHITE).multiplyScalar(m*0.65);
+      scCol[i*3]=tmpC.r; scCol[i*3+1]=tmpC.g; scCol[i*3+2]=tmpC.b;
+    }
+    scGeo.attributes.color.needsUpdate=true;
+
+    /* electron sea : longitudinal slosh */
+    for(i=0;i<esN;i++){
+      var x0=es.xs[i], y=es.ys[i];
+      var dec=Math.exp(y/D_METAL);           // y negative
+      var u=1.7*Math.cos(K*x0+th0)*dec*amp(x0,xp);
+      esPos[i*3]=x0+u; esPos[i*3+1]=y; esPos[i*3+2]=es.zs[i];
+      var b=0.32*dec+0.10;
+      esCol[i*3]=0.72*b+0.18; esCol[i*3+1]=0.72*b+0.18; esCol[i*3+2]=0.74*b+0.19;
+    }
+    esGeo.attributes.position.needsUpdate=true;
+    esGeo.attributes.color.needsUpdate=true;
+
+    /* field vectors : TM profile, evanescent in height */
+    for(i=0;i<fvN;i++){
+      var fx=fv.xs[i], fy=fv.ys[i], fz=fv.zs[i];
+      var A=amp(fx,xp), P=pk(fx,xp);
+      var e=Math.exp(-fy/D_AIR)*A;
+      var th=K*fx+th0;
+      var ex=Math.cos(th)*e, ey=Math.sin(th)*e;
+      var L=3.0;
+      fvPos[i*6  ]=fx;        fvPos[i*6+1]=fy;        fvPos[i*6+2]=fz;
+      fvPos[i*6+3]=fx+ex*L;   fvPos[i*6+4]=fy+ey*L;   fvPos[i*6+5]=fz;
+      var mag=Math.min(1,Math.hypot(ex,ey));
+      tmpC.copy(GREY).lerp(DATA, Math.min(1,P*1.3)).multiplyScalar(0.75*mag+0.05);
+      fvCol[i*6  ]=tmpC.r*0.5; fvCol[i*6+1]=tmpC.g*0.5; fvCol[i*6+2]=tmpC.b*0.5;
+      fvCol[i*6+3]=tmpC.r;     fvCol[i*6+4]=tmpC.g;     fvCol[i*6+5]=tmpC.b;
+    }
+    fvGeo.attributes.position.needsUpdate=true;
+    fvGeo.attributes.color.needsUpdate=true;
+
+    /* node behavior : spin, glow, ripple */
+    var GREYA=new THREE.Color(0xb9b9bd), GREYB=new THREE.Color(0x8a8a90);
+    [ [nodeA,NODE_A], [nodeB,NODE_B] ].forEach(function(pair){
+      var n=pair[0], nx=pair[1];
+      var prox=Math.exp(-(xp-nx)*(xp-nx)/(2*(SIG*0.8)*(SIG*0.8)));
+
+      /* counter-rotating split rings, spinning up as the packet nears */
+      n.holderA.rotation.y += dt*(0.45 + 3.6*prox);
+      n.holderB.rotation.y -= dt*(0.70 + 4.8*prox);
+
+      n.ringMatA.color.copy(GREYA).lerp(DATA, prox);
+      n.ringMatB.color.copy(GREYB).lerp(DATA, prox*0.8);
+
+      n.coreMat.color.copy(WHITE).lerp(DATA, prox);
+      var s=1+0.55*prox;
+      n.core.scale.set(s,s,s);
+
+      n.haloMat.opacity=0.45*prox;
+      n.beamMat.opacity=0.05+0.45*prox;
+
+      /* ripple : expands and fades after a packet lands or leaves */
+      n.rippleAge += dt;
+      var ra=n.rippleAge;
+      if(ra<1.4){
+        var rs=1+ra*3.4;
+        n.ripple.scale.set(rs,rs,1);
+        n.rippleMat.opacity=0.5*(1-ra/1.4);
+      }else{
+        n.rippleMat.opacity=0;
+      }
+    });
+  }
+
+  /* ---------- camera : custom orbit ---------- */
+  var theta=0.65, phi=1.12, radius=95;
+  var target=new THREE.Vector3(0,2.5,0);
+  var dragging=false, lx=0, ly=0, idle=0;
+
+  function applyCam(){
+    phi=Math.max(0.35, Math.min(1.45, phi));
+    radius=Math.max(45, Math.min(170, radius));
+    camera.position.set(
+      target.x + radius*Math.sin(phi)*Math.sin(theta),
+      target.y + radius*Math.cos(phi),
+      target.z + radius*Math.sin(phi)*Math.cos(theta)
+    );
+    camera.lookAt(target);
+  }
+  card.addEventListener("pointerdown",function(e){
+    dragging=true; lx=e.clientX; ly=e.clientY; idle=0;
+    card.classList.add("dragging"); card.setPointerCapture(e.pointerId);
+  });
+  card.addEventListener("pointermove",function(e){
+    if(!dragging) return;
+    theta -= (e.clientX-lx)*0.006;
+    phi   -= (e.clientY-ly)*0.005;
+    lx=e.clientX; ly=e.clientY; idle=0;
+    if(reduced){ applyCam(); renderer.render(scene,camera); }
+  });
+  card.addEventListener("pointerup",function(e){
+    dragging=false; card.classList.remove("dragging");
+  });
+
+  /* ---------- resize ---------- */
+  function resize(){
+    var r=card.getBoundingClientRect();
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    renderer.setPixelRatio(dpr);
+    renderer.setSize(r.width,r.height,false);
+    camera.aspect=r.width/r.height;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener("resize",function(){
+    resize();
+    if(reduced) renderer.render(scene,camera);
+  });
+  resize();
+
+  /* ---------- main loop ---------- */
+  var last=null;
+  function step(now){
+    if(last==null) last=now;
+    var dt=Math.min(0.05,(now-last)/1000); last=now;
+
+    if(hold>0) hold-=dt;
+    else{
+      pos += dir*dt*14;
+      if(pos>=NODE_B){pos=NODE_B; dir=-1; hold=0.55; nodeB.rippleAge=0;}
+      if(pos<=NODE_A){pos=NODE_A; dir= 1; hold=0.55; nodeA.rippleAge=0;}
+    }
+    idle+=dt;
+    if(!dragging && idle>2.2) theta += dt*0.05;   // gentle auto-orbit when idle
+
+    update(now/1000, pos, dt);
+    applyCam();
+    renderer.render(scene,camera);
+    requestAnimationFrame(step);
+  }
+
+  if(reduced){
+    pos=0; update(0.7,0,0); applyCam(); renderer.render(scene,camera);
+  }else{
+    requestAnimationFrame(step);
+  }
+})();
+</script>
+
+</body>
+</html>

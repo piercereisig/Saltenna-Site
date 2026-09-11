@@ -115,6 +115,13 @@ controls.enableDamping = true; controls.dampingFactor = 0.06;
 controls.autoRotate = true; controls.autoRotateSpeed = 0.9;
 controls.minDistance = 0.05; controls.maxDistance = 5.0;
 controls.zoomSpeed = 4.0;
+// Embedded on the products page, orbit is allowed but ZOOM IS NOT: the model
+// cards are small and wheel-zoom inside one hijacks the page scroll. main.js
+// also swallows the wheel in the capture phase and forwards it to the page;
+// this flag is the robust half of the pair and additionally disables TOUCH
+// PINCH, which an event block cannot cleanly do without breaking rotation.
+// Standalone (opened directly, not in an iframe) keeps zoom for the author.
+try { if (window.frameElement) controls.enableZoom = false; } catch (e) {}
 controls.maxPolarAngle = Math.PI * 0.62;
 
 scene.add(new THREE.HemisphereLight(0xffffff, 0x2a3a52, 0.9));

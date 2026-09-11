@@ -257,12 +257,35 @@ document.querySelectorAll(".uc-explorer[data-explorer]").forEach((ex) => {
                  background: radial-gradient(62% 52% at 50% 42%,
                    #16233a, #101a2c 45%, #0b1220) !important; }
         .readout { display: none !important; }
-        /* Its CSS2D hotspot dots are the only always-visible markers across the
-           four viewers — the radio and diver reveal specs on hover with nothing
-           painted on the model — so they go for consistency. Note this also
-           removes their click-to-open annotation cards (part names/descriptions);
-           they are DOM overlays, so this is CSS-only, no rebuild. */
-        .hotspot { display: none !important; }
+        /* CSS2D hotspots: the DEVICE ones are kept, the PIPE ones are dropped.
+           Restored wholesale on 2026-09-10 (they had been hidden in v63), then
+           narrowed the same day — the user wants the parts of the Remora itself
+           to stay highlightable but the markers sitting on the pipe gone.
+
+           Kept (5, all on the device): Limpet housing, Bolted baseplate,
+           Wet-mate connector, Access cover and ribs, Status indicator.
+           Dropped (2, both on the pipe): 12-inch flanged spool, Marine growth.
+
+           Selected by the dot's own aria-label rather than by position. The
+           markup is
+             <div class="hotspot"><div class="dot" aria-label="NAME"></div>
+                                  <div class="card">…</div></div>
+           so :has() reaches the wrapper from the label. nth-child would work
+           today but would silently retarget if the author reorders their
+           HOTSPOTS array in a future build.
+
+           Hiding the whole .hotspot (not just .dot) is deliberate: with no dot
+           there is nothing to click, so the card would be unreachable anyway.
+
+           Diagnostic note, MEASURED rather than assumed: all 7 stay in the DOM
+           and the two pipe ones simply compute to display:none. The v63 note
+           claimed a hidden hotspot vanishes from the DOM — that happens when
+           the rule is in place before CSS2DRenderer first inserts the element
+           (it skips display:none nodes), but here the skin lands after
+           insertion, so they persist and are merely hidden. Either way, check
+           computed display per element; do NOT assert on the count. */
+        .hotspot:has(> .dot[aria-label="12-inch flanged spool"]),
+        .hotspot:has(> .dot[aria-label="Marine growth"]) { display: none !important; }
         /* keep Reset, drop the page titling, and match the radio's button */
         .titleblock .eyebrow, .titleblock h1, .titleblock .sub { display: none !important; }
         .titleblock { position: absolute !important; top: 10px !important;
@@ -291,8 +314,48 @@ document.querySelectorAll(".uc-explorer[data-explorer]").forEach((ex) => {
         return true;
       } catch (e) { return false; } // cross-origin: leave it alone
     };
+    // Orbit yes, zoom no. These are small cards, and wheel-zoom inside one
+    // hijacks the page scroll. The wheel is swallowed in the CAPTURE phase on
+    // the iframe's own window, so OrbitControls' canvas listener never sees it,
+    // and the delta is handed to the PARENT page instead — so the wheel scrolls
+    // the site, which is what a visitor expects over a small embed.
+    // graphics/rover/ and graphics/remora/ are build output we must not edit,
+    // so this is the only lever for those two. The three viewers we own also
+    // set controls.enableZoom = false, which additionally kills touch pinch.
+    // A lazy iframe starts on about:blank and is REPLACED by the real document.
+    // Attaching to whichever window happens to be there loses the listener on
+    // that swap — which is exactly what happened first time round. So track the
+    // document the listener belongs to and re-attach whenever it changes, and
+    // hook `load` as well as the poll. Capture-phase on the window always runs
+    // before OrbitControls' own canvas listener regardless of attach order, so
+    // this does not need to beat the viewer's init.
+    let zoomDoc = null;
+    const blockZoom = () => {
+      try {
+        const w = f.contentWindow, d = f.contentDocument;
+        if (!w || !d) return false;
+        if (zoomDoc === d) return true;          // already wired for THIS doc
+        w.addEventListener("wheel", (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          window.scrollBy(0, e.deltaY);          // hand the scroll to the page
+        }, { capture: true, passive: false });
+        zoomDoc = d;
+        return true;
+      } catch (e) { return false; } // cross-origin: leave it alone
+    };
+    f.addEventListener("load", blockZoom);
+
     let tries = 0;
-    const poll = () => { if (apply() || tries++ > 600) return; requestAnimationFrame(poll); };
+    // apply() alone decides when to stop: it must land the skin BEFORE the
+    // rover's module reads its tokens, and that timing is load-bearing.
+    // blockZoom rides along and is re-checked on every frame it gets.
+    const poll = () => {
+      const skinned = apply();
+      blockZoom();
+      if (skinned || tries++ > 600) return;
+      requestAnimationFrame(poll);
+    };
     poll();
 
     // These viewers size their renderer from the stage element and re-measure on
