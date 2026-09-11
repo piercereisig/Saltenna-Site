@@ -1,0 +1,3 @@
+[submodule "webflow-app/public/videos"]
+	path = webflow-app/public/videos
+	url = https://github.com/Saltenna/media-videos.git

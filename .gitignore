@@ -8,10 +8,12 @@ webflow-app/webflow-app/          # stray nested artifact from a mis-run command
 # ---- assembled preview/deploy folders (rebuildable from dist/ + videos/) ----
 preview-deploy/
 
-# ---- video: 197 MB of binaries. Destined for Cloudflare R2, not git.
-# Git stores every version of a binary forever; two heroes alone are ~65 MB.
-# Upload with webflow-app/scripts/upload-videos.sh instead.
-videos/
+# ---- dev-time video dir only. The root /videos/ folder is what `astro dev`
+# serves from ../videos during local development; it is not committed.
+# ANCHORED to the repo root (leading slash) on purpose so it does NOT match the
+# deployed clips, which live in the `webflow-app/public/videos` git submodule
+# (repo: Saltenna/media-videos) and DO ship in the build.
+/videos/
 
 # ---- large archives. GitHub HARD-REJECTS any file over 100 MB.
 # share/saltenna-draft.zip is 130 MB and would block the whole push.
