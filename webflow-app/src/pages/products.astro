@@ -3,18 +3,11 @@ import Base from "../layouts/Base.astro";
 import ProductMedia from "../components/ProductMedia.astro";
 import { products, tools } from "../data/products";
 
-// Static page — generated at build time, not per request. Webflow Cloud
-// requires output: "server". These pages were prerendered (`= true`); the
-// Basic-auth gate in src/middleware.ts only runs for on-demand routes, so they
-// are server-rendered instead. Flip back to `true` and delete the middleware to
-// restore static generation.
-export const prerender = false;
 
 // Bump when a graphics/*.html viewer or the .glb it loads changes. Those iframes
 // were previously un-versioned, so a browser could pair a cached OLD viewer with
 // a NEW mesh and hang on "loading model" — same reason css/js carry ?v=.
 const MODEL_VERSION = "6";
-
 ---
 
 <Base title="Products — Saltenna" description="Saltenna hardware and software: diver-to-diver underwater communications, wireless data links for subsea pipelines, and tools built on Plasmonix™ wireless technology" active="products">

@@ -1,13 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
 import { VIDEO_BASE } from "../videoBase";
-
-// Static page — generated at build time, not per request. Webflow Cloud
-// requires output: "server". These pages were prerendered (`= true`); the
-// Basic-auth gate in src/middleware.ts only runs for on-demand routes, so they
-// are server-rendered instead. Flip back to `true` and delete the middleware to
-// restore static generation.
-export const prerender = false;
 ---
 
 <Base title="Sensing — Saltenna" description="Saltenna’s Plasmonix™ sensing detects and characterizes humans, animals, and objects through solid metal, underwater, and in other environments no sensor could reach before" active="sensing">

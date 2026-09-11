@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Static sitemap. The site is 7 hand-authored pages; update this list if a
+     page is added or removed. URLs match the per-page <link rel="canonical">. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://saltenna.com/</loc></url>
+  <url><loc>https://saltenna.com/products.html</loc></url>
+  <url><loc>https://saltenna.com/maritime.html</loc></url>
+  <url><loc>https://saltenna.com/communications.html</loc></url>
+  <url><loc>https://saltenna.com/sensing.html</loc></url>
+  <url><loc>https://saltenna.com/about.html</loc></url>
+  <url><loc>https://saltenna.com/contact.html</loc></url>
+</urlset>

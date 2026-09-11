@@ -1,40 +1,38 @@
-# Saltenna site — Webflow Cloud (Astro)
+# Saltenna site — Cloudflare Pages (Astro)
 
-The hand-built static site, wrapped in the minimum Astro needed to deploy on
-Webflow Cloud. The markup, CSS and JS are the originals; only the page chrome
-was factored into a layout and the video URLs made configurable.
+The hand-built static site, wrapped in the minimum Astro needed to build and
+deploy. The markup, CSS and JS are the originals; only the page chrome was
+factored into a layout and the video URLs made configurable.
+
+**Deploy target: Cloudflare Pages** (your own Cloudflare account). The build is
+fully static (`output: "static"`) — plain HTML/CSS/JS, no server runtime. The
+private preview is gated by **Cloudflare Access**, not by any in-app code.
 
 ## Layout
 
 ```
 webflow-app/
-  astro.config.mjs      base = MOUNT_PATH, output: "server", build.format: "file"
-  webflow.json          { "cloud": { "framework": "astro" } }
-  wrangler.json         edge runtime + ASSETS binding
+  astro.config.mjs      output: "static", build.format: "file"; dev-only video server
   src/
-    layouts/Base.astro  shared head/header/footer (was byte-identical on all 6 pages)
-    pages/*.astro       the 6 pages; body content lifted verbatim
+    layouts/Base.astro  shared head/header/footer
+    pages/*.astro       the 7 pages; body content lifted verbatim
+    components/         ProductMedia.astro
+    data/products.ts    products shown on products.astro
     videoBase.ts        PUBLIC_VIDEO_BASE indirection for the MP4s
-  public/               css, js, images, fonts, graphics, data (served as-is)
+  public/               css, js, images, fonts, graphics, data, _headers (served as-is)
   scripts/upload-videos.sh
 ```
 
-`src/pages/*.astro` were generated from the root-level `*.html` files. **Those
-root `.html` files are no longer the deployed source** — edit the `.astro` pages
-from here on, or the two copies will drift.
-
 ## Local development
 
-**First: `cp .env.example .env`.** The Basic-auth gate in `src/middleware.ts`
-fails closed — with no `PREVIEW_PASSWORD` set, every page returns 503 and the
-dev server appears completely broken. `.env` is gitignored, so each clone needs
-this once.
+No `.env` is needed — the static build has no in-app auth gate (the preview is
+gated by Cloudflare Access).
 
 ```bash
-cp .env.example .env
 npm install
-npm run dev      # astro dev  — fast, no edge runtime
-npm run preview  # astro build && wrangler dev — real Workers runtime
+npm run dev       # astro dev — fast
+npm run build     # astro build — static output to dist/
+npm run preview   # astro preview — serve the built dist/ locally
 ```
 
 Two things to know when checking it locally:
@@ -47,94 +45,78 @@ Two things to know when checking it locally:
 - **`astro dev` serves the videos itself**: a dev-only Vite middleware in
   `astro.config.mjs` maps `/videos` onto `../videos` (with Range support, which
   Safari requires), so hero videos play with no env setup. It is `apply: "serve"`
-  only — nothing enters the build. `npm run preview` (wrangler) does NOT get
-  this middleware; there the videos 404 unless you set `PUBLIC_VIDEO_BASE`
-  (e.g. to a running dev server's `/videos`). Poster images always render.
+  only — nothing enters the build. Poster images always render regardless.
 
-## Video: two options
+## Video
 
-### A. In the bundle (staging / draft preview) — no Cloudflare account
+`VIDEO_BASE` (`src/videoBase.ts`) defaults to the relative path `videos`, so the
+MP4s are served from the site's **own origin** — deliberately NOT from Cloudflare's
+shared `*.r2.dev` domain, which corporate security tools blocklist wholesale
+(video from there is flagged as malicious on company machines).
 
-Since 2026-09-02 the twelve referenced clips are trimmed and re-encoded to
-**77.4 MB total, every file under 25 MiB**, and live in `public/videos/`. With
-`PUBLIC_VIDEO_BASE` unset, `videoBase.ts` falls back to the relative path
-`videos`, so they ship inside the deploy and no R2 bucket is needed.
+The clips are large (~122 MB) and are supplied out-of-band, not committed to this
+repo. Two supported ways to provide them:
 
-Measured 2026-09-02: `dist/client` without video gzips to 11.10 MB and the
-worker bundle to 0.21 MB, so a full deploy is **~88.7 MB compressed against
-Webflow Cloud's 100 MB limit** — about 11 MB of headroom. Adding video back at
-full length, or restoring the original encodes, blows that budget. See
-`docs/PREVIEW-HOSTING.md` for what was trimmed.
+- **Now — git submodule** at `public/videos/` (a separate repo keeps this repo's
+  history lean). After cloning: `git submodule update --init`. The clips ship
+  inside the deploy and serve from `/videos/`.
+- **Later (preferred) — R2 via your own domain** (no repo/deploy bloat, no r2.dev
+  block). Once `saltenna.com`'s DNS is on Cloudflare, attach `media.saltenna.com`
+  to the R2 bucket and build with `PUBLIC_VIDEO_BASE=https://media.saltenna.com/videos`
+  as a **build** env var on the Pages project. `scripts/upload-videos.sh` uploads
+  the clips; switching is one env var and dropping the submodule.
 
-### B. Cloudflare R2 (production)
+## Deploying to Cloudflare Pages
 
-The 13 referenced MP4s total ~146 MB and **cannot** ship in the deployment:
-Cloudflare Workers caps a single static asset at **25 MiB**, and `hero-montage.mp4`
-(33 MB) and `maritime-hero.mp4` (34 MB) both exceed it. (Webflow's own limits page
-advertises "videos: 1 GB per file" — that is not what the runtime enforces; the
-build fails with `Asset too large` at 25 MiB. Verified locally.)
+**Recommended — git-connected (deploy on push):** in the Cloudflare dashboard,
+create a Pages project connected to this repo with:
 
-They also can't go in Webflow's native asset pipeline at all: the Assets panel
-rejects `.mp4`, and the Background Video element caps at 30 MB per file and
-force-transcodes to 720p on every plan.
+- **Build command:** `npm run build`
+- **Build output directory:** `dist`
+- **Root directory:** `webflow-app`
+- **Environment variables:** `PUBLIC_VIDEO_BASE` (see above)
 
-So they live in R2:
+Every push builds and deploys; pull requests get their own preview URL.
 
-```bash
-# once, with wrangler authenticated for R2 write
-./scripts/upload-videos.sh <bucket-name> --dry-run   # check first
-./scripts/upload-videos.sh <bucket-name>
-```
-
-Then enable a public URL for the bucket (ideally a custom domain such as
-`media.saltenna.com`) and build with:
+**Manual (from a local build):**
 
 ```bash
-PUBLIC_VIDEO_BASE=https://media.saltenna.com/videos npm run build
+npm run build
+npm run deploy    # wrangler pages deploy dist
 ```
 
-Set the same variable in the Webflow Cloud environment so deploys pick it up.
-The script derives its file list from `src/pages/*.astro`, so it stays in sync
-with the markup automatically; it skips the ~39 MB of unreferenced clips in
-`../videos/`.
+### Response headers
 
-## Deploying
+`public/_headers` sets the site's security headers (CSP, HSTS, etc.). Cloudflare
+Pages honors this file natively — no extra configuration. After a deploy, verify
+with:
 
 ```bash
-npx webflow cloud init -f astro -m / -s <site-id>   # first time only
-npx webflow cloud deploy
+curl -sI https://<host>/ | grep -iE 'content-security|x-content-type|referrer|permissions|strict-transport|x-frame'
 ```
 
-GitHub is optional — `webflow cloud deploy` pushes the local directory. Connect
-a repo instead if you want deploy-on-push.
+### Private preview gate
 
-### Mount path
+Gate the preview deployment (e.g. `new.saltenna.com`) with **Cloudflare Access**
+(Zero Trust → Access → Applications): restrict to approved emails. This runs at
+the network layer, so it also protects images and video, and needs no app code.
 
-`astro.config.mjs` reads `base` from `MOUNT_PATH` (default `/`). It **must**
-match the mount path configured in Webflow Cloud or every route and asset 404s.
-Change the mount in the dashboard, then rebuild and redeploy — it's baked in at
-build time.
+### Links
 
 All internal links and asset paths are deliberately **relative**
-(`about.html`, `css/styles.css`), so the same build works at the domain root or
-under a subpath without rewriting. Keep them relative.
-
-### URLs
-
-Astro's canonical URLs are extensionless: a request for `/about.html`
-307-redirects to `/about`. Internal links still say `about.html` and work fine
-(one redirect hop); assets are served directly with no redirect.
+(`about.html`, `css/styles.css`) and `build.format: "file"` emits `about.html`
+(not `about/index.html`), so the links resolve directly. Keep them relative.
 
 ### saltenna.com cutover
 
-`saltenna.com` currently serves a **Webflow (Designer/Webflow-hosted) site** —
-it is unrelated to these files. When a Cloud app route and a Designer page match
-the same path, the Cloud app wins, so mounting this app at `/` shadows the old
-site. Deploy to a staging environment and verify there before mounting at root.
+`saltenna.com` currently serves the old **Webflow** site (a prototype of this
+build also runs on Netlify). Cut over by pointing DNS at the Cloudflare Pages
+deployment once the preview is signed off — see the Phase 1 launch plan. Keep the
+old site reachable (e.g. `orig.saltenna.com`) as a rollback until retired.
 
 ## Verification note
 
 Scroll-reveal animations will look broken in an embedded preview panel: it
 reports `document.visibilityState === "hidden"`, so `IntersectionObserver` never
 fires and `.reveal` elements never get `.visible`. That's the panel, not the
-site. Check animations in a real browser window, or force the class manually.
+site. Check animations in a real browser window.
